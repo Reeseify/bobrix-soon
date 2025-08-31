@@ -3,54 +3,52 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bobrix — Safer Sandbox. Coming Q3 2026.</title>
-  <meta name="description" content="Bobrix is a safer, privacy‑first UGC sandbox platform. RBXL→BBXL converter, familiar Lua‑style scripting, safety by design. Launching Q3 2026." />
+  <title>Bobrix — Safer Sandbox. Launch: TBD.</title>
+  <meta name="description" content="Bobrix is a safer, privacy‑first UGC sandbox. RBXL→BBXL converter, Luab scripting (similar to Roblox's Luau), and safety by design. Launch: To be determined." />
   <style>
     :root{
-      /* Roblox‑like LIGHT theme with Bobrix reds */
-      --bg:#f2f3f5;            /* page background */
-      --surface:#ffffff;       /* cards, header */
-      --elev:#ffffff;          /* elevated blocks */
-      --muted:#6b7280;         /* secondary text */
-      --text:#111827;          /* primary text */
-      --border:#e5e7eb;        /* soft borders */
-      --shadow:0 6px 20px rgba(17,24,39,.06);
-      --radius:14px;           /* rounded corners like modern Roblox */
-      --primary:#e81919;       /* Bobrix red (mid) */
-      --primary-600:#c11111;   /* pressed */
+      /* Dark Roblox‑style theme with Bobrix reds */
+      --bg:#0e0f12;            /* page background */
+      --surface:#121419;       /* cards, header */
+      --elev:#171a20;          /* elevated blocks */
+      --border:#242833;        /* soft borders */
+      --text:#e8ecf4;          /* primary text */
+      --muted:#a1a7b3;         /* secondary text */
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:14px;
+      /* Bobrix reds */
+      --primary:#e81919;       /* mid red */
       --primary-dark:#8b0000;  /* deep red */
-      --badge:#fdf2f2;         /* light red tint */
+      --badge:#1e222c;         /* pill bg */
     }
 
-    *{box-sizing:border-box}
+    *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
     body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
     img{max-width:100%;display:block}
-    a{color:var(--primary);text-decoration:none}
+    a{color:#60a5fa;text-decoration:none}
     a:hover{text-decoration:underline}
 
-    /* Top nav */
-    .nav{position:sticky;top:0;z-index:40;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:50;background:rgba(14,15,18,.85);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
     .nav-inner{max-width:1140px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:16px}
     .brand img{height:34px}
     .links{display:flex;gap:16px;margin-left:16px}
-    .links a{color:#374151;font-weight:600}
+    .links a{color:var(--muted);font-weight:600}
     .spacer{flex:1}
-    .pill{font-size:.8rem;color:#991b1b;background:var(--badge);border:1px solid #fee2e2;border-radius:999px;padding:6px 10px}
-    .btn-sm{appearance:none;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:8px 12px;border-radius:10px;font-weight:800}
+    .pill{font-size:.8rem;color:#fca5a5;background:rgba(232,25,25,.08);border:1px solid var(--border);border-radius:999px;padding:6px 10px}
+    .btn-sm{appearance:none;border:1px solid var(--border);background:var(--elev);color:var(--text);padding:8px 12px;border-radius:10px;font-weight:800}
 
-    /* Shell */
+    /* SHELL */
     .wrap{max-width:1140px;margin:0 auto;padding:0 18px}
 
-    /* Hero */
-    .hero{display:block;margin:28px 0}
-    .hero-logo{max-width:min(640px,80%); /* BIG but responsive */
-               width:100%;
-               margin:0 0 16px}
+    /* HERO */
+    .hero{display:block;margin:32px 0}
+    .hero-logo{max-width:min(700px,85%);width:100%;margin:0 0 16px}
     h1{margin:.25rem 0 10px;font-size:clamp(2.2rem,4.8vw,3.4rem);line-height:1.08}
-    .lede{font-size:1.08rem;color:#374151;margin:10px 0 18px;max-width:70ch}
+    .lede{font-size:1.08rem;color:#cfd5e6;margin:10px 0 18px;max-width:70ch}
     .cta-row{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{appearance:none;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:12px 16px;border-radius:12px;font-weight:900;cursor:pointer}
+    .btn{appearance:none;border:1px solid var(--border);background:var(--elev);color:var(--text);padding:12px 16px;border-radius:12px;font-weight:900;cursor:pointer}
     .btn.primary{background:linear-gradient(180deg,var(--primary),var(--primary-dark));border-color:transparent;color:#fff}
     .btn.primary:hover{filter:brightness(.95)}
 
@@ -66,28 +64,33 @@
     .col-4{grid-column:span 4}
 
     .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
-    .card .tag{display:inline-block;font-size:.72rem;color:#991b1b;background:#fff1f2;border:1px solid #ffe4e6;border-radius:999px;padding:4px 8px;margin-bottom:8px}
+    .card .tag{display:inline-block;font-size:.72rem;color:#fca5a5;background:rgba(232,25,25,.08);border:1px solid var(--border);border-radius:999px;padding:4px 8px;margin-bottom:8px}
     .card h3{margin:6px 0 8px;font-size:1.05rem}
-    .card p{margin:0;color:#4b5563}
+    .card p{margin:0;color:#d6dae6}
 
-    /* Safety section */
-    .note{border-left:4px solid var(--primary);background:#fff1f2;border:1px solid #ffe4e6;border-radius:12px;padding:12px 14px;color:#1f2937}
-    details{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow)}
+    /* SAFETY */
+    .note{border-left:4px solid var(--primary);background:linear-gradient(180deg, rgba(232,25,25,.08), rgba(232,25,25,.04));border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:#e6e6eb}
+    details{background:var(--elev);border:1px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow)}
     details+details{margin-top:10px}
     summary{cursor:pointer;font-weight:800;list-style:none}
     summary::-webkit-details-marker{display:none}
 
-    /* Timeline */
+    /* TIMELINE */
     .timeline{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
     .mile{grid-column:span 6;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px}
     .when{font-size:.85rem;color:var(--muted)}
 
-    /* Footer */
-    footer{color:#6b7280;border-top:1px solid var(--border);padding:24px 0;margin-top:14px;text-align:center}
+    /* HELP / FUNDING */
+    .help{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .help-card{grid-column:span 12;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;box-shadow:var(--shadow)}
+    .help-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
 
-    /* Responsive */
+    /* FOOTER */
+    footer{color:var(--muted);border-top:1px solid var(--border);padding:24px 0;margin-top:14px;text-align:center}
+
+    /* RESPONSIVE */
     @media (max-width: 1024px){.stats{grid-template-columns:repeat(2,minmax(120px,1fr))}}
-    @media (max-width: 720px){.grid{grid-template-columns:repeat(6,1fr)}.col-4{grid-column:span 6}.mile{grid-column:span 12}}
+    @media (max-width: 720px){.grid{grid-template-columns:repeat(6,1fr)}.col-4{grid-column:span 6}.mile{grid-column:span 12}.help-card{grid-column:span 12}}
   </style>
 </head>
 <body>
@@ -101,11 +104,12 @@
         <a href="#features">Features</a>
         <a href="#safety">Safety</a>
         <a href="#timeline">Timeline</a>
+        <a href="#help">Help</a>
         <a href="#faq">FAQ</a>
       </nav>
       <div class="spacer"></div>
-      <span class="pill">Coming Q3 2026</span>
-      <a class="btn-sm" href="mailto:safety@bobrix.example?subject=Early%20Access%20Request">Request Access</a>
+      <span class="pill">Launch: TBD</span>
+      <a class="btn-sm" href="mailto:contact@bobrix.ca?subject=Bobrix%20Contact">Contact</a>
     </div>
   </header>
 
@@ -114,13 +118,13 @@
     <section class="hero">
       <img class="hero-logo" src="BOBRIX%202%20Logo.png" alt="Bobrix full logo" />
       <h1>Build, play, and create — with safety by design.</h1>
-      <p class="lede">Bobrix is a next‑gen UGC platform inspired by Roblox, rebuilt around family controls, privacy, and accountable creation. Our <strong>dedicated reporter program</strong> channels community vigilance into secure, law‑enforcement‑ready workflows — no vigilante stings.</p>
+      <p class="lede">Bobrix is a next‑gen UGC platform meant for gaming, but we <strong>prioritize safety over monetization</strong>. Unlike platforms where revenue features drive decisions, we’re building around <em>guardian controls</em>, <em>privacy</em>, and <em>accountable creation</em> first.</p>
       <div class="cta-row">
-        <a class="btn primary" href="mailto:safety@bobrix.example?subject=Early%20Access%20Request">Request early access</a>
+        <a class="btn primary" href="mailto:contact@bobrix.ca?subject=Early%20Access%20Request">Request early access</a>
         <a class="btn" href="#safety">Read our safety stance</a>
       </div>
       <div class="stats" role="group" aria-label="Key facts">
-        <div class="stat"><strong>Q3 2026</strong><span>Launch window</span></div>
+        <div class="stat"><strong>TBD</strong><span>Launch date</span></div>
         <div class="stat"><strong>Closed</strong><span>Beta phase</span></div>
         <div class="stat"><strong>Invite</strong><span>Only access</span></div>
         <div class="stat"><strong>Reporter</strong><span>Program</span></div>
@@ -138,7 +142,7 @@
         <div class="card col-4"><span class="tag">Reporting</span><h3>Direct LE escalation</h3><p>One‑click, evidence‑preserving referral paths for imminent‑harm cases with intact chain of custody.</p></div>
         <div class="card col-4"><span class="tag">Transparency</span><h3>Public Safety Reports</h3><p>Quarterly metrics on takedowns, response times, appeals, and policy changes.</p></div>
         <div class="card col-4"><span class="tag">Compatibility</span><h3>RBXL → BBXL Converter</h3><p>Bring your Roblox projects along. We’re building an importer to convert <strong>.rbxl</strong> experiences into <strong>.bbxl</strong> with best‑effort mapping of parts, materials, properties, terrain, and basic scripts.</p></div>
-        <div class="card col-4"><span class="tag">Scripting</span><h3>Bobrix Lua (B‑Lua)</h3><p>A modified Lua dialect—familiar syntax, APIs modeled after Roblox’s where possible. We’ll aim for high parity on core patterns (instances, events, services) while adding modern safety/permissions APIs.</p></div>
+        <div class="card col-4"><span class="tag">Scripting</span><h3>Luab (like Roblox’s Luau)</h3><p>Our modified Lua dialect—familiar syntax with APIs modeled after Roblox’s where possible. We aim for high parity on core patterns (instances, events, services) while adding modern safety/permissions APIs.</p></div>
         <div class="card col-4"><span class="tag">Docs</span><h3>Migration Guides</h3><p>Clear docs for converting assets and scripts, with a compatibility table and auto‑generated warnings for non‑ported features.</p></div>
       </div>
     </section>
@@ -168,13 +172,28 @@
       </details>
     </section>
 
-    <!-- TIMELINE -->
+    <!-- TIMELINE (Launch TBD) -->
     <section id="timeline" aria-labelledby="timeline-h2">
       <h2 id="timeline-h2">Road to launch</h2>
       <div class="timeline">
-        <div class="mile"><div class="when">Now → Q4 2025</div><h3>Foundations</h3><p>Core engine, creator pipeline, trust & safety backend, initial council formation.</p></div>
-        <div class="mile"><div class="when">Q1 → Q2 2026</div><h3>Closed Beta</h3><p>Invite‑only creators, family pilots, red‑team drills, and compliance reviews.</p></div>
-        <div class="mile"><div class="when">Q3 2026</div><h3>Public Launch (phased)</h3><p>Gradual roll‑out by region and age group with live transparency metrics.</p></div>
+        <div class="mile"><div class="when">Current</div><h3>Foundations</h3><p>Core engine, creator pipeline, trust & safety backend, initial council formation.</p></div>
+        <div class="mile"><div class="when">Next</div><h3>Closed Beta</h3><p>Invite‑only creators, family pilots, red‑team drills, and compliance reviews.</p></div>
+        <div class="mile"><div class="when">TBD</div><h3>Public Launch (phased)</h3><p>Gradual roll‑out by region and age group with live transparency metrics.</p></div>
+      </div>
+    </section>
+
+    <!-- HELP / FUNDING -->
+    <section id="help" aria-labelledby="help-h2">
+      <h2 id="help-h2">We need your help</h2>
+      <div class="help">
+        <div class="help-card">
+          <p><strong>Spread the word.</strong> If you believe a safety‑first gaming platform should exist, please share Bobrix with friends, creators, schools, and parent groups. Your voice helps us reach the people who need this.</p>
+          <p><strong>Support the build.</strong> We’re a small team and we also need funding to make this possible. If you can sponsor or invest, we’d love to talk.</p>
+          <div class="help-actions">
+            <a class="btn primary" href="mailto:contact@bobrix.ca?subject=I%20want%20to%20support%20Bobrix">Contact about funding</a>
+            <a class="btn" href="mailto:contact@bobrix.ca?subject=I%20want%20to%20spread%20the%20word">Partner to spread the word</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -182,15 +201,15 @@
     <section id="faq" aria-labelledby="faq-h2">
       <h2 id="faq-h2">FAQ</h2>
       <p><strong>Will my Roblox place convert perfectly?</strong> We’ll try to convert as much as possible (geometry, materials, properties, and common script patterns). Some features or custom modules may need manual tweaks. The importer will generate a <em>compatibility report</em> listing any issues.</p>
-      <p><strong>How close is B‑Lua to Roblox Lua?</strong> Very close. Familiar syntax and many mirrored APIs (e.g., services & events). Where names or behaviors differ, we’ll provide shims and deprecation warnings, plus a migration guide.</p>
-      <p><strong>When is Bobrix launching?</strong> Our current window is <strong>Q3 2026</strong>, following a closed beta.</p>
+      <p><strong>How close is Luab to Roblox Lua/Luau?</strong> Very close. Familiar syntax and many mirrored APIs (e.g., services & events). Where names or behaviors differ, we’ll provide shims and deprecation warnings, plus a migration guide.</p>
+      <p><strong>When is Bobrix launching?</strong> <strong>TBD.</strong> We’ll update this page and social channels as milestones lock.</p>
       <p><strong>Are you affiliated with Roblox?</strong> No. Bobrix is independent and not endorsed by Roblox Corporation.</p>
     </section>
   </main>
 
   <footer class="wrap">
     <div>© <span id="year">2025</span> Bobrix. “Roblox” is a trademark of Roblox Corporation. Bobrix is not affiliated with or endorsed by Roblox Corporation.</div>
-    <div>Press & safety: <a href="mailto:safety@bobrix.example">safety@bobrix.example</a></div>
+    <div>Contact: <a href="mailto:contact@bobrix.ca">contact@bobrix.ca</a></div>
   </footer>
 
   <script>
