@@ -7,30 +7,22 @@
   <meta name="description" content="Bobrix is a safer, privacy‑first UGC sandbox platform. Dedicated reporter program, family controls, and human+AI moderation. Launching Q3 2026." />
   <style>
     :root{
-      /* Roblox‑blog style DARK theme with Bobrix reds */
-      --bg:#0e0f12;            /* page background */
-      --surface:#121419;       /* cards, header */
-      --elev:#171a20;          /* elevated blocks */
-      --border:#242833;        /* soft borders */
-      --text:#e8ecf4;          /* primary text */
-      --muted:#a1a7b3;         /* secondary text */
+      --bg:#0e0f12;
+      --surface:#121419;
+      --elev:#171a20;
+      --border:#242833;
+      --text:#e8ecf4;
+      --muted:#a1a7b3;
       --shadow:0 10px 30px rgba(0,0,0,.35);
       --radius:14px;
-      /* Bobrix reds */
-      --primary:#e81919;       /* mid red */
-      --primary-600:#c11111;   /* pressed */
-      --primary-dark:#8b0000;  /* deep red */
-      --badge:#1e222c;         /* pill bg */
+      --primary:#e81919;
+      --primary-dark:#8b0000;
+      --badge:#1e222c;
     }
-
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{height:100%}
     body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
-    img{max-width:100%;display:block}
     a{color:#60a5fa;text-decoration:none}
     a:hover{text-decoration:underline}
 
-    /* NAV */
     .nav{position:sticky;top:0;z-index:50;background:rgba(14,15,18,.85);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
     .nav-inner{max-width:1140px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:16px}
     .brand img{height:34px}
@@ -40,14 +32,12 @@
     .pill{font-size:.8rem;color:#fca5a5;background:rgba(232,25,25,.08);border:1px solid var(--border);border-radius:999px;padding:6px 10px}
     .btn-sm{appearance:none;border:1px solid var(--border);background:var(--elev);color:var(--text);padding:8px 12px;border-radius:10px;font-weight:800}
 
-    /* SHELL */
     .wrap{max-width:1140px;margin:0 auto;padding:0 18px}
 
-    /* HERO */
-    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;margin:28px 0}
+    .hero{margin:40px 0}
     .hero-logo{max-width:360px}
     h1{margin:.25rem 0 10px;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.1}
-    .lede{font-size:1.05rem;color:#cfd5e6;margin:10px 0 18px}
+    .lede{font-size:1.05rem;color:#cfd5e6;margin:10px 0 18px;max-width:70ch}
     .cta-row{display:flex;gap:12px;flex-wrap:wrap}
     .btn{appearance:none;border:1px solid var(--border);background:var(--elev);color:var(--text);padding:12px 16px;border-radius:12px;font-weight:900;cursor:pointer}
     .btn.primary{background:linear-gradient(180deg,var(--primary),var(--primary-dark));border-color:transparent;color:#fff}
@@ -58,7 +48,6 @@
     .stat strong{display:block;font-size:1.15rem}
     .stat span{font-size:.85rem;color:var(--muted)}
 
-    /* SECTIONS */
     section{padding:36px 0}
     h2{font-size:clamp(1.35rem,2.4vw,1.9rem);margin:0 0 12px}
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
@@ -69,28 +58,22 @@
     .card h3{margin:6px 0 8px;font-size:1.05rem}
     .card p{margin:0;color:#d6dae6}
 
-    /* SAFETY */
     .note{border-left:4px solid var(--primary);background:linear-gradient(180deg, rgba(232,25,25,.08), rgba(232,25,25,.04));border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:#e6e6eb}
     details{background:var(--elev);border:1px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow)}
     details+details{margin-top:10px}
     summary{cursor:pointer;font-weight:800;list-style:none}
     summary::-webkit-details-marker{display:none}
 
-    /* TIMELINE */
     .timeline{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
     .mile{grid-column:span 6;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px}
     .when{font-size:.85rem;color:var(--muted)}
 
-    /* FOOTER */
     footer{color:var(--muted);border-top:1px solid var(--border);padding:24px 0;margin-top:14px;text-align:center}
 
-    /* RESPONSIVE */
-    @media (max-width: 1024px){.hero{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(120px,1fr))}}
-    @media (max-width: 720px){.grid{grid-template-columns:repeat(6,1fr)}.col-4{grid-column:span 6}.mile{grid-column:span 12}}
+    @media (max-width: 720px){.grid{grid-template-columns:repeat(6,1fr)}.col-4{grid-column:span 6}.mile{grid-column:span 12}.stats{grid-template-columns:repeat(2,minmax(120px,1fr))}}
   </style>
 </head>
 <body>
-  <!-- NAV -->
   <header class="nav" role="navigation">
     <div class="nav-inner">
       <a class="brand" href="#top" aria-label="Bobrix">
@@ -109,7 +92,6 @@
   </header>
 
   <main id="top" class="wrap">
-    <!-- HERO -->
     <section class="hero">
       <div>
         <img class="hero-logo" src="BOBRIX%202%20Logo.png" alt="Bobrix full logo" />
@@ -126,12 +108,8 @@
           <div class="stat"><strong>Reporter</strong><span>Program</span></div>
         </div>
       </div>
-      <div>
-        <img src="Boblox%20Icon%20new%20gradientr.png" alt="Bobrix icon" style="max-width:240px;margin:auto" />
-      </div>
     </section>
 
-    <!-- FEATURES -->
     <section id="features">
       <h2>What makes Bobrix different</h2>
       <div class="grid">
@@ -144,7 +122,6 @@
       </div>
     </section>
 
-    <!-- SAFETY & SCHLEP STATEMENTS -->
     <section id="safety" aria-labelledby="safety-h2">
       <h2 id="safety-h2">Safety by design — and what we learned from the “Schlep” situation</h2>
       <div class="note">Bobrix is not affiliated with Roblox. The Schlep controversy was a catalyst for us — it reinforced our decision to build Bobrix and to formalize safe reporting channels for the community.</div>
@@ -169,7 +146,6 @@
       </details>
     </section>
 
-    <!-- TIMELINE -->
     <section id="timeline" aria-labelledby="timeline-h2">
       <h2 id="timeline-h2">Road to launch</h2>
       <div class="timeline">
@@ -179,7 +155,6 @@
       </div>
     </section>
 
-    <!-- FAQ -->
     <section id="faq" aria-labelledby="faq-h2">
       <h2 id="faq-h2">FAQ</h2>
       <p><strong>When is Bobrix launching?</strong> Our current window is <strong>Q3 2026</strong>, following a closed beta.</p>
