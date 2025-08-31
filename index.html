@@ -3,169 +3,197 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bobrix — Safer Sandbox. Coming Soon.</title>
-  <meta name="description" content="Bobrix is a safer, privacy‑first sandbox platform inspired by Roblox. Coming soon." />
+  <title>Bobrix — Safer Sandbox. Coming Q3 2026.</title>
+  <meta name="description" content="Bobrix is a safer, privacy‑first UGC sandbox platform. Dedicated reporter program, family controls, and human+AI moderation. Launching Q3 2026." />
   <style>
-    :root {
-      --bg: #0b0b10;
-      --bg-soft: #12121a;
-      --card: #161623;
-      --muted: #a2a7b8;
-      --text: #e9ecf8;
-      --accent: #ff0000; /* Bobrix red gradient start */
-      --accent-2: #8b0000; /* Bobrix deep red */
-      --ok: #34d399;
-      --warn: #fbbf24;
-      --danger: #fb7185;
-      --radius: 16px;
-      --shadow: 0 10px 40px rgba(0,0,0,.35);
+    :root{
+      /* Roblox‑blog style DARK theme with Bobrix reds */
+      --bg:#0e0f12;            /* page background */
+      --surface:#121419;       /* cards, header */
+      --elev:#171a20;          /* elevated blocks */
+      --border:#242833;        /* soft borders */
+      --text:#e8ecf4;          /* primary text */
+      --muted:#a1a7b3;         /* secondary text */
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:14px;
+      /* Bobrix reds */
+      --primary:#e81919;       /* mid red */
+      --primary-600:#c11111;   /* pressed */
+      --primary-dark:#8b0000;  /* deep red */
+      --badge:#1e222c;         /* pill bg */
     }
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
-      background: radial-gradient(1200px 800px at 10% -10%, rgba(255,0,0,.2), transparent 60%),
-                  radial-gradient(1000px 700px at 110% 20%, rgba(139,0,0,.15), transparent 60%),
-                  var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+    img{max-width:100%;display:block}
+    a{color:#60a5fa;text-decoration:none}
+    a:hover{text-decoration:underline}
 
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; color: var(--accent-2); }
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:50;background:rgba(14,15,18,.85);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
+    .nav-inner{max-width:1140px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:16px}
+    .brand img{height:34px}
+    .links{display:flex;gap:16px;margin-left:16px}
+    .links a{color:var(--muted);font-weight:600}
+    .spacer{flex:1}
+    .pill{font-size:.8rem;color:#fca5a5;background:rgba(232,25,25,.08);border:1px solid var(--border);border-radius:999px;padding:6px 10px}
+    .btn-sm{appearance:none;border:1px solid var(--border);background:var(--elev);color:var(--text);padding:8px 12px;border-radius:10px;font-weight:800}
 
-    .container { max-width: 1080px; margin: 0 auto; padding: 28px 18px 64px; }
+    /* SHELL */
+    .wrap{max-width:1140px;margin:0 auto;padding:0 18px}
 
-    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 0 24px; }
+    /* HERO */
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;margin:28px 0}
+    .hero-logo{max-width:360px}
+    h1{margin:.25rem 0 10px;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.1}
+    .lede{font-size:1.05rem;color:#cfd5e6;margin:10px 0 18px}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{appearance:none;border:1px solid var(--border);background:var(--elev);color:var(--text);padding:12px 16px;border-radius:12px;font-weight:900;cursor:pointer}
+    .btn.primary{background:linear-gradient(180deg,var(--primary),var(--primary-dark));border-color:transparent;color:#fff}
+    .btn.primary:hover{filter:brightness(.95)}
 
-    .brand img { height: 40px; }
-    .badge { font-size: .85rem; padding: 6px 10px; border-radius: 999px; background: #1e1e2b; color: var(--muted); border: 1px solid #2a2a3a; }
+    .stats{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:10px;margin-top:14px}
+    .stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;text-align:center;padding:12px;box-shadow:var(--shadow)}
+    .stat strong{display:block;font-size:1.15rem}
+    .stat span{font-size:.85rem;color:var(--muted)}
 
-    .hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: center; margin-top: 16px; margin-bottom: 28px; }
+    /* SECTIONS */
+    section{padding:36px 0}
+    h2{font-size:clamp(1.35rem,2.4vw,1.9rem);margin:0 0 12px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .col-4{grid-column:span 4}
 
-    .card { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(6px); }
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+    .card .tag{display:inline-block;font-size:.72rem;color:#fca5a5;background:rgba(232,25,25,.08);border:1px solid var(--border);border-radius:999px;padding:4px 8px;margin-bottom:8px}
+    .card h3{margin:6px 0 8px;font-size:1.05rem}
+    .card p{margin:0;color:#d6dae6}
 
-    .hero .copy { padding: 28px; }
-    .eyebrow { color: var(--muted); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; }
-    h1 { margin: 8px 0 12px; line-height: 1.1; font-size: clamp(2rem, 4vw, 3rem); }
-    .subtitle { color: #cfd3e6; font-size: 1.1rem; margin-bottom: 18px; }
+    /* SAFETY */
+    .note{border-left:4px solid var(--primary);background:linear-gradient(180deg, rgba(232,25,25,.08), rgba(232,25,25,.04));border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:#e6e6eb}
+    details{background:var(--elev);border:1px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow)}
+    details+details{margin-top:10px}
+    summary{cursor:pointer;font-weight:800;list-style:none}
+    summary::-webkit-details-marker{display:none}
 
-    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-    .cta { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 28px rgba(255,0,0,.45); }
-    .cta:focus { outline: 2px solid #fff; outline-offset: 3px; }
-    .ghost { background: transparent; color: var(--text); border: 1px solid #2c2c3d; }
+    /* TIMELINE */
+    .timeline{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .mile{grid-column:span 6;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px}
+    .when{font-size:.85rem;color:var(--muted)}
 
-    .countdown { display: grid; grid-template-columns: repeat(4, minmax(80px, 1fr)); gap: 10px; margin-top: 18px; }
-    .tick { text-align: center; padding: 12px; border-radius: 12px; background: #141421; border: 1px solid #23233a; }
-    .tick strong { display: block; font-size: 1.4rem; }
-    .tick span { color: var(--muted); font-size: .85rem; }
+    /* FOOTER */
+    footer{color:var(--muted);border-top:1px solid var(--border);padding:24px 0;margin-top:14px;text-align:center}
 
-    .hero .visual { padding: 0; overflow: hidden; position: relative; min-height: 320px; background: var(--card); }
-    .hero .visual img { max-width:200px; margin:40px auto; display:block }
-
-    section { margin: 48px 0; }
-    h2 { font-size: clamp(1.4rem, 2.2vw, 2rem); margin: 0 0 12px; }
-    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
-    .col-4 { grid-column: span 4; }
-
-    .pillars .item { padding: 18px; background: #141421; border: 1px solid #23233a; border-radius: 14px; }
-    .tag { display: inline-block; font-size: .75rem; padding: 4px 8px; border-radius: 999px; border: 1px solid #2f2f44; color: var(--muted); margin-bottom: 6px; }
-    .item h3 { margin: 6px 0 8px; font-size: 1.05rem; }
-    .item p { margin: 0; color: #cbd1e6; }
-
-    details { background: #12121a; border: 1px solid #25253a; border-radius: 14px; padding: 14px 16px; }
-    summary { cursor: pointer; font-weight: 700; list-style: none; }
-    .callout { border-left: 3px solid var(--accent); padding: 10px 14px; background: #151525; border-radius: 12px; }
-
-    footer { color: var(--muted); border-top: 1px solid #23233a; padding-top: 22px; margin-top: 48px; font-size: .9rem; text-align:center }
-
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .countdown { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
-      .col-4 { grid-column: span 12; }
-    }
+    /* RESPONSIVE */
+    @media (max-width: 1024px){.hero{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(120px,1fr))}}
+    @media (max-width: 720px){.grid{grid-template-columns:repeat(6,1fr)}.col-4{grid-column:span 6}.mile{grid-column:span 12}}
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
+  <!-- NAV -->
+  <header class="nav" role="navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Bobrix">
         <img src="BOBRIX%202%20Logo.png" alt="Bobrix logo" />
-      </div>
-      <span class="badge">Coming Soon</span>
-    </header>
+      </a>
+      <nav class="links" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#safety">Safety</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="spacer"></div>
+      <span class="pill">Coming Q3 2026</span>
+      <a class="btn-sm" href="mailto:safety@bobrix.example?subject=Early%20Access%20Request">Request Access</a>
+    </div>
+  </header>
 
+  <main id="top" class="wrap">
+    <!-- HERO -->
     <section class="hero">
-      <div class="copy card">
-        <div class="eyebrow">Safer sandbox for everyone</div>
-        <h1>Build, play, and create — without compromising safety.</h1>
-        <p class="subtitle">Bobrix is a next‑gen UGC platform inspired by the best parts of Roblox, rebuilt with safety, privacy, and parental controls at the core.</p>
+      <div>
+        <img class="hero-logo" src="BOBRIX%202%20Logo.png" alt="Bobrix full logo" />
+        <h1>Build, play, and create — with safety by design.</h1>
+        <p class="lede">Bobrix is a next‑gen UGC platform inspired by Roblox, rebuilt around family controls, privacy, and accountable creation. Our <strong>dedicated reporter program</strong> channels community vigilance into secure, law‑enforcement‑ready workflows — no vigilante stings.</p>
         <div class="cta-row">
-          <a class="cta" href="mailto:safety@bobrix.example?subject=Early%20Access%20Request">Request early access</a>
-          <a class="cta ghost" href="#statements">Read our safety stance</a>
+          <a class="btn primary" href="mailto:safety@bobrix.example?subject=Early%20Access%20Request">Request early access</a>
+          <a class="btn" href="#safety">Read our safety stance</a>
         </div>
-        <div class="countdown">
-          <div class="tick"><strong>Q3</strong><span>Launch window</span></div>
-          <div class="tick"><strong>2026</strong><span>Year</span></div>
-          <div class="tick"><strong>Beta</strong><span>Closed</span></div>
-          <div class="tick"><strong>Invite</strong><span>Only</span></div>
+        <div class="stats" role="group" aria-label="Key facts">
+          <div class="stat"><strong>Q3 2026</strong><span>Launch window</span></div>
+          <div class="stat"><strong>Closed</strong><span>Beta phase</span></div>
+          <div class="stat"><strong>Invite</strong><span>Only access</span></div>
+          <div class="stat"><strong>Reporter</strong><span>Program</span></div>
         </div>
       </div>
-
-      <div class="visual card">
-        <img src="Boblox%20Icon%20new%20gradientr.png" alt="Bobrix icon" />
+      <div>
+        <img src="Boblox%20Icon%20new%20gradientr.png" alt="Bobrix icon" style="max-width:240px;margin:auto" />
       </div>
     </section>
 
-    <section class="pillars">
-      <h2>Safety pillars baked into day one</h2>
+    <!-- FEATURES -->
+    <section id="features">
+      <h2>What makes Bobrix different</h2>
       <div class="grid">
-        <div class="item col-4"><span class="tag">Identity</span><h3>Real age assurance + guardian controls</h3><p>Privacy‑preserving age checks, required guardian consent for under‑13s, session time & spend limits.</p></div>
-        <div class="item col-4"><span class="tag">Detection</span><h3>Proactive grooming & off‑platform risk signals</h3><p>On‑platform ML + human review to flag invitations to leave the platform, age gaps, and boundary‑testing language.</p></div>
-        <div class="item col-4"><span class="tag">Moderation</span><h3>Human+AI moderation with transparent SLAs</h3><p>Creator & player actions reviewed within set windows. Clear, appealable outcomes. Repeat‑offender removal.</p></div>
-        <div class="item col-4"><span class="tag">Governance</span><h3>Independent Safety Council</h3><p>External child‑safety advisors with veto power over policy rollouts & exception requests.</p></div>
-        <div class="item col-4"><span class="tag">Reporting</span><h3>Direct law‑enforcement escalation</h3><p>Mandatory reporting workflows, preserved evidence chains, and 24/7 response for imminent‑harm cases.</p></div>
-        <div class="item col-4"><span class="tag">Transparency</span><h3>Public Safety Ledger</h3><p>Quarterly transparency reports with metrics on takedowns, response times, appeals, and policy changes.</p></div>
+        <div class="card col-4"><span class="tag">Identity</span><h3>Age assurance + guardians</h3><p>Privacy‑preserving checks and required guardian consent for under‑13s; session, chat, and spend limits.</p></div>
+        <div class="card col-4"><span class="tag">Detection</span><h3>Proactive risk signals</h3><p>On‑platform ML + human review flag grooming patterns and off‑platform lures early.</p></div>
+        <div class="card col-4"><span class="tag">Moderation</span><h3>Human + AI, clear SLAs</h3><p>Time‑bound reviews, appealable outcomes, repeat‑offender removal, and creator obligations.</p></div>
+        <div class="card col-4"><span class="tag">Governance</span><h3>Independent Safety Council</h3><p>External child‑safety advisors with veto on policy exceptions and authority to audit enforcement.</p></div>
+        <div class="card col-4"><span class="tag">Reporting</span><h3>Direct LE escalation</h3><p>One‑click, evidence‑preserving referral paths for imminent‑harm cases with intact chain of custody.</p></div>
+        <div class="card col-4"><span class="tag">Transparency</span><h3>Public Safety Reports</h3><p>Quarterly metrics on takedowns, response times, appeals, and policy changes.</p></div>
       </div>
     </section>
 
-    <section id="statements">
-      <h2>Statements regarding the recent “Schlep” situation</h2>
-      <div class="callout">Bobrix is not affiliated with Roblox. The following statements clarify our stance and how this situation motivated us to create Bobrix.</div>
+    <!-- SAFETY & SCHLEP STATEMENTS -->
+    <section id="safety" aria-labelledby="safety-h2">
+      <h2 id="safety-h2">Safety by design — and what we learned from the “Schlep” situation</h2>
+      <div class="note">Bobrix is not affiliated with Roblox. The Schlep controversy was a catalyst for us — it reinforced our decision to build Bobrix and to formalize safe reporting channels for the community.</div>
 
       <details open>
-        <summary>Our safety stance</summary>
-        <ul>
-          <li><strong>No vigilantism on Bobrix.</strong> We prohibit decoy accounts and sting operations. Instead, we provide built‑in, one‑click <em>law‑enforcement referrals</em> with secure evidence packaging.</li>
-          <li><strong>Dedicated reporter program.</strong> Safety‑minded members can apply to securely report bad actors, ensuring effective escalation without vigilante tactics.</li>
-          <li><strong>Hard guardrails against off‑platform lures.</strong> Conversations attempting to move off‑platform are auto‑muted and flagged.</li>
-          <li><strong>Independent oversight.</strong> An external Safety Council audits high‑impact enforcement decisions.</li>
-        </ul>
+        <summary>Our stance</summary>
+        <div>
+          <ul>
+            <li><strong>No vigilantism on Bobrix.</strong> Decoy accounts and stings risk harm and compromise evidence. We provide built‑in, one‑click <em>law‑enforcement referrals</em> with secure evidence packaging.</li>
+            <li><strong>Dedicated reporter program.</strong> Safety‑minded creators and investigators can enroll to submit leads via structured forms, encrypted uploads, and strict confidentiality rules. Submissions enter our triage queue (human+AI) with clear feedback loops.</li>
+            <li><strong>Hard guardrails against off‑platform lures.</strong> Attempts to move chats to external apps are auto‑muted and flagged; guardians are notified for under‑13 accounts.</li>
+            <li><strong>Independent oversight.</strong> An external Safety Council can review policies and audit high‑impact cases.</li>
+          </ul>
+        </div>
       </details>
 
       <details>
-        <summary>What happened elsewhere (Aug 2025)</summary>
-        <p>Roblox removed vigilante creators, including “Schlep,” citing ToS violations related to impersonation of minors and moving users off‑platform. Several lawsuits alleged inadequate protection of minors. Roblox stated it partners with law enforcement and opposes vigilantism. This controversy motivated us to build Bobrix as a safer alternative.</p>
-      </details>
-
-      <details>
-        <summary>How Bobrix is different</summary>
-        <ul>
-          <li><strong>Evidence handling:</strong> report → preserve → escalate, without public exposure or vigilantism.</li>
-          <li><strong>Strict age boundaries:</strong> enforced chat & matchmaking separation between minors and adults unless <em>verified family/guardian</em>.</li>
-          <li><strong>Creator obligations:</strong> creators must adopt our Safety Toolkit (chat filters, session limits, reporting hooks) to publish.</li>
-          <li><strong>Third‑party audits:</strong> external compliance reviews (NCMEC, COPPA, UK AADC).</li>
-        </ul>
+        <summary>Why this matters</summary>
+        <div>
+          <p>Reports in Aug 2025 about bans of vigilante creators (including “Schlep”) and related lawsuits spotlighted the need to channel community vigilance into <em>safe, lawful, and effective</em> pathways. That moment pushed us to commit fully to Bobrix and to design a reporter program from day one.</p>
+        </div>
       </details>
     </section>
 
-    <footer>
-      <p>© <span id="year">2025</span> Bobrix. “Roblox” is a trademark of Roblox Corporation. Bobrix is not affiliated with or endorsed by Roblox Corporation.</p>
-      <p>Press & safety inquiries: <a href="mailto:safety@bobrix.example">safety@bobrix.example</a></p>
-    </footer>
-  </div>
+    <!-- TIMELINE -->
+    <section id="timeline" aria-labelledby="timeline-h2">
+      <h2 id="timeline-h2">Road to launch</h2>
+      <div class="timeline">
+        <div class="mile"><div class="when">Now → Q4 2025</div><h3>Foundations</h3><p>Core engine, creator pipeline, trust & safety backend, initial council formation.</p></div>
+        <div class="mile"><div class="when">Q1 → Q2 2026</div><h3>Closed Beta</h3><p>Invite‑only creators, family pilots, red‑team drills, and compliance reviews.</p></div>
+        <div class="mile"><div class="when">Q3 2026</div><h3>Public Launch (phased)</h3><p>Gradual roll‑out by region and age group with live transparency metrics.</p></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" aria-labelledby="faq-h2">
+      <h2 id="faq-h2">FAQ</h2>
+      <p><strong>When is Bobrix launching?</strong> Our current window is <strong>Q3 2026</strong>, following a closed beta.</p>
+      <p><strong>How do reports work?</strong> Emergency content triggers immediate locks and a 24/7 escalation path. Every report gets a ticket ID and status updates.</p>
+      <p><strong>What about data privacy?</strong> Data minimization, guardian dashboards for minors, and no dark‑pattern consent flows.</p>
+      <p><strong>Are you affiliated with Roblox?</strong> No. Bobrix is independent and not endorsed by Roblox Corporation.</p>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <div>© <span id="year">2025</span> Bobrix. “Roblox” is a trademark of Roblox Corporation. Bobrix is not affiliated with or endorsed by Roblox Corporation.</div>
+    <div>Press & safety: <a href="mailto:safety@bobrix.example">safety@bobrix.example</a></div>
+  </footer>
+
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
