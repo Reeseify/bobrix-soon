@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Log In — Bobrix</title>
+  <meta name="theme-color" content="#0e0f12" />
+  <meta name="description" content="Log in to your Bobrix account." />
+
+  <link rel="icon" href="/assets/Boblox%20Icon%20new%20gradientr.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/assets/Boblox%20Icon%20new%20gradientr.png" />
+
+  <style>
+    :root{
+      --bg:#0e0f12; --panel:#14161b; --muted:#7a8190; --text:#e9eefc;
+      --danger:#ff5d5d; --success:#3ddc97; --primary:#6aa6ff; --ring: rgba(106,166,255,.45);
+      --radius:16px; --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --grad: radial-gradient(1200px 600px at 80% -10%, rgba(106,166,255,.15), transparent 50%),
+              radial-gradient(900px 500px at -20% 110%, rgba(61,220,151,.12), transparent 50%);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,"Helvetica Neue", Arial;
+         color:var(--text); background:var(--bg); background-image:var(--grad);}
+    .topbar{position:sticky; top:0; z-index:50; backdrop-filter: blur(8px);
+            background: linear-gradient(180deg, rgba(20,22,27,.9), rgba(20,22,27,.6) 80%, rgba(20,22,27,0));
+            border-bottom:1px solid rgba(255,255,255,.06);}
+    .nav{max-width:1100px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; gap:18px}
+    .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text)}
+    .brand img{width:28px; height:28px; border-radius:8px; box-shadow:0 4px 14px rgba(106,166,255,.35)}
+    .brand span{font-weight:700; letter-spacing:.3px}
+    .navlinks{margin-left:auto; display:flex; gap:14px}
+    .navlinks a{color:var(--muted); text-decoration:none; font-weight:500}
+    .navlinks a:hover{color:var(--text)}
+    .wrap{max-width:1100px; margin:32px auto; padding:0 18px; display:grid; grid-template-columns: 1.1fr .9fr; gap:28px}
+    @media (max-width: 900px){ .wrap{grid-template-columns:1fr} }
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0)), var(--panel);
+          border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); box-shadow:var(--shadow)}
+    .content{padding:22px}
+    .card h1{margin:0 0 6px 0; font-size:28px}
+    .lead{margin:0; color:var(--muted)}
+    form{margin-top:14px; display:grid; gap:14px}
+    .field{display:grid; gap:8px}
+    .label{font-weight:600; font-size:14px; color:#cfd7f2}
+    .control{display:flex; align-items:center; gap:8px; background:#0f1116; border:1px solid rgba(255,255,255,.08);
+             border-radius:12px; padding:10px 12px; outline:none; transition:border-color .2s, box-shadow .2s}
+    .control:focus-within{border-color:var(--primary); box-shadow:0 0 0 6px var(--ring)}
+    .control input{flex:1; background:transparent; border:0; outline:0; color:var(--text); font-size:16px}
+    .toggle{background:transparent; border:0; color:var(--muted); cursor:pointer; font-size:13px; padding:6px 8px; border-radius:8px}
+    .toggle:hover{color:var(--text); background:rgba(255,255,255,.06)}
+    .row{display:flex; align-items:center; gap:10px; justify-content:space-between}
+    .remember{display:flex; align-items:center; gap:8px; color:var(--muted); font-size:13px}
+    .btn{appearance:none; border:0; cursor:pointer; background: linear-gradient(180deg, #6aa6ff, #4a7fe0);
+         color:white; font-weight:700; letter-spacing:.2px; font-size:15px; padding:11px 16px; border-radius:12px;
+         box-shadow:0 8px 18px rgba(74,127,224,.35); transition:transform .05s}
+    .btn:active{transform:translateY(1px)}
+    .btn[disabled]{opacity:.6; cursor:progress}
+    .hint{font-size:12px; color:var(--muted)}
+    .msg{margin-top:10px; padding:10px 12px; border-radius:12px; font-size:14px; display:none; border:1px solid rgba(255,255,255,.08)}
+    .msg.error{background:rgba(255,93,93,.15); color:#ffdcdc; display:block}
+    .msg.success{background:rgba(61,220,151,.15); color:#d8ffef; display:block}
+    .aside .content{padding:22px}
+    .list{display:grid; gap:10px; margin-top:10px}
+    .list .row{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:14px}
+    .dot{width:8px; height:8px; border-radius:999px; background:linear-gradient(180deg, #6aa6ff, #4a7fe0); box-shadow:0 0 10px rgba(106,166,255,.6)}
+    .foot{margin-top:18px; color:var(--muted); font-size:13px}
+    .foot a{color:#cfe0ff; text-decoration:none}
+    .foot a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="/"><img src="/assets/Boblox%20Icon%20new%20gradientr.png" alt=""><span>Bobrix</span></a>
+      <div class="navlinks">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/signup.html">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="content">
+        <h1>Welcome back</h1>
+        <p class="lead">Enter your credentials to continue.</p>
+
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label class="label" for="username">Username</label>
+            <div class="control"><input id="username" name="username" type="text" autocomplete="username" required placeholder="Your username"></div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="password">Password</label>
+            <div class="control">
+              <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="••••••••">
+              <button type="button" class="toggle" id="togglePw" aria-label="Show password">Show</button>
+            </div>
+            <div class="row">
+              <label class="remember"><input id="remember" type="checkbox"> Remember me</label>
+              <a class="hint" href="/forgot.html">Forgot password?</a>
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="btn" id="submitBtn" type="submit">Log In</button>
+            <span class="hint">No account? <a href="/signup.html">Create one</a></span>
+          </div>
+
+          <div id="formMsg" class="msg" role="alert" aria-live="polite"></div>
+        </form>
+        <noscript><div class="msg error" style="display:block; margin-top:12px">JavaScript is required to log in.</div></noscript>
+      </div>
+    </section>
+
+    <aside class="card aside">
+      <div class="content">
+        <h2 style="margin:0 0 8px 0; font-size:22px;">Secure sign-in</h2>
+        <p class="lead">Traffic is encrypted client-side before it hits the API.</p>
+        <div class="list">
+          <div class="row"><span class="dot"></span> <span>Zero plain-text credentials over the wire</span></div>
+          <div class="row"><span class="dot"></span> <span>Fast response & clear errors</span></div>
+          <div class="row"><span class="dot"></span> <span>Built for builders</span></div>
+        </div>
+        <div class="foot">Having trouble? Contact support.</div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    // ========= CONFIG =========
+    // IMPORTANT: set this to the SAME secret the server uses for decryptTransaction (Node's PASSWORD)
+    // Ideally inject at build-time; do NOT ship hardcoded secrets in production.
+    const SHARED_SECRET = "<REPLACE_WITH_SERVER_PASSWORD>";
+
+    const API_URL = "https://internal.api.bobrix.ca/login";
+
+    // ======== UTIL: text/binary helpers ========
+    const enc = new TextEncoder();
+    const dec = new TextDecoder();
+
+    function bytesToBase64(bytes){
+      let bin = "";
+      bytes.forEach(b => bin += String.fromCharCode(b));
+      return btoa(bin);
+    }
+    function strToBytes(str){ return enc.encode(str); }
+
+    // ======== CRYPTO: encryptTransaction (mirror of server decryptTransaction) ========
+    // Scheme: AES-256-GCM( key = PBKDF2(SHARED_SECRET, salt, 310000, SHA-256) )
+    // Payload format: [salt(16) | iv(12) | ciphertext+tag(?)]  -> base64
+    async function encryptTransaction(plainObj, secret){
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const json = JSON.stringify(plainObj);
+      const data = enc.encode(json);
+
+      const keyMaterial = await crypto.subtle.importKey(
+        "raw", enc.encode(secret), {name:"PBKDF2"}, false, ["deriveKey"]
+      );
+      const key = await crypto.subtle.deriveKey(
+        {name:"PBKDF2", salt, iterations:310000, hash:"SHA-256"},
+        keyMaterial,
+        {name:"AES-GCM", length:256},
+        false,
+        ["encrypt"]
+      );
+      const ctBuf = await crypto.subtle.encrypt({name:"AES-GCM", iv}, key, data);
+      const ct = new Uint8Array(ctBuf);
+
+      const out = new Uint8Array(salt.length + iv.length + ct.length);
+      out.set(salt, 0);
+      out.set(iv, salt.length);
+      out.set(ct, salt.length + iv.length);
+
+      return bytesToBase64(out);
+    }
+
+    // ======== UI ========
+    const form = document.getElementById('loginForm');
+    const msg = document.getElementById('formMsg');
+    const btn = document.getElementById('submitBtn');
+    const pw = document.getElementById('password');
+    const user = document.getElementById('username');
+    const togglePw = document.getElementById('togglePw');
+    const remember = document.getElementById('remember');
+
+    togglePw.addEventListener('click', () => {
+      const show = pw.type === 'password';
+      pw.type = show ? 'text' : 'password';
+      togglePw.textContent = show ? 'Hide' : 'Show';
+      pw.focus({preventScroll:true});
+    });
+
+    function setMessage(type, text){
+      msg.className = 'msg ' + type;
+      msg.textContent = text;
+      msg.style.display = 'block';
+    }
+
+    // Optional: prefill username if "remember me" used earlier
+    (function restoreRemembered(){
+      try {
+        const remembered = localStorage.getItem('bobrix_username');
+        if (remembered) user.value = remembered;
+      } catch {}
+    })();
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.style.display = 'none';
+
+      const username = user.value.trim();
+      const password = pw.value;
+
+      if(!username || !password){
+        setMessage('error', 'Please enter both username and password.');
+        return;
+      }
+
+      btn.disabled = true;
+
+      try{
+        const encryptedPayload = await encryptTransaction({ username, password }, SHARED_SECRET);
+
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ encryptedPayload }),
+          // If your API uses cookies/sessions, uncomment:
+          // credentials: 'include',
+        });
+
+        const text = await res.text();
+
+        if(res.status === 200){
+          // Server returns either email (if verified) or 'Login successful.'
+          setMessage('success', text || 'Login successful.');
+          if (remember.checked) {
+            try { localStorage.setItem('bobrix_username', username); } catch {}
+          } else {
+            try { localStorage.removeItem('bobrix_username'); } catch {}
+          }
+          // Redirect after a short delay
+          setTimeout(() => { window.location.href = '/'; }, 800);
+        } else if(res.status === 400){
+          setMessage('error', text || 'Bad request.');
+        } else if(res.status === 401){
+          setMessage('error', 'Invalid username or password.');
+        } else {
+          setMessage('error', text || 'Something went wrong. Please try again.');
+        }
+      } catch(err){
+        console.error(err);
+        setMessage('error', 'Encryption or network error. Check your connection and crypto config.');
+      } finally{
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
