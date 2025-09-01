@@ -2,66 +2,188 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>404 — Page Not Found | Bobrix</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page Not Found — Bobrix</title>
   <meta name="theme-color" content="#0e0f12" />
-  <link rel="icon" href="/Boblox%20Icon%20new%20gradientr.png" />
+  <meta name="description" content="The page you're looking for can’t be found." />
+
+  <link rel="icon" href="Boblox%20Icon%20new%20gradientr.png" type="image/png" />
+  <link rel="apple-touch-icon" href="Boblox%20Icon%20new%20gradientr.png" />
 
   <style>
     :root{
-      --bg:#0e0f12; --elev:#14161b; --muted:#a9b0be; --text:#e8ecf3;
-      --brand:#3b82f6; --brand-2:#22d3ee;
-      --radius:14px; --shadow:0 8px 24px rgba(0,0,0,.35),0 2px 8px rgba(0,0,0,.25);
+      --bg:#0e0f12;
+      --panel:#14161b;
+      --panel-90:rgba(20,22,27,.9);
+      --muted:#8a91a3;
+      --text:#e9eefc;
+      --text-soft:#cfd7f2;
+      --primary:#6aa6ff;
+      --ring:rgba(106,166,255,.45);
+      --border:rgba(255,255,255,.10);
+      --shadow:0 20px 60px rgba(0,0,0,.45);
+      --radius:18px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto,Ubuntu,Helvetica,Arial,sans-serif;display:flex;flex-direction:column}
-    a{color:var(--brand);text-decoration:none}
-    a:hover{text-decoration:underline}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color:var(--text);
+      background: var(--bg) center/cover fixed no-repeat;
+      background-image:
+        radial-gradient(1200px 600px at 80% -10%, rgba(106,166,255,.18), transparent 55%),
+        radial-gradient(1000px 600px at -10% 120%, rgba(61,220,151,.14), transparent 55%),
+        url("background.png");
+    }
 
-    .topbar{position:sticky;top:0;z-index:1000;background:linear-gradient(180deg,#0f1116,rgba(15,17,22,.85));backdrop-filter:saturate(1.2) blur(6px);border-bottom:1px solid #1f2330}
-    .topbar .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:12px 20px;max-width:1200px;margin:0 auto}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand img{width:28px;height:28px;border-radius:8px}
-    .brand span{font-weight:700}
-    .top-actions{display:flex;gap:8px}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #232837;background:#141820;border-radius:10px;color:var(--text)}
-    .btn:hover{background:#161b25}
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(14,15,18,.85), rgba(14,15,18,.55) 80%, rgba(14,15,18,0));
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      max-width:1100px; margin:0 auto; padding:14px 18px;
+      display:flex; align-items:center; gap:14px;
+    }
+    .brand{display:flex; align-items:center;}
+    .brand img{height:34px; width:auto}
+    .navlinks{margin-left:auto; display:flex; align-items:center; gap:12px}
+    .link-btn{
+      appearance:none; border:1px solid var(--border); background:transparent; color:var(--text-soft);
+      padding:8px 12px; border-radius:12px; text-decoration:none; font-weight:600; font-size:14px;
+    }
+    .link-btn:hover{background:rgba(255,255,255,.06); color:var(--text)}
+    .btn{
+      appearance:none; border:0; cursor:pointer;
+      background: linear-gradient(180deg, #6aa6ff, #4a7fe0);
+      color:white; font-weight:800; font-size:14px;
+      padding:10px 14px; border-radius:14px; box-shadow:0 10px 24px rgba(74,127,224,.38);
+      transition: transform .05s ease, filter .15s ease;
+      text-decoration:none; display:inline-block;
+    }
+    .btn:hover{ filter:brightness(1.05) }
+    .btn:active{ transform: translateY(1px) }
 
-    .main404{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
-    .main404 h1{font-size:64px;margin:0;color:var(--brand-2);text-shadow:0 4px 16px rgba(0,0,0,.4)}
-    .main404 p{margin:14px 0 24px;color:#d8deea;font-size:18px}
-    .main404 a.cta{padding:12px 20px;border-radius:12px;background:linear-gradient(180deg,#3b82f6,#2563eb);border:1px solid #1e3a8a;color:#fff;font-weight:600;box-shadow:var(--shadow)}
-    .main404 a.cta:hover{filter:brightness(.95)}
+    /* Center card */
+    .viewport{
+      min-height:calc(100vh - 60px);
+      display:grid;
+      place-items:center;
+      padding:32px 18px 48px;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.0)), var(--panel-90);
+      border:1px solid var(--border); border-radius:var(--radius);
+      box-shadow:var(--shadow); backdrop-filter: blur(12px);
+      padding:28px; width:100%; max-width:700px; text-align:center;
+    }
+    .eyebrow{
+      display:inline-block; font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+      color:var(--text-soft); border:1px solid var(--border); border-radius:999px; padding:6px 10px; margin-bottom:10px;
+    }
+    h1{ margin:6px 0 8px; font-size:40px; line-height:1.1 }
+    .lead{ margin:0; color:var(--text-soft); font-size:16px }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color:#b9c6ff }
+    .row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:16px }
+    .ghost{ background:transparent; border:1px solid var(--border); color:var(--text-soft) }
+    .ghost:hover{ background:rgba(255,255,255,.06); color:var(--text) }
 
-    footer{opacity:.7;font-size:13px;padding:18px;text-align:center}
+    /* Search bar */
+    .searchbar{
+      display:flex; align-items:center; gap:10px; padding:12px 14px; border-radius:14px;
+      background:#0f1116; border:1px solid var(--border); width:100%; max-width:520px; margin:18px auto 6px;
+    }
+    .searchbar input{ flex:1; background:transparent; border:0; outline:0; color:var(--text); font-size:15px }
+
+    /* Helpful links grid */
+    .grid{
+      display:grid; gap:12px; grid-template-columns: repeat(3, 1fr);
+      margin-top:18px;
+    }
+    @media (max-width: 800px){ .grid{ grid-template-columns: 1fr } }
+    .tile{
+      background:#0f1116; border:1px solid var(--border); border-radius:12px; padding:14px; text-align:left;
+    }
+    .tile h3{ margin:0 0 6px; font-size:16px }
+    .tile p{ margin:0 0 10px; color:var(--muted); font-size:14px }
   </style>
 </head>
 <body>
-  <!-- Topbar -->
   <header class="topbar">
-    <div class="wrap">
-      <div class="brand">
-        <img src="/Boblox%20Icon%20new%20gradientr.png" alt="">
-        <span>Bobrix</span>
+    <nav class="nav">
+      <a class="brand" href="/"><img src="BOBRIX%202%20Logo.png" alt="Bobrix Logo" /></a>
+      <div class="navlinks">
+        <a class="link-btn" href="/discover.html">Discover</a>
+        <a class="link-btn" href="/docs/">Docs</a>
+        <a class="link-btn" href="/support.html">Support</a>
+        <a class="btn" href="/">Home</a>
       </div>
-      <div class="top-actions">
-        <a class="btn" href="/">🏠 Home</a>
-        <a class="btn" href="/games">🎮 Games</a>
-        <a class="btn" href="/docs/index.html">📚 Docs</a>
-      </div>
-    </div>
+    </nav>
   </header>
 
-  <!-- Main -->
-  <main class="main404">
-    <h1>404</h1>
-    <p>Oops — the page you’re looking for doesn’t exist or was moved.</p>
-    <a href="/" class="cta">Return Home</a>
+  <main class="viewport">
+    <section class="card" role="region" aria-labelledby="title">
+      <span class="eyebrow">Error <span class="mono">404</span></span>
+      <h1 id="title">We can’t find that page.</h1>
+      <p class="lead" id="lead">The link may be broken, or it was removed. <span id="hello"></span></p>
+
+      <div class="searchbar" role="search" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m21.53 20.47-4.8-4.8a8 8 0 1 0-1.06 1.06l4.8 4.8a.75.75 0 1 0 1.06-1.06ZM4.5 10a5.5 5.5 0 1 1 11 0a5.5 5.5 0 0 1-11 0Z"/></svg>
+        <input id="search" type="search" placeholder="Search games, creators, models…" />
+      </div>
+
+      <div class="row">
+        <a class="btn" href="/">Go to Home</a>
+        <a class="btn ghost" href="/discover.html">Discover Experiences</a>
+        <a class="btn ghost" href="/studio.html">Open Studio</a>
+      </div>
+
+      <div class="grid" aria-label="Helpful links">
+        <div class="tile">
+          <h3>Upload a Place</h3>
+          <p>Jump back into building and ship your next update.</p>
+          <a class="btn" href="/upload.html">Upload</a>
+        </div>
+        <div class="tile">
+          <h3>Account Settings</h3>
+          <p>Manage your profile, email and security.</p>
+          <a class="btn" href="/settings.html">Open Settings</a>
+        </div>
+        <div class="tile">
+          <h3>Get Help</h3>
+          <p>Read the docs or contact support if you’re stuck.</p>
+          <div class="row" style="justify-content:flex-start">
+            <a class="btn ghost" href="/docs/">Docs</a>
+            <a class="btn ghost" href="/support.html">Support</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    © 2025 Bobrix
-  </footer>
+  <script>
+    // Greet logged-in users if available
+    try {
+      const u = (localStorage.getItem('bobrix_username') || '').trim();
+      if (u) {
+        document.getElementById('hello').textContent = `Want to head home, ${u}?`;
+      }
+    } catch(_) {}
+
+    // Optional: wire search to your Discover page
+    const search = document.getElementById('search');
+    search.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const q = search.value.trim();
+        if (q) window.location.href = `/discover.html?q=${encodeURIComponent(q)}`;
+      }
+    });
+
+    // If you serve this as a static 404, you can also set this header via server config (recommended):
+    // e.g., in Express: res.status(404).sendFile('404.html')
+  </script>
 </body>
 </html>
