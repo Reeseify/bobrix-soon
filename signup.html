@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up — Bobrix</title>
+  <meta name="theme-color" content="#0e0f12" />
+  <meta name="description" content="Create your Bobrix account." />
+
+  <!-- Favicon / Icons (update paths if needed) -->
+  <link rel="icon" href="Boblox%20Icon%20new%20gradientr.png" type="image/png" />
+  <link rel="apple-touch-icon" href="Boblox%20Icon%20new%20gradientr.png" />
+
+  <style>
+    :root{
+      --bg:#0e0f12;
+      --panel:#14161b;
+      --muted:#7a8190;
+      --text:#e9eefc;
+      --danger:#ff5d5d;
+      --success:#3ddc97;
+      --primary:#6aa6ff;
+      --ring: rgba(106,166,255,.45);
+      --radius:16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --grad: radial-gradient(1200px 600px at 80% -10%, rgba(106,166,255,.15), transparent 50%),
+              radial-gradient(900px 500px at -20% 110%, rgba(61,220,151,.12), transparent 50%);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text); background:var(--bg); background-image:var(--grad);
+    }
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, rgba(20,22,27,.9), rgba(20,22,27,.6) 80%, rgba(20,22,27,0));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      max-width:1100px; margin:0 auto; padding:14px 18px;
+      display:flex; align-items:center; gap:18px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text);}
+    .brand img{width:28px; height:28px; border-radius:8px; box-shadow:0 4px 14px rgba(106,166,255,.35)}
+    .brand span{font-weight:700; letter-spacing:.3px}
+    .navlinks{margin-left:auto; display:flex; gap:14px}
+    .navlinks a{color:var(--muted); text-decoration:none; font-weight:500}
+    .navlinks a:hover{color:var(--text)}
+
+    /* Layout */
+    .wrap{max-width:1100px; margin:32px auto; padding:0 18px; display:grid; grid-template-columns: 1.1fr .9fr; gap:28px}
+    @media (max-width: 900px){ .wrap{grid-template-columns:1fr} }
+
+    /* Card / panel */
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0)) , var(--panel);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:var(--radius); box-shadow:var(--shadow);
+    }
+    .card h1{margin:0 0 6px 0; font-size:28px}
+    .card p.lead{margin:0; color:var(--muted)}
+
+    .content{padding:22px}
+
+    /* Form */
+    form{margin-top:14px; display:grid; gap:14px}
+    .field{display:grid; gap:8px}
+    .label{font-weight:600; font-size:14px; color:#cfd7f2}
+    .control{
+      display:flex; align-items:center; gap:8px;
+      background:#0f1116; border:1px solid rgba(255,255,255,.08);
+      border-radius:12px; padding:10px 12px;
+      outline: none; transition: border-color .2s, box-shadow .2s;
+    }
+    .control:focus-within{ border-color:var(--primary); box-shadow:0 0 0 6px var(--ring) }
+    .control input{
+      flex:1; background:transparent; border:0; outline:0; color:var(--text); font-size:16px;
+    }
+    .hint{font-size:12px; color:var(--muted)}
+
+    .toggle{
+      background:transparent; border:0; color:var(--muted); cursor:pointer; font-size:13px; padding:6px 8px; border-radius:8px;
+    }
+    .toggle:hover{color:var(--text); background:rgba(255,255,255,.06)}
+
+    .strength{
+      display:flex; gap:6px; align-items:center;
+      font-size:12px; color:var(--muted);
+    }
+    .bar{
+      position:relative; flex:1; height:6px; background:#0c0e12; border:1px solid rgba(255,255,255,.06);
+      border-radius:999px; overflow:hidden;
+    }
+    .bar>span{position:absolute; inset:0; width:0%}
+    .bar.ok>span{background:linear-gradient(90deg, var(--primary), var(--success))}
+    .bar.bad>span{background:linear-gradient(90deg, #ff7a7a, #ff5d5d)}
+
+    .actions{display:flex; gap:10px; align-items:center; margin-top:6px}
+    .btn{
+      appearance:none; border:0; cursor:pointer;
+      background: linear-gradient(180deg, #6aa6ff, #4a7fe0);
+      color:white; font-weight:700; letter-spacing:.2px; font-size:15px;
+      padding:11px 16px; border-radius:12px; box-shadow:0 8px 18px rgba(74,127,224,.35);
+      transition: transform .05s ease;
+    }
+    .btn:active{ transform: translateY(1px) }
+    .btn[disabled]{ opacity:.6; cursor:progress }
+
+    .msg{
+      margin-top:10px; padding:10px 12px; border-radius:12px; font-size:14px; display:none;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .msg.error{ background:rgba(255,93,93,.15); color:#ffdcdc; display:block }
+    .msg.success{ background:rgba(61,220,151,.15); color:#d8ffef; display:block }
+
+    /* Side panel */
+    .aside .content{padding:22px}
+    .list{display:grid; gap:10px; margin-top:10px}
+    .list .row{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:14px}
+    .dot{width:8px; height:8px; border-radius:999px; background:linear-gradient(180deg, #6aa6ff, #4a7fe0); box-shadow:0 0 10px rgba(106,166,255,.6)}
+    .foot{margin-top:18px; color:var(--muted); font-size:13px}
+    .foot a{color:#cfe0ff; text-decoration:none}
+    .foot a:hover{text-decoration:underline}
+    .center{display:flex; align-items:center; justify-content:center; gap:10px}
+  </style>
+</head>
+<body>
+  <!-- Top Navigation -->
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="/">
+        <img src="Boblox%20Icon%20new%20gradientr.png" alt="" />
+        <span>Bobrix</span>
+      </a>
+      <div class="navlinks">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs</a>
+        <a href="/login.html">Login</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <!-- Sign Up Card -->
+    <section class="card">
+      <div class="content">
+        <h1>Create your account</h1>
+        <p class="lead">Choose a username and password to get started.</p>
+
+        <form id="signupForm" novalidate>
+          <div class="field">
+            <label class="label" for="username">Username</label>
+            <div class="control">
+              <input id="username" name="username" type="text" inputmode="text" autocomplete="username"
+                     minlength="3" maxlength="32" placeholder="Your cool name" required />
+            </div>
+            <div class="hint">3–32 characters. A–Z, a–z, 0–9, underscores and dashes recommended.</div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="password">Password</label>
+            <div class="control">
+              <input id="password" name="password" type="password" autocomplete="new-password"
+                     minlength="8" placeholder="••••••••" required />
+              <button type="button" class="toggle" id="togglePw" aria-label="Show password">Show</button>
+            </div>
+            <div class="strength">
+              <div class="bar" id="pwBar"><span></span></div>
+              <span id="pwHint">Use 8+ chars with letters & numbers</span>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="submitBtn" type="submit">Create Account</button>
+            <span class="hint">Already have one? <a href="/login.html" class="footlink">Log in</a></span>
+          </div>
+
+          <div id="formMsg" class="msg" role="alert" aria-live="polite"></div>
+        </form>
+
+        <noscript>
+          <div class="msg error" style="display:block; margin-top:12px">
+            JavaScript is required to sign up.
+          </div>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- Aside: tips / brand -->
+    <aside class="card aside">
+      <div class="content">
+        <h2 style="margin:0 0 8px 0; font-size:22px;">Welcome to Bobrix</h2>
+        <p class="lead">A safety-first UGC sandbox with familiar tooling.</p>
+        <div class="list">
+          <div class="row"><span class="dot"></span> <span>Fast account creation</span></div>
+          <div class="row"><span class="dot"></span> <span>Protected by design</span></div>
+          <div class="row"><span class="dot"></span> <span>Built for builders</span></div>
+        </div>
+        <div class="foot">
+          By creating an account, you agree to our <a href="/terms.html">Terms</a> and <a href="/privacy.html">Privacy</a>.
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    const form = document.getElementById('signupForm');
+    const msg = document.getElementById('formMsg');
+    const btn = document.getElementById('submitBtn');
+    const pw = document.getElementById('password');
+    const user = document.getElementById('username');
+    const togglePw = document.getElementById('togglePw');
+    const pwBar = document.getElementById('pwBar');
+    const pwHint = document.getElementById('pwHint');
+
+    // Username soft validation (client-side only)
+    function cleanUsername(u){
+      // allow letters, numbers, underscore, dash, dot
+      return u.trim();
+    }
+
+    // Simple strength heuristic
+    function strengthScore(v){
+      let s = 0;
+      if (v.length >= 8) s++;
+      if (/[A-Z]/.test(v)) s++;
+      if (/[a-z]/.test(v)) s++;
+      if (/\d/.test(v)) s++;
+      if (/[^A-Za-z0-9]/.test(v)) s++;
+      return Math.min(s, 5);
+    }
+    function updateStrength(){
+      const v = pw.value;
+      const s = strengthScore(v);
+      const pct = (s/5)*100;
+      pwBar.classList.remove('ok','bad');
+      if(v.length === 0){
+        pwBar.querySelector('span').style.width = '0%';
+        pwHint.textContent = 'Use 8+ chars with letters & numbers';
+        return;
+      }
+      pwBar.querySelector('span').style.width = pct + '%';
+      if(s >= 3){
+        pwBar.classList.add('ok');
+        pwHint.textContent = 'Looks good!';
+      } else {
+        pwBar.classList.add('bad');
+        pwHint.textContent = 'Try adding numbers, caps, or symbols';
+      }
+    }
+    pw.addEventListener('input', updateStrength);
+
+    // Show/Hide password
+    togglePw.addEventListener('click', () => {
+      const showing = pw.type === 'text';
+      pw.type = showing ? 'password' : 'text';
+      togglePw.textContent = showing ? 'Show' : 'Hide';
+      pw.focus({preventScroll:true});
+    });
+
+    function setMessage(type, text){
+      msg.className = 'msg ' + type;
+      msg.textContent = text;
+      msg.style.display = 'block';
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.style.display = 'none';
+
+      const username = cleanUsername(user.value);
+      const password = pw.value;
+
+      // Basic front-end checks
+      if(!username || !password){
+        setMessage('error', 'Please fill in both fields.');
+        return;
+      }
+      if(password.length < 8){
+        setMessage('error', 'Password must be at least 8 characters.');
+        return;
+      }
+
+      btn.disabled = true;
+
+      try{
+        const res = await fetch('https://internal.api.bobrix.ca/create-account', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password }),
+          // If your API uses cookies/sessions, uncomment:
+          // credentials: 'include',
+        });
+
+        const text = await res.text();
+
+        if(res.status === 201){
+          setMessage('success', 'Account created successfully. You can log in now.');
+          // Optional: redirect after a short delay
+          setTimeout(() => { window.location.href = '/login.html'; }, 900);
+        } else if(res.status === 409){
+          setMessage('error', 'That username is already taken. Try another.');
+        } else if(res.status === 400){
+          setMessage('error', 'Username and password are required.');
+        } else {
+          setMessage('error', text || 'Something went wrong. Please try again.');
+        }
+      } catch(err){
+        setMessage('error', 'Network error. Please check your connection or try again later.');
+      } finally{
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
