@@ -118,10 +118,10 @@
     <aside class="card aside">
       <div class="content">
         <h2 style="margin:0 0 8px 0; font-size:22px;">Secure sign-in</h2>
-        <p class="lead">Traffic is encrypted client-side before it hits the API.</p>
+        <p class="lead">Client-side encoding matches server-side decoding.</p>
         <div class="list">
-          <div class="row"><span class="dot"></span> <span>Zero plain-text credentials over the wire</span></div>
-          <div class="row"><span class="dot"></span> <span>Fast response & clear errors</span></div>
+          <div class="row"><span class="dot"></span> <span>Substitution → Transposition → XOR → Base64</span></div>
+          <div class="row"><span class="dot"></span> <span>No plain-text credentials over the wire</span></div>
           <div class="row"><span class="dot"></span> <span>Built for builders</span></div>
         </div>
         <div class="foot">Having trouble? Contact support.</div>
@@ -130,59 +130,73 @@
   </main>
 
   <script>
-    // ========= CONFIG =========
-    // IMPORTANT: set this to the SAME secret the server uses for decryptTransaction (Node's PASSWORD)
-    // Ideally inject at build-time; do NOT ship hardcoded secrets in production.
+    // ======= IMPORTANT =======
+    // Must match your Node PASSWORD constant exactly
     const SHARED_SECRET = "FxBv8K0IfK248RRHBdM3dqQEVnglHTQO/5N4G224qEyW9JuuTStmO8DTQLY0aYA0a";
 
     const API_URL = "https://internal.api.bobrix.ca/login";
 
-    // ======== UTIL: text/binary helpers ========
-    const enc = new TextEncoder();
-    const dec = new TextDecoder();
+    // ======= Encoding primitives (mirror of server) =======
+    const substitutionTable = {
+      A:"Q",a:"q",B:"W",b:"w",C:"E",c:"e",D:"R",d:"r",E:"T",e:"t",
+      F:"Y",f:"y",G:"U",g:"u",H:"I",h:"i",I:"O",i:"o",J:"P",j:"p",
+      K:"A",k:"a",L:"S",l:"s",M:"D",m:"d",N:"F",n:"f",O:"G",o:"g",
+      P:"H",p:"h",Q:"J",q:"j",R:"K",r:"k",S:"L",s:"l",T:"Z",t:"z",
+      U:"X",u:"x",V:"C",v:"c",W:"V",w:"v",X:"B",x:"b",Y:"N",y:"n",
+      Z:"M",z:"m","0":"5","1":"6","2":"7","3":"8","4":"9","5":"0","6":"1","7":"2","8":"3","9":"4"
+    };
+    // reverse table not needed on client (we only encrypt)
 
-    function bytesToBase64(bytes){
-      let bin = "";
-      bytes.forEach(b => bin += String.fromCharCode(b));
-      return btoa(bin);
-    }
-    function strToBytes(str){ return enc.encode(str); }
-
-    // ======== CRYPTO: encryptTransaction (mirror of server decryptTransaction) ========
-    // Scheme: AES-256-GCM( key = PBKDF2(SHARED_SECRET, salt, 310000, SHA-256) )
-    // Payload format: [salt(16) | iv(12) | ciphertext+tag(?)]  -> base64
-    async function encryptTransaction(plainObj, secret){
-      const salt = crypto.getRandomValues(new Uint8Array(16));
-      const iv = crypto.getRandomValues(new Uint8Array(12));
-      const json = JSON.stringify(plainObj);
-      const data = enc.encode(json);
-
-      const keyMaterial = await crypto.subtle.importKey(
-        "raw", enc.encode(secret), {name:"PBKDF2"}, false, ["deriveKey"]
-      );
-      const key = await crypto.subtle.deriveKey(
-        {name:"PBKDF2", salt, iterations:310000, hash:"SHA-256"},
-        keyMaterial,
-        {name:"AES-GCM", length:256},
-        false,
-        ["encrypt"]
-      );
-      const ctBuf = await crypto.subtle.encrypt({name:"AES-GCM", iv}, key, data);
-      const ct = new Uint8Array(ctBuf);
-
-      const out = new Uint8Array(salt.length + iv.length + ct.length);
-      out.set(salt, 0);
-      out.set(iv, salt.length);
-      out.set(ct, salt.length + iv.length);
-
-      return bytesToBase64(out);
+    function substitution(data){
+      return data.split('').map(c => substitutionTable[c] || c).join('');
     }
 
-    // ======== UI ========
+    // Columnar transposition by blockSize=key.length; pad with spaces to full blocks.
+    function transposition(data, key){
+      const blockSize = key.length;
+      const numRows = Math.ceil(data.length / blockSize);
+      const paddingSize = blockSize - (data.length % blockSize || blockSize);
+      const paddedData = data + " ".repeat(paddingSize);
+
+      let result = "";
+      for (let i = 0; i < blockSize; i++) {
+        for (let j = 0; j < numRows; j++) {
+          const idx = j * blockSize + i;
+          if (idx < paddedData.length) result += paddedData[idx];
+        }
+      }
+      return result;
+    }
+
+    function xorWithKey(data, key){
+      let out = "";
+      for (let i = 0; i < data.length; i++){
+        const dataChar = data.charCodeAt(i);
+        const keyChar  = key.charCodeAt(i % key.length);
+        out += String.fromCharCode(dataChar ^ keyChar);
+      }
+      return out;
+    }
+
+    // Full encrypt (client): substitute → transpose → xor → base64
+    function encryptTransactionClient(plainString, key){
+      // The server's encrypt/decrypt authenticates key via equality; we just assume we have the right key here.
+      const substituted = substitution(plainString);
+      const transposed  = transposition(substituted, key);
+      const xored       = xorWithKey(transposed, key);
+
+      // IMPORTANT: btoa expects a "binary string" (Latin-1). Our XOR returns such a string already.
+      // If you ever include non-ASCII in 'plainString', make sure it's JSON with ASCII-only keys/values
+      // or pre-UTF8-encode → string-of-bytes before XOR (to match server). Your server operates on charCodes directly,
+      // so keep it ASCII here.
+      return btoa(xored);
+    }
+
+    // ======= UI wiring =======
     const form = document.getElementById('loginForm');
-    const msg = document.getElementById('formMsg');
-    const btn = document.getElementById('submitBtn');
-    const pw = document.getElementById('password');
+    const msg  = document.getElementById('formMsg');
+    const btn  = document.getElementById('submitBtn');
+    const pw   = document.getElementById('password');
     const user = document.getElementById('username');
     const togglePw = document.getElementById('togglePw');
     const remember = document.getElementById('remember');
@@ -200,7 +214,6 @@
       msg.style.display = 'block';
     }
 
-    // Optional: prefill username if "remember me" used earlier
     (function restoreRemembered(){
       try {
         const remembered = localStorage.getItem('bobrix_username');
@@ -219,31 +232,33 @@
         setMessage('error', 'Please enter both username and password.');
         return;
       }
+      if(!SHARED_SECRET || SHARED_SECRET === "FxBv8K0IfK248RRHBdM3dqQEVnglHTQO/5N4G224qEyW9JuuTStmO8DTQLY0aYA0a"){
+        setMessage('error', 'Client secret not set. Update SHARED_SECRET in the page.');
+        return;
+      }
 
       btn.disabled = true;
 
       try{
-        const encryptedPayload = await encryptTransaction({ username, password }, SHARED_SECRET);
+        const payload = JSON.stringify({ username, password });
+        const encryptedPayload = encryptTransactionClient(payload, SHARED_SECRET);
 
         const res = await fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ encryptedPayload }),
-          // If your API uses cookies/sessions, uncomment:
-          // credentials: 'include',
+          // credentials: 'include', // if you later use cookies/sessions
         });
 
         const text = await res.text();
 
         if(res.status === 200){
-          // Server returns either email (if verified) or 'Login successful.'
           setMessage('success', text || 'Login successful.');
-          if (remember.checked) {
+          if (remember && remember.checked) {
             try { localStorage.setItem('bobrix_username', username); } catch {}
           } else {
             try { localStorage.removeItem('bobrix_username'); } catch {}
           }
-          // Redirect after a short delay
           setTimeout(() => { window.location.href = '/'; }, 800);
         } else if(res.status === 400){
           setMessage('error', text || 'Bad request.');
@@ -254,7 +269,7 @@
         }
       } catch(err){
         console.error(err);
-        setMessage('error', 'Encryption or network error. Check your connection and crypto config.');
+        setMessage('error', 'Encoding or network error. Check console for details.');
       } finally{
         btn.disabled = false;
       }
