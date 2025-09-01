@@ -12,23 +12,14 @@
 
   <style>
     :root{
-      --bg:#0e0f12;
-      --panel:#14161b;
-      --panel-90:rgba(20,22,27,.9);
-      --muted:#a7afc6;
-      --text:#e9eefc;
-      --danger:#ff5d5d;
-      --success:#3ddc97;
-      --primary:#6aa6ff;
-      --ring: rgba(106,166,255,.45);
-      --radius:18px;
-      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --bg:#0e0f12; --panel:#14161b; --panel-90:rgba(20,22,27,.9);
+      --muted:#a7afc6; --text:#e9eefc; --primary:#6aa6ff; --ring: rgba(106,166,255,.45);
+      --radius:18px; --shadow: 0 20px 60px rgba(0,0,0,.45);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
       color:var(--text);
       background: var(--bg) center/cover fixed no-repeat;
       background-image:
@@ -36,81 +27,53 @@
         radial-gradient(1000px 600px at -10% 120%, rgba(61,220,151,.14), transparent 55%),
         url("background.png");
     }
-
-    /* Topbar */
-    .topbar{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(10px);
+    .topbar{ position:sticky; top:0; z-index:50; backdrop-filter: blur(10px);
       background: linear-gradient(180deg, rgba(14,15,18,.85), rgba(14,15,18,.55) 80%, rgba(14,15,18,0));
       border-bottom:1px solid rgba(255,255,255,.06);
     }
-    .nav{
-      max-width:1100px; margin:0 auto; padding:14px 18px;
-      display:flex; align-items:center; gap:18px;
-    }
-    .brand{display:flex; align-items:center;}
-    .brand img{height:34px; width:auto;}
+    .nav{ max-width:1100px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; gap:18px; }
+    .brand img{height:34px; width:auto}
     .navlinks{margin-left:auto; display:flex; gap:14px}
     .navlinks a{color:#c9d6ff; text-decoration:none; font-weight:600; opacity:.8}
     .navlinks a:hover{opacity:1}
 
-    /* Layout */
-    .viewport{
-      min-height:calc(100vh - 60px);
-      display:grid;
-      place-items:center;
-      padding:32px 18px 48px;
-    }
-
-    /* Card */
+    .viewport{ min-height:calc(100vh - 60px); display:grid; place-items:center; padding:32px 18px 48px; }
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.0)), var(--panel-90);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(12px);
-      padding:28px;
-      width:100%;
-      max-width:420px;
+      border:1px solid rgba(255,255,255,.08); border-radius:var(--radius);
+      box-shadow:var(--shadow); backdrop-filter: blur(12px);
+      padding:28px; width:100%; max-width:420px;
     }
-    .card header h2{ margin:0 0 6px 0; font-size:26px; font-weight:800; }
+    .card header h2{ margin:0 0 6px; font-size:26px; font-weight:800 }
     .card header p{ margin:0; color:#cfd7f2 }
-
     form{ margin-top:14px; display:grid; gap:14px }
     .field{ display:grid; gap:8px }
     .label{ font-weight:700; font-size:14px; color:#dae3ff }
     .control{
-      display:flex; align-items:center; gap:8px;
-      background:#0f1116; border:1px solid rgba(255,255,255,.10);
-      border-radius:14px; padding:12px 14px;
-      transition: border-color .2s, box-shadow .2s;
+      display:flex; align-items:center; gap:8px; background:#0f1116;
+      border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px 14px;
+      transition:border-color .2s, box-shadow .2s;
     }
     .control:focus-within{ border-color:var(--primary); box-shadow:0 0 0 6px var(--ring) }
-    .control input{ flex:1; background:transparent; border:0; outline:0; color:var(--text); font-size:16px; }
-
-    .toggle{ background:transparent; border:0; color:#c7cee2; cursor:pointer; font-size:13px; padding:6px 8px; border-radius:8px; }
+    .control input{ flex:1; background:transparent; border:0; outline:0; color:var(--text); font-size:16px }
+    .toggle{ background:transparent; border:0; color:#c7cee2; cursor:pointer; font-size:13px; padding:6px 8px; border-radius:8px }
     .toggle:hover{ color:white; background:rgba(255,255,255,.08) }
-
     .btn{
-      appearance:none; border:0; cursor:pointer;
-      background: linear-gradient(180deg, #6aa6ff, #4a7fe0);
-      color:white; font-weight:800; font-size:15px;
-      padding:12px 16px; border-radius:14px; box-shadow:0 10px 24px rgba(74,127,224,.38);
+      appearance:none; border:0; cursor:pointer; background: linear-gradient(180deg, #6aa6ff, #4a7fe0);
+      color:white; font-weight:800; font-size:15px; padding:12px 16px; border-radius:14px;
+      box-shadow:0 10px 24px rgba(74,127,224,.38);
     }
-    .btn:hover{ filter: brightness(1.05) }
+    .btn:hover{ filter:brightness(1.05) }
     .btn:active{ transform: translateY(1px) }
     .btn[disabled]{ opacity:.6; cursor:not-allowed }
-
-    .row-between{ display:flex; justify-content:space-between; align-items:center; }
-    .small{ font-size:13px; color:#cfd7f2; }
+    .row-between{ display:flex; justify-content:space-between; align-items:center }
+    .small{ font-size:13px; color:#cfd7f2 }
     .small a{ color:#d7e3ff; text-decoration:none }
     .small a:hover{ text-decoration:underline }
-
-    .alt{ text-align:center; font-size:14px; color:#cfd7f2; margin-top:8px; }
+    .alt{ text-align:center; font-size:14px; color:#cfd7f2; margin-top:8px }
     .alt a{ color:#d7e3ff; font-weight:700; text-decoration:none }
     .alt a:hover{ text-decoration:underline }
-
-    .msg{ margin-top:10px; padding:10px 12px; border-radius:12px; font-size:14px; display:none; }
+    .msg{ margin-top:10px; padding:10px 12px; border-radius:12px; font-size:14px; display:none }
     .msg.error{ background:rgba(255,93,93,.18); color:#ffdcdc; display:block }
     .msg.success{ background:rgba(61,220,151,.18); color:#d8ffef; display:block }
   </style>
@@ -118,9 +81,7 @@
 <body>
   <header class="topbar">
     <nav class="nav">
-      <a class="brand" href="/">
-        <img src="BOBRIX%202%20Logo.png" alt="Bobrix Logo" />
-      </a>
+      <a class="brand" href="/"><img src="BOBRIX%202%20Logo.png" alt="Bobrix Logo" /></a>
       <div class="navlinks">
         <a href="/">Home</a>
         <a href="/docs/">Docs</a>
@@ -162,16 +123,12 @@
         <div id="formMsg" class="msg" role="alert" aria-live="polite"></div>
       </form>
 
-      <noscript>
-        <div class="msg error" style="display:block; margin-top:12px">
-          JavaScript is required to log in.
-        </div>
-      </noscript>
+      <noscript><div class="msg error" style="display:block; margin-top:12px">JavaScript is required to log in.</div></noscript>
     </section>
   </main>
 
   <script>
-    // ====== UI Elements ======
+    // ===== UI refs =====
     const form = document.getElementById('loginForm');
     const msg = document.getElementById('formMsg');
     const btn = document.getElementById('submitBtn');
@@ -179,11 +136,9 @@
     const user = document.getElementById('username');
     const togglePw = document.getElementById('togglePw');
 
-    // Disable button until both fields filled
+    // Enable/disable button
     function updateSubmitState(){
-      const uFilled = user.value.trim().length > 0;
-      const pFilled = pw.value.length > 0;
-      btn.disabled = !(uFilled && pFilled);
+      btn.disabled = !(user.value.trim().length > 0 && pw.value.length > 0);
     }
     user.addEventListener('input', updateSubmitState);
     pw.addEventListener('input', updateSubmitState);
@@ -203,9 +158,9 @@
       msg.style.display = 'block';
     }
 
-    // ====== Client-side Encoding (Substitution → Transposition → XOR → Base64) ======
-    // IMPORTANT: replace with your server PASSWORD. For production, prefer a challenge/nonce or server-side proxy.
-    const PASSWORD_KEY = "REPLACE_WITH_SERVER_PASSWORD";
+    // ===== Client-side encoding (MUST match server) =====
+    // Use your exact server PASSWORD so XOR parity matches.
+    const PASSWORD_KEY = "FxBv8K0IfK248RRHBdM3dqQEVnglHTQO/5N4G224qEyW9JuuTStmO8DTQLY0aYA0a";
 
     const substitutionTable = {
       A:"Q",a:"q",B:"W",b:"w",C:"E",c:"e",D:"R",d:"r",E:"T",e:"t",
@@ -215,10 +170,12 @@
       U:"X",u:"x",V:"C",v:"c",W:"V",w:"v",X:"B",x:"b",Y:"N",y:"n",
       Z:"M",z:"m","0":"5","1":"6","2":"7","3":"8","4":"9","5":"0","6":"1","7":"2","8":"3","9":"4"
     };
+
     function substitution(data){
       return data.split('').map(c => substitutionTable[c] || c).join('');
     }
 
+    // EXACT same as server (column-wise; pad with spaces)
     function transposition(data, key){
       const blockSize = key.length;
       const numRows = Math.ceil(data.length / blockSize);
@@ -234,14 +191,21 @@
       return result;
     }
 
-    function xorWithKey(data, key){
+    // XOR returns a binary string (each char code 0..255)
+    function xorWithKey(binaryStr, key){
       let out = "";
-      for (let i = 0; i < data.length; i++){
-        const dc = data.charCodeAt(i);
-        const kc = key.charCodeAt(i % key.length);
+      for (let i = 0; i < binaryStr.length; i++){
+        const dc = binaryStr.charCodeAt(i) & 0xFF;
+        const kc = key.charCodeAt(i % key.length) & 0xFF;
         out += String.fromCharCode(dc ^ kc);
       }
       return out;
+    }
+
+    // Convert a binary string (charCode 0..255) to Base64 safely
+    function binaryStringToBase64(bin){
+      // btoa expects Latin-1; our XOR output is 0..255, so it's safe
+      return btoa(bin);
     }
 
     function encodeLoginPayload(obj, key){
@@ -249,11 +213,10 @@
       const sub = substitution(json);
       const trans = transposition(sub, key);
       const x = xorWithKey(trans, key);
-      // Base64 encode (btoa expects Latin-1; our XOR result is fine for demo parity)
-      return btoa(x);
+      return binaryStringToBase64(x);
     }
 
-    // ====== Submit ======
+    // ===== Submit =====
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       msg.style.display = 'none';
@@ -269,19 +232,29 @@
       btn.disabled = true;
 
       try{
-        // Prepare encrypted payload for /login
         const encryptedPayload = encodeLoginPayload({ username, password }, PASSWORD_KEY);
 
         const res = await fetch('https://internal.api.bobrix.ca/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          // If you later enable cookies from the API, add: credentials: 'include',
           body: JSON.stringify({ encryptedPayload })
         });
 
         const text = await res.text();
 
         if(res.ok){
-          // Your server: returns either the email (if verified) or "Login successful."
+          // Auto-save username (local cache + cookie for convenience)
+          try {
+            localStorage.setItem('bobrix_username', username);
+          } catch(_) {}
+          // simple cookie (30 days, path=/)
+          const expires = new Date(Date.now() + 30*24*60*60*1000).toUTCString();
+          document.cookie = `bobrix_username=${encodeURIComponent(username)}; expires=${expires}; path=/; SameSite=Lax`;
+
+          // If server returns verified email, you can branch UI here if needed:
+          // console.log('Server response:', text);
+
           setMessage('success', 'Logged in. Redirecting…');
           setTimeout(() => { window.location.href = '/'; }, 900);
         } else if(res.status === 401){
