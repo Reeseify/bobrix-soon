@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BOBRIX REBORN — Bobrix</title>
+  <meta name="description" content="BOBRIX REBORN Powering Creativity"/>
+  <meta name="theme-color" content="#0e0f12" />
+  <link rel="icon" href="/Boblox%20Icon%20new%20gradientr.png" />
+
+  <!-- Matches your site’s dark/glassy style -->
+  <style>
+    :root{
+      --bg:#0e0f12; --elev:#14161b; --muted:#a9b0be; --text:#e8ecf3;
+      --brand:#3b82f6; --brand-2:#22d3ee;
+      --radius:14px; --shadow:0 8px 24px rgba(0,0,0,.35),0 2px 8px rgba(0,0,0,.25);
+      --accent:#ef4444; /* red for game actions */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto,Ubuntu,Helvetica,Arial,sans-serif}
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Topbar (same structure) */
+    .topbar{position:sticky;top:0;z-index:1000;background:linear-gradient(180deg,#0f1116,rgba(15,17,22,.85));backdrop-filter:saturate(1.2) blur(6px);border-bottom:1px solid #1f2330}
+    .topbar .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:12px 20px;max-width:1200px;margin:0 auto}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{width:28px;height:28px;border-radius:8px}
+    .brand span{font-weight:700}
+    .top-actions{display:flex;gap:8px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #232837;background:#141820;border-radius:10px;color:var(--text)}
+    .btn:hover{background:#161b25}
+
+    /* Layout */
+    .container{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:300px 1fr;gap:22px;padding:18px 20px}
+    @media (max-width: 960px){.container{grid-template-columns:1fr}.sidebar{order:2}.content{order:1}}
+    .sidebar{position:sticky;top:64px;align-self:start}
+    .card{background:linear-gradient(180deg,#14161b,#101217);border:1px solid #1f2330;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .card.pad{padding:14px}
+
+    /* Game banner */
+    .banner{position:relative;overflow:hidden;border-radius:var(--radius);border:1px solid #1f2330}
+    .banner img{width:100%;height:auto;display:block}
+    .titlebar{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.55));padding:16px 18px}
+    .titlebar h1{margin:0;font-size:28px;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+    .subtitle{opacity:.85;font-size:14px}
+
+    /* Action row */
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .btn-lg{padding:10px 14px;border-radius:12px;border:1px solid #252a36;background:#161a24;color:#fff;font-weight:600}
+    .btn-lg:hover{background:#1a202c}
+    .btn-play{background:linear-gradient(180deg,#f87171,#ef4444);border-color:#7f1d1d}
+    .btn-play:hover{filter:brightness(0.95)}
+    .stat{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #23293a;background:#0f131b;border-radius:10px;color:#d8deea}
+
+    /* Sidebar blocks */
+    .side-title{font-size:13px;color:#c6d1e3;margin:8px 0 8px 2px;text-transform:uppercase;letter-spacing:.08em}
+    .kv{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #202636}
+    .kv:last-child{border-bottom:none}
+    .tagrow{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{font-size:12px;background:#13201a;border:1px solid #1f3b2d;color:#86efac;padding:2px 8px;border-radius:9999px}
+
+    /* Content body */
+    .content .breadcrumbs{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:14px;margin-bottom:10px}
+    .content h2{margin:14px 0 8px}
+    .content p{color:#d8deea}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 2px}
+    .chip{padding:6px 10px;border-radius:999px;border:1px solid #223049;background:#192133;color:#c9d3e6;font-size:13px}
+    .server-list .row{display:flex;align-items:center;justify-content:space-between;padding:10px;border-bottom:1px solid #222838}
+    .server-list .row:last-child{border-bottom:none}
+    .server-row-actions{display:flex;gap:8px}
+  </style>
+</head>
+<body>
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="wrap">
+      <div class="brand">
+        <img src="/Boblox%20Icon%20new%20gradientr.png" alt="">
+        <span>Bobrix</span>
+      </div>
+      <div class="top-actions">
+        <a class="btn" href="/">🏠 Home</a>
+        <a class="btn" href="/games">🎮 Games</a>
+        <a class="btn" href="/docs/index.html">📚 Docs</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="card pad">
+        <div class="side-title">Game Info</div>
+        <div class="kv"><span>Creator</span><strong>Bobrix</strong></div>
+        <div class="kv"><span>Updated</span><strong>Today</strong></div>
+        <div class="kv"><span>Players</span><strong>1–12</strong></div>
+        <div class="kv"><span>Genre</span><strong>Entertainment</strong></div>
+        <div class="kv"><span>Age Rating</span><strong>Everyone</strong></div>
+
+        <div class="side-title" style="margin-top:12px;">Tags</div>
+        <div class="tagrow">
+          <span class="tag">Community</span>
+          <span class="tag">Fun</span>
+          <span class="tag">Multiplayer</span>
+          <span class="tag">Builder</span>
+        </div>
+      </div>
+
+      <div class="card pad" style="margin-top:14px;">
+        <div class="side-title">Passes</div>
+        <div class="kv"><span>Gamers Club</span><strong>B$100</strong></div>
+        <div class="kv"><span>Turbo Gamers Club</span><strong>B$250</strong></div>
+        <div class="kv"><span>Outrageous Gamers Club</span><strong>B$500</strong></div>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <nav class="breadcrumbs">
+        <a href="/games">Games</a> • <span>BOBRIX REBORN</span>
+      </nav>
+
+      <section class="banner card">
+        <img src="/games/12945882835/BOBRIX%20REBORN%20PART%201%20NEW%20THUMBNAIL.png" alt="BOBRIX REBORN thumbnail">
+        <div class="titlebar">
+          <h1>BOBRIX REBORN</h1>
+          <div class="subtitle">Play Bobrix within Bobrix.</div>
+          <div class="actions">
+            <a class="btn-lg btn-play" href="/play/12945882835">▶ Play Now</a>
+            <button class="btn-lg stat" type="button" id="likeBtn">👍 <span id="likes">12.3k</span></button>
+            <button class="btn-lg stat" type="button" id="favBtn">⭐ <span id="favs">4.8k</span></button>
+            <span class="stat">👥 <span id="activePlayers">256 playing</span></span>
+          </div>
+        </div>
+      </section>
+
+      <div class="card pad" style="margin-top:14px;">
+        <h2>About</h2>
+        <p><strong>BOBRIX REBORN</strong> Powering Creativity</p>
+        <div class="chips">
+          <span class="chip">🎢 Smooth Physics</span>
+          <span class="chip">🧭 Explore games</span>
+          <span class="chip">👥 Party Support</span>
+          <span class="chip">📷 Photo Mode</span>
+        </div>
+      </div>
+
+      <div class="card pad" style="margin-top:14px;">
+        <h2>Servers</h2>
+        <div class="server-list" id="servers">
+          <!-- Static demo rows; replace with real data if you wire an API -->
+          <div class="row">
+            <div>🇺🇸 US-East • 8/12 players</div>
+            <div class="server-row-actions">
+              <a class="btn" href="/play/12945882835?server=use1">Join</a>
+              <a class="btn" href="/play/12945882835?server=use1&friends=1">Join Friends</a>
+            </div>
+          </div>
+          <div class="row">
+            <div>🇪🇺 EU-West • 5/12 players</div>
+            <div class="server-row-actions">
+              <a class="btn" href="/play/12945882835?server=euw1">Join</a>
+              <a class="btn" href="/play/12945882835?server=euw1&friends=1">Join Friends</a>
+            </div>
+          </div>
+          <div class="row">
+            <div>🇨🇦 Canada • 2/12 players</div>
+            <div class="server-row-actions">
+              <a class="btn" href="/play/12945882835?server=ca1">Join</a>
+              <a class="btn" href="/play/12945882835?server=ca1&friends=1">Join Friends</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer style="opacity:.75;font-size:13px;padding:18px 4px;">
+        © 2025 Bobrix • Game ID: 12945882835
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Lightweight interactivity to feel alive; replace with real API calls later.
+    const likesEl = document.getElementById('likes');
+    const favsEl  = document.getElementById('favs');
+    document.getElementById('likeBtn').addEventListener('click',()=>{
+      likesEl.textContent = (Number(likesEl.textContent.replace(/[^0-9.]/g,'')) + 1).toLocaleString() ;
+    });
+    document.getElementById('favBtn').addEventListener('click',()=>{
+      favsEl.textContent = (Number(favsEl.textContent.replace(/[^0-9.]/g,'')) + 1).toLocaleString() ;
+    });
+
+    // Simulate "active players" ticking
+    const active = document.getElementById('activePlayers');
+    setInterval(()=>{
+      const n = Math.max(0, 200 + Math.floor(Math.random()*120));
+      active.textContent = n + " playing";
+    }, 5000);
+  </script>
+</body>
+</html>
