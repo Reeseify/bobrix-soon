@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Luau Overview — Bobrix Docs</title>
+<link rel="icon" href="/Boblox%20Icon%20new%20gradientr.png"/>
+<style>
+/* same CSS */
+:root{--bg:#0e0f12;--elev:#14161b;--muted:#a9b0be;--text:#e8ecf3;--brand:#3b82f6;--radius:14px;--shadow:0 8px 24px rgba(0,0,0,.35),0 2px 8px rgba(0,0,0,.25)}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto,Ubuntu,Helvetica,Arial,sans-serif}
+a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
+.topbar{position:sticky;top:0;z-index:1000;background:linear-gradient(180deg,#0f1116,rgba(15,17,22,.85));backdrop-filter:saturate(1.2) blur(6px);border-bottom:1px solid #1f2330}
+.topbar .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:12px 20px;max-width:1200px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px}.brand img{width:28px;height:28px;border-radius:8px}.brand span{font-weight:700}
+.top-actions{display:flex;gap:8px}.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #232837;background:#141820;border-radius:10px;color:var(--text)}.btn:hover{background:#161b25}
+.container{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:280px 1fr;gap:22px;padding:18px 20px}
+@media (max-width:960px){.container{grid-template-columns:1fr}.sidebar{order:2}.content{order:1}}
+.sidebar{position:sticky;top:64px;align-self:start}
+.card{background:linear-gradient(180deg,#14161b,#101217);border:1px solid #1f2330;border-radius:var(--radius);box-shadow:var(--shadow)}
+.card.pad{padding:14px}
+.search{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #2a3142;background:#0f1218;border-radius:12px;position:relative}
+.search input{flex:1;border:none;outline:none;background:transparent;color:var(--text);font-size:15px}
+.search .kbd{font:12px/1.2 ui-monospace,SFMono,Menlo,Consolas,monospace;opacity:.75;border:1px solid #2c3343;border-radius:8px;padding:2px 6px}
+.nav h4{margin:12px 0 6px 4px;color:#c6d1e3;font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+.nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;color:#c9d3e6}
+.nav a:hover{background:#171b23;color:#fff}.nav a.active{background:#192133;border:1px solid #223049;color:#fff}
+.nav .muted{color:var(--muted);font-size:13px;margin:8px 10px}
+.content .breadcrumbs{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:14px;margin-bottom:6px}
+.content h1{font-size:28px;margin:6px 0 12px}.content p{color:#d8deea}
+.code{background:#0a0d13;border:1px solid #23293a;border-radius:12px;padding:12px;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;white-space:pre;overflow:auto}
+.callout{border:1px solid #273147;background:#0d1220;border-left:4px solid var(--brand);padding:12px;border-radius:12px;margin:14px 0}
+.footer{opacity:.8;font-size:13px;padding:28px 20px;text-align:center}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="wrap"><div class="brand"><img src="/Boblox%20Icon%20new%20gradientr.png" alt=""><span>Bobrix Docs</span></div><div class="top-actions"><a class="btn" href="/index.html">🏠 Home</a><a class="btn" href="/docs/index.html">📚 Docs</a></div></div></header>
+
+<div class="container">
+  <aside class="sidebar">
+    <div class="card pad nav">
+      <div class="search" id="search1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.2-4.2" stroke="#9fb4e2" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="#9fb4e2" stroke-width="2"/></svg><input placeholder="Search docs (/)" aria-label="Search"/><span class="kbd">/</span><div class="results"></div></div>
+      <h4>Guides</h4>
+      <a href="guide-getting-started.html">Getting Started</a>
+      <a href="guide-scripting-basics.html">Scripting Basics (Luau)</a>
+      <a href="guide-scripts-and-locations.html">Script Types & Locations</a>
+      <a href="guide-luau.html">Luau Overview</a>
+      <h4>Cloud Services</h4>
+      <a href="guide-data-stores.html">Data Stores</a>
+      <a href="guide-data-stores-best-practices.html">Data Store Best Practices</a>
+      <a href="guide-open-cloud-ds.html">Open Cloud — Data Stores</a>
+      <h4>Reference</h4>
+      <a href="reference-engine.html">Engine Reference — Overview</a>
+      <a href="reference-script.html">Class — Script</a>
+      <a href="reference-localscript.html">Class — LocalScript</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <nav class="breadcrumbs"><a href="index.html">Docs</a> • Language • Luau</nav>
+    <h1>Luau Overview</h1>
+    <p><strong>Luau</strong> is Roblox’s language, based on Lua 5.1 and extended with performance features and gradual typing. You can add type annotations to catch mistakes early and improve readability.</p>
+    <div class="code">export type PlayerProfile = { coins:number, name:string }
+local function loadProfile(id:number): PlayerProfile
+  return {coins=0,name="Guest"}
+end</div>
+    <div class="callout"><strong>Good to know:</strong> Most Lua 5.1 resources still apply to Luau; features like type inference and analysis are Luau-specific.</div>
+  </main>
+</div>
+
+<footer class="footer">© 2025 Bobrix</footer>
+
+<script>
+/* same JS */
+const DOC_INDEX=[{title:'Docs Home',path:'index.html',section:'Overview',text:'Start here to explore Bobrix docs.'},{title:'Getting Started',path:'guide-getting-started.html',section:'Guides',text:'Install Studio, create place, run a simple script.'},{title:'Scripting Basics (Luau)',path:'guide-scripting-basics.html',section:'Guides',text:'Variables, types, functions, events, RBXScriptSignal.'},{title:'Script Types & Locations',path:'guide-scripts-and-locations.html',section:'Guides',text:'Server Script, LocalScript, ModuleScript and where they run.'},{title:'Luau Overview',path:'guide-luau.html',section:'Language',text:'What is Luau and how it differs from Lua 5.1.'},{title:'Data Stores',path:'guide-data-stores.html',section:'Cloud Services',text:'Persist player data with DataStoreService.'},{title:'Data Store Best Practices',path:'guide-data-stores-best-practices.html',section:'Cloud Services',text:'Throttling, budgets, retries and versioning guidance.'},{title:'Open Cloud — Data Stores',path:'guide-open-cloud-ds.html',section:'Open Cloud',text:'Access DataStores via REST endpoints.'},{title:'Engine Reference — Overview',path:'reference-engine.html',section:'Reference',text:'Browse core classes, datatypes and enums.'},{title:'Class — Script',path:'reference-script.html',section:'Reference',text:'Server-side LuaSourceContainer with events and methods.'},{title:'Class — LocalScript',path:'reference-localscript.html',section:'Reference',text:'Client-only LuaSourceContainer; UI/input access.'}];
+function attachSearch(el){const i=el.querySelector('input'),r=el.querySelector('.results');const o=()=>r.style.display='block',c=()=>r.style.display='none';i.addEventListener('focus',o);i.addEventListener('blur',()=>setTimeout(c,120));i.addEventListener('input',()=>{const q=i.value.trim().toLowerCase();r.innerHTML='';if(!q){c();return}const f=DOC_INDEX.filter(x=>(x.title+x.text+x.section).toLowerCase().includes(q)).slice(0,8);f.forEach(x=>{const a=document.createElement('a');a.href=x.path;a.className='result';a.innerHTML=`<strong>${x.title}</strong><small>${x.section}</small>`;r.appendChild(a)});r.style.display=f.length?'block':'none'})}
+function initLocalNavActive(){const path=location.pathname.split('/').pop()||'index.html';document.querySelectorAll('.nav a').forEach(a=>{const href=a.getAttribute('href');if(href&&href.endsWith(path))a.classList.add('active')})}
+attachSearch(document.querySelector('#search1'));initLocalNavActive();
+window.addEventListener('keydown',e=>{if(e.key==='/'&&!/input|textarea/i.test(document.activeElement.tagName)){e.preventDefault();document.querySelector('.search input').focus()}})
+</script>
+</body>
+</html>
