@@ -259,7 +259,7 @@
           } else {
             try { localStorage.removeItem('bobrix_username'); } catch {}
           }
-          setTimeout(() => { window.location.href = '/'; }, 800);
+          setTimeout(() => { window.location.href = '/home'; }, 800);
         } else if(res.status === 400){
           setMessage('error', text || 'Bad request.');
         } else if(res.status === 401){
