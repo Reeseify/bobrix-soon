@@ -1,0 +1,55 @@
+<!-- ===============================
+File: docs/index.html
+=============================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Bobrix Docs — Overview</title>
+<link rel="icon" href="/Boblox%20Icon%20new%20gradientr.png"/>
+</head>
+<body>
+<header class="topbar"><div class="wrap"><div class="brand"><img src="/Boblox%20Icon%20new%20gradientr.png" alt=""><span>Bobrix Docs</span></div><div class="top-actions"><a class="btn" href="/index.html">🏠 Home</a><a class="btn" href="/docs/index.html">📚 Docs</a></div></div></header>
+<div class="container">
+<!-- include nav -->
+<aside class="sidebar"><div class="card pad nav">
+<div class="search" id="search2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.2-4.2" stroke="#9fb4e2" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="#9fb4e2" stroke-width="2"/></svg><input placeholder="Search docs (/)" aria-label="Search"/><span class="kbd">/</span><div class="results"></div></div>
+<script>attachSearch(document.currentScript.previousElementSibling)</script>
+<h4>Guides</h4>
+<a href="guide-getting-started.html">Getting Started</a>
+<a href="guide-scripting-basics.html">Scripting Basics (Luau)</a>
+<a href="guide-scripts-and-locations.html">Script Types & Locations</a>
+<a href="guide-luau.html">Luau Overview</a>
+<h4>Cloud Services</h4>
+<a href="guide-data-stores.html">Data Stores</a>
+<a href="guide-data-stores-best-practices.html">Data Store Best Practices</a>
+<a href="guide-open-cloud-ds.html">Open Cloud — Data Stores</a>
+<h4>Reference</h4>
+<a href="reference-engine.html">Engine Reference — Overview</a>
+<a href="reference-script.html">Class — Script</a>
+<a href="reference-localscript.html">Class — LocalScript</a>
+</div></aside>
+
+
+<main class="content">
+<nav class="breadcrumbs"><span>Docs</span>•<span>Overview</span></nav>
+<h1>Welcome to Bobrix Docs</h1>
+<p>Explore creator guides, cloud services, and engine reference. Use the sidebar or the search box to jump straight to a topic.</p>
+<div class="card pad">
+<h3>Quick Links</h3>
+<ul>
+<li><a href="guide-getting-started.html">Getting started with scripts</a></li>
+<li><a href="guide-data-stores.html">Saving player data with DataStoreService</a></li>
+<li><a href="reference-engine.html">Browse Engine reference</a></li>
+</ul>
+</div>
+<section class="callout"><strong>Tip:</strong> Press <span class="kbd">/</span> to focus search, then type a keyword like <em>LocalScript</em> or <em>DataStore</em>.</section>
+</main>
+</div>
+<footer class="footer">© 2025 Bobrix. Docs are paraphrased summaries; always consult the official Roblox documentation for authoritative guidance.</footer>
+<script>initLocalNavActive();
+// keyboard shortcut for search
+window.addEventListener('keydown',e=>{if(e.key==='/' && !/input|textarea/i.test(document.activeElement.tagName)){e.preventDefault();document.querySelector('.search input').focus();}})
+</script>
+</body>
+</html>
