@@ -12,66 +12,115 @@
 
   <style>
     :root{
-      --bg:#0e0f12; --panel:#14161b; --muted:#7a8190; --text:#e9eefc;
-      --danger:#ff5d5d; --success:#3ddc97; --primary:#6aa6ff; --ring: rgba(106,166,255,.45);
-      --radius:16px; --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --grad: radial-gradient(1200px 600px at 80% -10%, rgba(106,166,255,.15), transparent 50%),
-              radial-gradient(900px 500px at -20% 110%, rgba(61,220,151,.12), transparent 50%);
+      --bg:#0e0f12;
+      --panel:#14161b;
+      --panel-90:rgba(20,22,27,.9);
+      --muted:#a7afc6;
+      --text:#e9eefc;
+      --danger:#ff5d5d;
+      --success:#3ddc97;
+      --primary:#6aa6ff;
+      --ring: rgba(106,166,255,.45);
+      --radius:18px;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,"Helvetica Neue", Arial;
-         color:var(--text); background:var(--bg); background-image:var(--grad);}
-    .topbar{position:sticky; top:0; z-index:50; backdrop-filter: blur(8px);
-            background: linear-gradient(180deg, rgba(20,22,27,.9), rgba(20,22,27,.6) 80%, rgba(20,22,27,0));
-            border-bottom:1px solid rgba(255,255,255,.06);}
-    .nav{max-width:1100px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; gap:18px}
-    .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text)}
-    .brand img{width:28px; height:28px; border-radius:8px; box-shadow:0 4px 14px rgba(106,166,255,.35)}
-    .brand span{font-weight:700; letter-spacing:.3px}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background: var(--bg) center/cover fixed no-repeat;
+      background-image:
+        radial-gradient(1200px 600px at 80% -10%, rgba(106,166,255,.18), transparent 55%),
+        radial-gradient(1000px 600px at -10% 120%, rgba(61,220,151,.14), transparent 55%),
+        url("background.png");
+    }
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(14,15,18,.85), rgba(14,15,18,.55) 80%, rgba(14,15,18,0));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      max-width:1100px; margin:0 auto; padding:14px 18px;
+      display:flex; align-items:center; gap:18px;
+    }
+    .brand{display:flex; align-items:center;}
+    .brand img{height:34px; width:auto;}
     .navlinks{margin-left:auto; display:flex; gap:14px}
-    .navlinks a{color:var(--muted); text-decoration:none; font-weight:500}
-    .navlinks a:hover{color:var(--text)}
-    .wrap{max-width:1100px; margin:32px auto; padding:0 18px; display:grid; grid-template-columns: 1.1fr .9fr; gap:28px}
-    @media (max-width: 900px){ .wrap{grid-template-columns:1fr} }
-    .card{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0)), var(--panel);
-          border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); box-shadow:var(--shadow)}
-    .content{padding:22px}
-    .card h1{margin:0 0 6px 0; font-size:28px}
-    .lead{margin:0; color:var(--muted)}
-    form{margin-top:14px; display:grid; gap:14px}
-    .field{display:grid; gap:8px}
-    .label{font-weight:600; font-size:14px; color:#cfd7f2}
-    .control{display:flex; align-items:center; gap:8px; background:#0f1116; border:1px solid rgba(255,255,255,.08);
-             border-radius:12px; padding:10px 12px; outline:none; transition:border-color .2s, box-shadow .2s}
-    .control:focus-within{border-color:var(--primary); box-shadow:0 0 0 6px var(--ring)}
-    .control input{flex:1; background:transparent; border:0; outline:0; color:var(--text); font-size:16px}
-    .toggle{background:transparent; border:0; color:var(--muted); cursor:pointer; font-size:13px; padding:6px 8px; border-radius:8px}
-    .toggle:hover{color:var(--text); background:rgba(255,255,255,.06)}
-    .row{display:flex; align-items:center; gap:10px; justify-content:space-between}
-    .remember{display:flex; align-items:center; gap:8px; color:var(--muted); font-size:13px}
-    .btn{appearance:none; border:0; cursor:pointer; background: linear-gradient(180deg, #6aa6ff, #4a7fe0);
-         color:white; font-weight:700; letter-spacing:.2px; font-size:15px; padding:11px 16px; border-radius:12px;
-         box-shadow:0 8px 18px rgba(74,127,224,.35); transition:transform .05s}
-    .btn:active{transform:translateY(1px)}
-    .btn[disabled]{opacity:.6; cursor:progress}
-    .hint{font-size:12px; color:var(--muted)}
-    .msg{margin-top:10px; padding:10px 12px; border-radius:12px; font-size:14px; display:none; border:1px solid rgba(255,255,255,.08)}
-    .msg.error{background:rgba(255,93,93,.15); color:#ffdcdc; display:block}
-    .msg.success{background:rgba(61,220,151,.15); color:#d8ffef; display:block}
-    .aside .content{padding:22px}
-    .list{display:grid; gap:10px; margin-top:10px}
-    .list .row{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:14px}
-    .dot{width:8px; height:8px; border-radius:999px; background:linear-gradient(180deg, #6aa6ff, #4a7fe0); box-shadow:0 0 10px rgba(106,166,255,.6)}
-    .foot{margin-top:18px; color:var(--muted); font-size:13px}
-    .foot a{color:#cfe0ff; text-decoration:none}
-    .foot a:hover{text-decoration:underline}
+    .navlinks a{color:#c9d6ff; text-decoration:none; font-weight:600; opacity:.8}
+    .navlinks a:hover{opacity:1}
+
+    /* Layout */
+    .viewport{
+      min-height:calc(100vh - 60px);
+      display:grid;
+      place-items:center;
+      padding:32px 18px 48px;
+    }
+
+    /* Card */
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.0)), var(--panel-90);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(12px);
+      padding:28px;
+      width:100%;
+      max-width:420px;
+    }
+    .card header h2{ margin:0 0 6px 0; font-size:26px; font-weight:800; }
+    .card header p{ margin:0; color:#cfd7f2 }
+
+    form{ margin-top:14px; display:grid; gap:14px }
+    .field{ display:grid; gap:8px }
+    .label{ font-weight:700; font-size:14px; color:#dae3ff }
+    .control{
+      display:flex; align-items:center; gap:8px;
+      background:#0f1116; border:1px solid rgba(255,255,255,.10);
+      border-radius:14px; padding:12px 14px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .control:focus-within{ border-color:var(--primary); box-shadow:0 0 0 6px var(--ring) }
+    .control input{ flex:1; background:transparent; border:0; outline:0; color:var(--text); font-size:16px; }
+
+    .toggle{ background:transparent; border:0; color:#c7cee2; cursor:pointer; font-size:13px; padding:6px 8px; border-radius:8px; }
+    .toggle:hover{ color:white; background:rgba(255,255,255,.08) }
+
+    .btn{
+      appearance:none; border:0; cursor:pointer;
+      background: linear-gradient(180deg, #6aa6ff, #4a7fe0);
+      color:white; font-weight:800; font-size:15px;
+      padding:12px 16px; border-radius:14px; box-shadow:0 10px 24px rgba(74,127,224,.38);
+    }
+    .btn:hover{ filter: brightness(1.05) }
+    .btn:active{ transform: translateY(1px) }
+    .btn[disabled]{ opacity:.6; cursor:not-allowed }
+
+    .row-between{ display:flex; justify-content:space-between; align-items:center; }
+    .small{ font-size:13px; color:#cfd7f2; }
+    .small a{ color:#d7e3ff; text-decoration:none }
+    .small a:hover{ text-decoration:underline }
+
+    .alt{ text-align:center; font-size:14px; color:#cfd7f2; margin-top:8px; }
+    .alt a{ color:#d7e3ff; font-weight:700; text-decoration:none }
+    .alt a:hover{ text-decoration:underline }
+
+    .msg{ margin-top:10px; padding:10px 12px; border-radius:12px; font-size:14px; display:none; }
+    .msg.error{ background:rgba(255,93,93,.18); color:#ffdcdc; display:block }
+    .msg.success{ background:rgba(61,220,151,.18); color:#d8ffef; display:block }
   </style>
 </head>
 <body>
   <header class="topbar">
     <nav class="nav">
-      <a class="brand" href="/"><img src="Boblox%20Icon%20new%20gradientr.png" alt=""><span>Bobrix</span></a>
+      <a class="brand" href="/">
+        <img src="BOBRIX%202%20Logo.png" alt="Bobrix Logo" />
+      </a>
       <div class="navlinks">
         <a href="/">Home</a>
         <a href="/docs/">Docs</a>
@@ -80,131 +129,71 @@
     </nav>
   </header>
 
-  <main class="wrap">
-    <section class="card">
-      <div class="content">
-        <h1>Welcome back</h1>
-        <p class="lead">Enter your credentials to continue.</p>
+  <main class="viewport">
+    <section class="card" role="region" aria-labelledby="login-title">
+      <header>
+        <h2 id="login-title">Log in to Bobrix</h2>
+        <p>Welcome back.</p>
+      </header>
 
-        <form id="loginForm" novalidate>
-          <div class="field">
-            <label class="label" for="username">Username</label>
-            <div class="control"><input id="username" name="username" type="text" autocomplete="username" required placeholder="Your username"></div>
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label class="label" for="username">Username</label>
+          <div class="control">
+            <input id="username" name="username" type="text" autocomplete="username" minlength="3" maxlength="32" placeholder="Your username" required />
           </div>
-
-          <div class="field">
-            <label class="label" for="password">Password</label>
-            <div class="control">
-              <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="••••••••">
-              <button type="button" class="toggle" id="togglePw" aria-label="Show password">Show</button>
-            </div>
-            <div class="row">
-              <label class="remember"><input id="remember" type="checkbox"> Remember me</label>
-              <a class="hint" href="/forgot.html">Forgot password?</a>
-            </div>
-          </div>
-
-          <div class="row">
-            <button class="btn" id="submitBtn" type="submit">Log In</button>
-            <span class="hint">No account? <a href="/signup.html">Create one</a></span>
-          </div>
-
-          <div id="formMsg" class="msg" role="alert" aria-live="polite"></div>
-        </form>
-        <noscript><div class="msg error" style="display:block; margin-top:12px">JavaScript is required to log in.</div></noscript>
-      </div>
-    </section>
-
-    <aside class="card aside">
-      <div class="content">
-        <h2 style="margin:0 0 8px 0; font-size:22px;">About Bobrix</h2>
-        <p class="lead">A safer UGC sandbox designed for creators and players.</p>
-        <div class="list">
-          <div class="row"><span class="dot"></span> <span>Luab scripting with familiar Roblox-style workflows</span></div>
-          <div class="row"><span class="dot"></span> <span>RBXL → BBXL converter for easy migration</span></div>
-          <div class="row"><span class="dot"></span> <span>Protection-by-design to keep your games secure</span></div>
         </div>
-        <div class="foot">Learn more in the <a href="/docs/">documentation</a> or join the community.</div>
-      </div>
-    </aside>
+
+        <div class="field">
+          <label class="label" for="password">Password</label>
+          <div class="control">
+            <input id="password" name="password" type="password" autocomplete="current-password" minlength="8" placeholder="••••••••" required />
+            <button type="button" class="toggle" id="togglePw">Show</button>
+          </div>
+          <div class="row-between">
+            <span class="small">Keep your account secure.</span>
+            <span class="small"><a href="/forgot.html">Forgot password?</a></span>
+          </div>
+        </div>
+
+        <button class="btn" id="submitBtn" type="submit" disabled>Log In</button>
+        <div class="alt">New here? <a href="/signup.html">Create an account</a></div>
+
+        <div id="formMsg" class="msg" role="alert" aria-live="polite"></div>
+      </form>
+
+      <noscript>
+        <div class="msg error" style="display:block; margin-top:12px">
+          JavaScript is required to log in.
+        </div>
+      </noscript>
+    </section>
   </main>
 
   <script>
-    // ======= IMPORTANT =======
-    // Must match your Node PASSWORD constant exactly
-    const SHARED_SECRET = "FxBv8K0IfK248RRHBdM3dqQEVnglHTQO/5N4G224qEyW9JuuTStmO8DTQLY0aYA0a";
-
-    const API_URL = "https://internal.api.bobrix.ca/login";
-
-    // ======= Encoding primitives (mirror of server) =======
-    const substitutionTable = {
-      A:"Q",a:"q",B:"W",b:"w",C:"E",c:"e",D:"R",d:"r",E:"T",e:"t",
-      F:"Y",f:"y",G:"U",g:"u",H:"I",h:"i",I:"O",i:"o",J:"P",j:"p",
-      K:"A",k:"a",L:"S",l:"s",M:"D",m:"d",N:"F",n:"f",O:"G",o:"g",
-      P:"H",p:"h",Q:"J",q:"j",R:"K",r:"k",S:"L",s:"l",T:"Z",t:"z",
-      U:"X",u:"x",V:"C",v:"c",W:"V",w:"v",X:"B",x:"b",Y:"N",y:"n",
-      Z:"M",z:"m","0":"5","1":"6","2":"7","3":"8","4":"9","5":"0","6":"1","7":"2","8":"3","9":"4"
-    };
-    // reverse table not needed on client (we only encrypt)
-
-    function substitution(data){
-      return data.split('').map(c => substitutionTable[c] || c).join('');
-    }
-
-    // Columnar transposition by blockSize=key.length; pad with spaces to full blocks.
-    function transposition(data, key){
-      const blockSize = key.length;
-      const numRows = Math.ceil(data.length / blockSize);
-      const paddingSize = blockSize - (data.length % blockSize || blockSize);
-      const paddedData = data + " ".repeat(paddingSize);
-
-      let result = "";
-      for (let i = 0; i < blockSize; i++) {
-        for (let j = 0; j < numRows; j++) {
-          const idx = j * blockSize + i;
-          if (idx < paddedData.length) result += paddedData[idx];
-        }
-      }
-      return result;
-    }
-
-    function xorWithKey(data, key){
-      let out = "";
-      for (let i = 0; i < data.length; i++){
-        const dataChar = data.charCodeAt(i);
-        const keyChar  = key.charCodeAt(i % key.length);
-        out += String.fromCharCode(dataChar ^ keyChar);
-      }
-      return out;
-    }
-
-    // Full encrypt (client): substitute → transpose → xor → base64
-    function encryptTransactionClient(plainString, key){
-      // The server's encrypt/decrypt authenticates key via equality; we just assume we have the right key here.
-      const substituted = substitution(plainString);
-      const transposed  = transposition(substituted, key);
-      const xored       = xorWithKey(transposed, key);
-
-      // IMPORTANT: btoa expects a "binary string" (Latin-1). Our XOR returns such a string already.
-      // If you ever include non-ASCII in 'plainString', make sure it's JSON with ASCII-only keys/values
-      // or pre-UTF8-encode → string-of-bytes before XOR (to match server). Your server operates on charCodes directly,
-      // so keep it ASCII here.
-      return btoa(xored);
-    }
-
-    // ======= UI wiring =======
+    // ====== UI Elements ======
     const form = document.getElementById('loginForm');
-    const msg  = document.getElementById('formMsg');
-    const btn  = document.getElementById('submitBtn');
-    const pw   = document.getElementById('password');
+    const msg = document.getElementById('formMsg');
+    const btn = document.getElementById('submitBtn');
+    const pw = document.getElementById('password');
     const user = document.getElementById('username');
     const togglePw = document.getElementById('togglePw');
-    const remember = document.getElementById('remember');
 
+    // Disable button until both fields filled
+    function updateSubmitState(){
+      const uFilled = user.value.trim().length > 0;
+      const pFilled = pw.value.length > 0;
+      btn.disabled = !(uFilled && pFilled);
+    }
+    user.addEventListener('input', updateSubmitState);
+    pw.addEventListener('input', updateSubmitState);
+    btn.disabled = true;
+
+    // Show/Hide password
     togglePw.addEventListener('click', () => {
-      const show = pw.type === 'password';
-      pw.type = show ? 'text' : 'password';
-      togglePw.textContent = show ? 'Hide' : 'Show';
+      const showing = pw.type === 'text';
+      pw.type = showing ? 'password' : 'text';
+      togglePw.textContent = showing ? 'Show' : 'Hide';
       pw.focus({preventScroll:true});
     });
 
@@ -214,13 +203,57 @@
       msg.style.display = 'block';
     }
 
-    (function restoreRemembered(){
-      try {
-        const remembered = localStorage.getItem('bobrix_username');
-        if (remembered) user.value = remembered;
-      } catch {}
-    })();
+    // ====== Client-side Encoding (Substitution → Transposition → XOR → Base64) ======
+    // IMPORTANT: replace with your server PASSWORD. For production, prefer a challenge/nonce or server-side proxy.
+    const PASSWORD_KEY = "REPLACE_WITH_SERVER_PASSWORD";
 
+    const substitutionTable = {
+      A:"Q",a:"q",B:"W",b:"w",C:"E",c:"e",D:"R",d:"r",E:"T",e:"t",
+      F:"Y",f:"y",G:"U",g:"u",H:"I",h:"i",I:"O",i:"o",J:"P",j:"p",
+      K:"A",k:"a",L:"S",l:"s",M:"D",m:"d",N:"F",n:"f",O:"G",o:"g",
+      P:"H",p:"h",Q:"J",q:"j",R:"K",r:"k",S:"L",s:"l",T:"Z",t:"z",
+      U:"X",u:"x",V:"C",v:"c",W:"V",w:"v",X:"B",x:"b",Y:"N",y:"n",
+      Z:"M",z:"m","0":"5","1":"6","2":"7","3":"8","4":"9","5":"0","6":"1","7":"2","8":"3","9":"4"
+    };
+    function substitution(data){
+      return data.split('').map(c => substitutionTable[c] || c).join('');
+    }
+
+    function transposition(data, key){
+      const blockSize = key.length;
+      const numRows = Math.ceil(data.length / blockSize);
+      const paddingSize = blockSize - (data.length % blockSize || blockSize);
+      const padded = data + " ".repeat(paddingSize);
+      let result = "";
+      for (let i = 0; i < blockSize; i++) {
+        for (let j = 0; j < numRows; j++) {
+          const idx = j * blockSize + i;
+          if (idx < padded.length) result += padded[idx];
+        }
+      }
+      return result;
+    }
+
+    function xorWithKey(data, key){
+      let out = "";
+      for (let i = 0; i < data.length; i++){
+        const dc = data.charCodeAt(i);
+        const kc = key.charCodeAt(i % key.length);
+        out += String.fromCharCode(dc ^ kc);
+      }
+      return out;
+    }
+
+    function encodeLoginPayload(obj, key){
+      const json = JSON.stringify(obj);
+      const sub = substitution(json);
+      const trans = transposition(sub, key);
+      const x = xorWithKey(trans, key);
+      // Base64 encode (btoa expects Latin-1; our XOR result is fine for demo parity)
+      return btoa(x);
+    }
+
+    // ====== Submit ======
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       msg.style.display = 'none';
@@ -229,49 +262,39 @@
       const password = pw.value;
 
       if(!username || !password){
-        setMessage('error', 'Please enter both username and password.');
-        return;
-      }
-      if(!SHARED_SECRET || SHARED_SECRET === "<REPLACE_WITH_SERVER_PASSWORD>"){
-        setMessage('error', 'Client secret not set. Update SHARED_SECRET in the page.');
+        setMessage('error', 'Please fill in both fields.');
         return;
       }
 
       btn.disabled = true;
 
       try{
-        const payload = JSON.stringify({ username, password });
-        const encryptedPayload = encryptTransactionClient(payload, SHARED_SECRET);
+        // Prepare encrypted payload for /login
+        const encryptedPayload = encodeLoginPayload({ username, password }, PASSWORD_KEY);
 
-        const res = await fetch(API_URL, {
+        const res = await fetch('https://internal.api.bobrix.ca/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ encryptedPayload }),
-          // credentials: 'include', // if you later use cookies/sessions
+          body: JSON.stringify({ encryptedPayload })
         });
 
         const text = await res.text();
 
-        if(res.status === 200){
-          setMessage('success', text || 'Login successful.');
-          if (remember && remember.checked) {
-            try { localStorage.setItem('bobrix_username', username); } catch {}
-          } else {
-            try { localStorage.removeItem('bobrix_username'); } catch {}
-          }
-          setTimeout(() => { window.location.href = '/home'; }, 800);
-        } else if(res.status === 400){
-          setMessage('error', text || 'Bad request.');
+        if(res.ok){
+          // Your server: returns either the email (if verified) or "Login successful."
+          setMessage('success', 'Logged in. Redirecting…');
+          setTimeout(() => { window.location.href = '/'; }, 900);
         } else if(res.status === 401){
           setMessage('error', 'Invalid username or password.');
+        } else if(res.status === 400){
+          setMessage('error', text || 'Bad request. Please try again.');
         } else {
           setMessage('error', text || 'Something went wrong. Please try again.');
         }
       } catch(err){
-        console.error(err);
-        setMessage('error', 'Encoding or network error. Check console for details.');
+        setMessage('error', 'Network error. Please try again later.');
       } finally{
-        btn.disabled = false;
+        updateSubmitState();
       }
     });
   </script>
