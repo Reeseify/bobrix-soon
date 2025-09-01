@@ -56,9 +56,11 @@
     /* SHELL */
     .wrap{max-width:1140px;margin:0 auto;padding:0 18px}
 
-    /* HERO */
-    .hero{display:block;margin:32px 0}
-    .hero-logo{max-width:min(700px,85%);width:100%;margin:0 0 16px}
+    /* HERO WITH BACKGROUND + FADE */
+    .hero{position:relative;margin:0;padding:72px 0 96px}
+    .hero::before{content:"";position:absolute;left:50%;transform:translateX(-50%);top:0;width:100vw;height:100%;background-image:linear-gradient(180deg, rgba(14,15,18,.55), rgba(14,15,18,.55)), url('background.png');background-size:cover;background-position:center;z-index:-2}
+    .hero::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-1px;width:100vw;height:180px;background:linear-gradient(to bottom, rgba(14,15,18,0) 0%, rgba(14,15,18,.65) 60%, var(--bg) 100%);z-index:-1}
+    .hero-logo{max-width:min(700px,85%);width:100%;margin:0 0 16px;filter:drop-shadow(0 14px 40px rgba(0,0,0,.5))}
     h1{margin:.25rem 0 10px;font-size:clamp(2.2rem,4.8vw,3.4rem);line-height:1.08}
     .lede{font-size:1.08rem;color:#cfd5e6;margin:10px 0 18px;max-width:70ch}
     .cta-row{display:flex;gap:12px;flex-wrap:wrap}
@@ -206,8 +208,8 @@
           <p><strong>Support the build.</strong> We’re a small team and we also need funding to make this possible. If you can sponsor or invest, we’d love to talk.</p>
           <div class="help-actions">
             <a class="btn primary" href="https://gofund.me/bcd1e8ec" target="_blank" rel="noopener">Donate on GoFundMe</a>
-            <a class="btn" href="mailto:contact@reeseify.com?subject=I%20want%20to%20support%20Bobrix">Contact about funding</a>
-            <a class="btn" href="mailto:contact@reeseify.com?subject=I%20want%20to%20spread%20the%20word">Partner to spread the word</a>
+            <a class="btn" href="mailto:contact@bobrix.ca?subject=I%20want%20to%20support%20Bobrix">Contact about funding</a>
+            <a class="btn" href="mailto:contact@bobrix.ca?subject=I%20want%20to%20spread%20the%20word">Partner to spread the word</a>
           </div>
         </div>
       </div>
@@ -225,7 +227,7 @@
 
   <footer class="wrap">
     <div>© <span id="year">2025</span> Bobrix. “Roblox” is a trademark of Roblox Corporation. Bobrix is not affiliated with or endorsed by Roblox Corporation.</div>
-    <div>Contact: <a href="mailto:contact@reeseify.com">contact@reeseify.com</a> · <a href="https://gofund.me/bcd1e8ec" target="_blank" rel="noopener">GoFundMe</a></div>
+    <div>Contact: <a href="mailto:contact@bobrix.ca">contact@bobrix.ca</a> · <a href="https://gofund.me/bcd1e8ec" target="_blank" rel="noopener">GoFundMe</a></div>
   </footer>
 
   <script>
