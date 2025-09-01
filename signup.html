@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#0e0f12" />
   <meta name="description" content="Create your Bobrix account." />
 
-  <!-- Favicon / Icons (update paths if needed) -->
+  <!-- Favicon -->
   <link rel="icon" href="Boblox%20Icon%20new%20gradientr.png" type="image/png" />
   <link rel="apple-touch-icon" href="Boblox%20Icon%20new%20gradientr.png" />
 
@@ -15,117 +15,106 @@
     :root{
       --bg:#0e0f12;
       --panel:#14161b;
-      --muted:#7a8190;
+      --panel-90:rgba(20,22,27,.9);
+      --muted:#a7afc6;
       --text:#e9eefc;
       --danger:#ff5d5d;
       --success:#3ddc97;
       --primary:#6aa6ff;
       --ring: rgba(106,166,255,.45);
-      --radius:16px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --grad: radial-gradient(1200px 600px at 80% -10%, rgba(106,166,255,.15), transparent 50%),
-              radial-gradient(900px 500px at -20% 110%, rgba(61,220,151,.12), transparent 50%);
+      --radius:18px;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text); background:var(--bg); background-image:var(--grad);
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background: var(--bg) center/cover fixed no-repeat;
+      background-image:
+        radial-gradient(1200px 600px at 80% -10%, rgba(106,166,255,.18), transparent 55%),
+        radial-gradient(1000px 600px at -10% 120%, rgba(61,220,151,.14), transparent 55%),
+        url("background.png");
     }
 
     /* Topbar */
     .topbar{
       position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(8px);
-      background: linear-gradient(180deg, rgba(20,22,27,.9), rgba(20,22,27,.6) 80%, rgba(20,22,27,0));
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(14,15,18,.85), rgba(14,15,18,.55) 80%, rgba(14,15,18,0));
       border-bottom:1px solid rgba(255,255,255,.06);
     }
     .nav{
       max-width:1100px; margin:0 auto; padding:14px 18px;
       display:flex; align-items:center; gap:18px;
     }
-    .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text);}
-    .brand img{width:28px; height:28px; border-radius:8px; box-shadow:0 4px 14px rgba(106,166,255,.35)}
-    .brand span{font-weight:700; letter-spacing:.3px}
+    .brand{display:flex; align-items:center;}
+    .brand img{height:34px; width:auto;} /* logo */
     .navlinks{margin-left:auto; display:flex; gap:14px}
-    .navlinks a{color:var(--muted); text-decoration:none; font-weight:500}
-    .navlinks a:hover{color:var(--text)}
+    .navlinks a{color:#c9d6ff; text-decoration:none; font-weight:600; opacity:.8}
+    .navlinks a:hover{opacity:1}
 
     /* Layout */
-    .wrap{max-width:1100px; margin:32px auto; padding:0 18px; display:grid; grid-template-columns: 1.1fr .9fr; gap:28px}
-    @media (max-width: 900px){ .wrap{grid-template-columns:1fr} }
-
-    /* Card / panel */
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0)) , var(--panel);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:var(--radius); box-shadow:var(--shadow);
+    .viewport{
+      min-height:calc(100vh - 60px);
+      display:grid;
+      place-items:center;
+      padding:32px 18px 48px;
     }
-    .card h1{margin:0 0 6px 0; font-size:28px}
-    .card p.lead{margin:0; color:var(--muted)}
 
-    .content{padding:22px}
+    /* Form card */
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.0)), var(--panel-90);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(12px);
+      padding:28px;
+      width:100%;
+      max-width:420px;
+    }
+    .card header h2{ margin:0 0 6px 0; font-size:26px; font-weight:800; }
+    .card header p{ margin:0; color:#cfd7f2 }
 
-    /* Form */
-    form{margin-top:14px; display:grid; gap:14px}
-    .field{display:grid; gap:8px}
-    .label{font-weight:600; font-size:14px; color:#cfd7f2}
+    form{ margin-top:14px; display:grid; gap:14px }
+    .field{ display:grid; gap:8px }
+    .label{ font-weight:700; font-size:14px; color:#dae3ff }
     .control{
       display:flex; align-items:center; gap:8px;
-      background:#0f1116; border:1px solid rgba(255,255,255,.08);
-      border-radius:12px; padding:10px 12px;
-      outline: none; transition: border-color .2s, box-shadow .2s;
+      background:#0f1116; border:1px solid rgba(255,255,255,.10);
+      border-radius:14px; padding:12px 14px;
     }
     .control:focus-within{ border-color:var(--primary); box-shadow:0 0 0 6px var(--ring) }
-    .control input{
-      flex:1; background:transparent; border:0; outline:0; color:var(--text); font-size:16px;
-    }
-    .hint{font-size:12px; color:var(--muted)}
+    .control input{ flex:1; background:transparent; border:0; outline:0; color:var(--text); font-size:16px; }
+    .hint{ font-size:12px; color:var(--muted) }
 
-    .toggle{
-      background:transparent; border:0; color:var(--muted); cursor:pointer; font-size:13px; padding:6px 8px; border-radius:8px;
-    }
-    .toggle:hover{color:var(--text); background:rgba(255,255,255,.06)}
+    .toggle{ background:transparent; border:0; color:#c7cee2; cursor:pointer; font-size:13px; padding:6px 8px; border-radius:8px; }
+    .toggle:hover{ color:white; background:rgba(255,255,255,.08) }
 
-    .strength{
-      display:flex; gap:6px; align-items:center;
-      font-size:12px; color:var(--muted);
-    }
-    .bar{
-      position:relative; flex:1; height:6px; background:#0c0e12; border:1px solid rgba(255,255,255,.06);
-      border-radius:999px; overflow:hidden;
-    }
-    .bar>span{position:absolute; inset:0; width:0%}
-    .bar.ok>span{background:linear-gradient(90deg, var(--primary), var(--success))}
-    .bar.bad>span{background:linear-gradient(90deg, #ff7a7a, #ff5d5d)}
+    .strength{ display:flex; gap:8px; align-items:center; font-size:12px; color:#c7cee2; }
+    .bar{ position:relative; flex:1; height:6px; background:#0c0e12; border:1px solid rgba(255,255,255,.10); border-radius:999px; overflow:hidden; }
+    .bar>span{ position:absolute; inset:0; width:0% }
+    .bar.ok>span{ background:linear-gradient(90deg, var(--primary), var(--success)) }
+    .bar.bad>span{ background:linear-gradient(90deg, #ff7a7a, #ff5d5d) }
 
-    .actions{display:flex; gap:10px; align-items:center; margin-top:6px}
     .btn{
       appearance:none; border:0; cursor:pointer;
       background: linear-gradient(180deg, #6aa6ff, #4a7fe0);
-      color:white; font-weight:700; letter-spacing:.2px; font-size:15px;
-      padding:11px 16px; border-radius:12px; box-shadow:0 8px 18px rgba(74,127,224,.35);
-      transition: transform .05s ease;
+      color:white; font-weight:800; font-size:15px;
+      padding:12px 16px; border-radius:14px; box-shadow:0 10px 24px rgba(74,127,224,.38);
     }
+    .btn:hover{ filter: brightness(1.05) }
     .btn:active{ transform: translateY(1px) }
     .btn[disabled]{ opacity:.6; cursor:progress }
 
-    .msg{
-      margin-top:10px; padding:10px 12px; border-radius:12px; font-size:14px; display:none;
-      border:1px solid rgba(255,255,255,.08);
-    }
-    .msg.error{ background:rgba(255,93,93,.15); color:#ffdcdc; display:block }
-    .msg.success{ background:rgba(61,220,151,.15); color:#d8ffef; display:block }
+    .alt{ text-align:center; font-size:14px; color:#cfd7f2; margin-top:8px; }
+    .alt a{ color:#d7e3ff; font-weight:700; text-decoration:none }
+    .alt a:hover{ text-decoration:underline }
 
-    /* Side panel */
-    .aside .content{padding:22px}
-    .list{display:grid; gap:10px; margin-top:10px}
-    .list .row{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:14px}
-    .dot{width:8px; height:8px; border-radius:999px; background:linear-gradient(180deg, #6aa6ff, #4a7fe0); box-shadow:0 0 10px rgba(106,166,255,.6)}
-    .foot{margin-top:18px; color:var(--muted); font-size:13px}
-    .foot a{color:#cfe0ff; text-decoration:none}
-    .foot a:hover{text-decoration:underline}
-    .center{display:flex; align-items:center; justify-content:center; gap:10px}
+    .msg{ margin-top:10px; padding:10px 12px; border-radius:12px; font-size:14px; display:none; }
+    .msg.error{ background:rgba(255,93,93,.18); color:#ffdcdc; display:block }
+    .msg.success{ background:rgba(61,220,151,.18); color:#d8ffef; display:block }
   </style>
 </head>
 <body>
@@ -133,8 +122,7 @@
   <header class="topbar">
     <nav class="nav">
       <a class="brand" href="/">
-        <img src="Boblox%20Icon%20new%20gradientr.png" alt="" />
-        <span>Bobrix</span>
+        <img src="BOBRIX%202%20Logo.png" alt="Bobrix Logo" />
       </a>
       <div class="navlinks">
         <a href="/">Home</a>
@@ -144,67 +132,47 @@
     </nav>
   </header>
 
-  <main class="wrap">
-    <!-- Sign Up Card -->
-    <section class="card">
-      <div class="content">
-        <h1>Create your account</h1>
-        <p class="lead">Choose a username and password to get started.</p>
+  <main class="viewport">
+    <!-- Centered card -->
+    <section class="card" role="region" aria-labelledby="signup-title">
+      <header>
+        <h2 id="signup-title">Create your account</h2>
+        <p>It’s quick and free.</p>
+      </header>
 
-        <form id="signupForm" novalidate>
-          <div class="field">
-            <label class="label" for="username">Username</label>
-            <div class="control">
-              <input id="username" name="username" type="text" inputmode="text" autocomplete="username"
-                     minlength="3" maxlength="32" placeholder="Your cool name" required />
-            </div>
-            <div class="hint">3–32 characters. A–Z, a–z, 0–9, underscores and dashes recommended.</div>
+      <form id="signupForm" novalidate>
+        <div class="field">
+          <label class="label" for="username">Username</label>
+          <div class="control">
+            <input id="username" name="username" type="text" minlength="3" maxlength="32" placeholder="Your cool name" required />
           </div>
+          <div class="hint">3–32 characters. Letters & numbers recommended.</div>
+        </div>
 
-          <div class="field">
-            <label class="label" for="password">Password</label>
-            <div class="control">
-              <input id="password" name="password" type="password" autocomplete="new-password"
-                     minlength="8" placeholder="••••••••" required />
-              <button type="button" class="toggle" id="togglePw" aria-label="Show password">Show</button>
-            </div>
-            <div class="strength">
-              <div class="bar" id="pwBar"><span></span></div>
-              <span id="pwHint">Use 8+ chars with letters & numbers</span>
-            </div>
+        <div class="field">
+          <label class="label" for="password">Password</label>
+          <div class="control">
+            <input id="password" name="password" type="password" minlength="8" placeholder="••••••••" required />
+            <button type="button" class="toggle" id="togglePw">Show</button>
           </div>
-
-          <div class="actions">
-            <button class="btn" id="submitBtn" type="submit">Create Account</button>
-            <span class="hint">Already have one? <a href="/login.html" class="footlink">Log in</a></span>
+          <div class="strength">
+            <div class="bar" id="pwBar"><span></span></div>
+            <span id="pwHint">Use 8+ characters with letters & numbers</span>
           </div>
+        </div>
 
-          <div id="formMsg" class="msg" role="alert" aria-live="polite"></div>
-        </form>
+        <button class="btn" id="submitBtn" type="submit">Sign Up</button>
+        <div class="alt">Already have an account? <a href="/login.html">Log in</a></div>
 
-        <noscript>
-          <div class="msg error" style="display:block; margin-top:12px">
-            JavaScript is required to sign up.
-          </div>
-        </noscript>
-      </div>
+        <div id="formMsg" class="msg" role="alert" aria-live="polite"></div>
+      </form>
+
+      <noscript>
+        <div class="msg error" style="display:block; margin-top:12px">
+          JavaScript is required to sign up.
+        </div>
+      </noscript>
     </section>
-
-    <!-- Aside: tips / brand -->
-    <aside class="card aside">
-      <div class="content">
-        <h2 style="margin:0 0 8px 0; font-size:22px;">Welcome to Bobrix</h2>
-        <p class="lead">A safety-first UGC sandbox with familiar tooling.</p>
-        <div class="list">
-          <div class="row"><span class="dot"></span> <span>Fast account creation</span></div>
-          <div class="row"><span class="dot"></span> <span>Protected by design</span></div>
-          <div class="row"><span class="dot"></span> <span>Built for builders</span></div>
-        </div>
-        <div class="foot">
-          By creating an account, you agree to our <a href="/terms.html">Terms</a> and <a href="/privacy.html">Privacy</a>.
-        </div>
-      </div>
-    </aside>
   </main>
 
   <script>
@@ -217,13 +185,6 @@
     const pwBar = document.getElementById('pwBar');
     const pwHint = document.getElementById('pwHint');
 
-    // Username soft validation (client-side only)
-    function cleanUsername(u){
-      // allow letters, numbers, underscore, dash, dot
-      return u.trim();
-    }
-
-    // Simple strength heuristic
     function strengthScore(v){
       let s = 0;
       if (v.length >= 8) s++;
@@ -238,12 +199,11 @@
       const s = strengthScore(v);
       const pct = (s/5)*100;
       pwBar.classList.remove('ok','bad');
-      if(v.length === 0){
-        pwBar.querySelector('span').style.width = '0%';
-        pwHint.textContent = 'Use 8+ chars with letters & numbers';
+      pwBar.querySelector('span').style.width = (v.length ? pct : 0) + '%';
+      if(!v.length){
+        pwHint.textContent = 'Use 8+ characters with letters & numbers';
         return;
       }
-      pwBar.querySelector('span').style.width = pct + '%';
       if(s >= 3){
         pwBar.classList.add('ok');
         pwHint.textContent = 'Looks good!';
@@ -254,12 +214,10 @@
     }
     pw.addEventListener('input', updateStrength);
 
-    // Show/Hide password
     togglePw.addEventListener('click', () => {
       const showing = pw.type === 'text';
       pw.type = showing ? 'password' : 'text';
       togglePw.textContent = showing ? 'Show' : 'Hide';
-      pw.focus({preventScroll:true});
     });
 
     function setMessage(type, text){
@@ -272,10 +230,9 @@
       e.preventDefault();
       msg.style.display = 'none';
 
-      const username = cleanUsername(user.value);
+      const username = user.value.trim();
       const password = pw.value;
 
-      // Basic front-end checks
       if(!username || !password){
         setMessage('error', 'Please fill in both fields.');
         return;
@@ -286,31 +243,23 @@
       }
 
       btn.disabled = true;
-
       try{
         const res = await fetch('https://internal.api.bobrix.ca/create-account', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password }),
-          // If your API uses cookies/sessions, uncomment:
-          // credentials: 'include',
+          body: JSON.stringify({ username, password })
         });
-
         const text = await res.text();
-
         if(res.status === 201){
-          setMessage('success', 'Account created successfully. You can log in now.');
-          // Optional: redirect after a short delay
+          setMessage('success', 'Account created successfully. Redirecting…');
           setTimeout(() => { window.location.href = '/login.html'; }, 900);
         } else if(res.status === 409){
-          setMessage('error', 'That username is already taken. Try another.');
-        } else if(res.status === 400){
-          setMessage('error', 'Username and password are required.');
+          setMessage('error', 'That username is already taken.');
         } else {
-          setMessage('error', text || 'Something went wrong. Please try again.');
+          setMessage('error', text || 'Something went wrong.');
         }
       } catch(err){
-        setMessage('error', 'Network error. Please check your connection or try again later.');
+        setMessage('error', 'Network error. Try again later.');
       } finally{
         btn.disabled = false;
       }
