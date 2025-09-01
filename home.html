@@ -14,6 +14,7 @@
     :root{
       --bg:#0e0f12;
       --panel:#14161b;
+      --panel-90:rgba(20,22,27,.9);
       --muted:#8a91a3;
       --text:#e9eefc;
       --text-soft:#cfd7f2;
@@ -21,12 +22,10 @@
       --ring:rgba(106,166,255,.45);
       --success:#3ddc97;
       --danger:#ff6b6b;
-      --border:rgba(255,255,255,.08);
-      --shadow:0 10px 30px rgba(0,0,0,.35);
-      --radius:16px;
+      --border:rgba(255,255,255,.10);
+      --shadow:0 20px 60px rgba(0,0,0,.45);
+      --radius:18px;
       --cardRadius:14px;
-      --grad: radial-gradient(1200px 600px at 80% -10%, rgba(106,166,255,.15), transparent 50%),
-              radial-gradient(900px 500px at -20% 110%, rgba(61,220,151,.12), transparent 50%);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -34,112 +33,120 @@
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
       color:var(--text);
-      background:var(--bg);
-      background-image:var(--grad);
+      background: var(--bg) center/cover fixed no-repeat;
+      background-image:
+        radial-gradient(1200px 600px at 80% -10%, rgba(106,166,255,.18), transparent 55%),
+        radial-gradient(1000px 600px at -10% 120%, rgba(61,220,151,.14), transparent 55%),
+        url("background.png");
     }
 
-    /* Topbar */
+    /* Topbar (matches signup/login) */
     .topbar{
       position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(8px);
-      background: linear-gradient(180deg, rgba(20,22,27,.95), rgba(20,22,27,.75) 80%, rgba(20,22,27,0));
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(14,15,18,.85), rgba(14,15,18,.55) 80%, rgba(14,15,18,0));
       border-bottom:1px solid var(--border);
     }
     .nav{
-      max-width:1280px; margin:0 auto; padding:10px 18px;
+      max-width:1280px; margin:0 auto; padding:14px 18px;
       display:flex; align-items:center; gap:14px;
     }
-    .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text)}
-    .brand img{width:28px; height:28px; border-radius:8px; box-shadow:0 4px 14px rgba(106,166,255,.35)}
-    .brand span{font-weight:800; letter-spacing:.2px}
-    .search{
-      display:flex; align-items:center; gap:8px; margin-left:8px;
-      background:#0f1116; border:1px solid var(--border); border-radius:10px; padding:8px 10px; flex:1;
+    .brand{display:flex; align-items:center;}
+    .brand img{height:34px; width:auto}
+    .navlinks{margin-left:auto; display:flex; align-items:center; gap:12px}
+    .link-btn{
+      appearance:none; border:1px solid var(--border); background:transparent; color:var(--text-soft);
+      padding:8px 12px; border-radius:12px; text-decoration:none; font-weight:600; font-size:14px;
     }
-    .search input{flex:1; background:transparent; border:0; outline:0; color:var(--text); font-size:15px}
-    .nav-actions{display:flex; align-items:center; gap:10px}
+    .link-btn:hover{background:rgba(255,255,255,.06); color:var(--text)}
     .btn{
       appearance:none; border:0; cursor:pointer;
       background: linear-gradient(180deg, #6aa6ff, #4a7fe0);
-      color:white; font-weight:700; letter-spacing:.2px; font-size:14px;
-      padding:9px 14px; border-radius:10px; box-shadow:0 8px 18px rgba(74,127,224,.35);
-      transition: transform .05s ease;
+      color:white; font-weight:800; font-size:14px;
+      padding:10px 14px; border-radius:14px; box-shadow:0 10px 24px rgba(74,127,224,.38);
+      transition: transform .05s ease, filter .15s ease;
     }
+    .btn:hover{ filter:brightness(1.05) }
     .btn:active{ transform: translateY(1px) }
-    .ghost{background:transparent; border:1px solid var(--border); color:var(--text-soft); box-shadow:none}
 
-    /* Layout */
+    /* Page shell */
     .shell{
-      max-width:1280px; margin:18px auto; padding:0 18px; display:grid; gap:18px;
-      grid-template-columns: 240px 1fr;
+      max-width:1280px; margin:22px auto; padding:0 18px; display:grid; gap:18px;
+      grid-template-columns: 260px 1fr;
     }
     @media (max-width: 1024px){ .shell{grid-template-columns: 1fr} }
 
+    /* Glass panels (match signup/login) */
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.0)), var(--panel-90);
+      border:1px solid var(--border); border-radius:var(--radius);
+      box-shadow:var(--shadow); backdrop-filter: blur(12px);
+    }
+
     /* Sidebar */
-    .sidebar{
-      position:relative;
-      background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow);
-      padding:14px;
-      height: fit-content;
-    }
-    .sidesection{margin-bottom:12px}
-    .side-title{font-size:12px; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); margin:4px 10px}
-    .side-list{display:grid; gap:4px; margin:6px 0}
+    .sidebar{ padding:16px; height:fit-content }
+    .sidesection{margin-bottom:14px}
+    .side-title{font-size:12px; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); margin:6px 6px}
+    .side-list{display:grid; gap:6px; margin:8px 0}
     .side-item{
-      display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:10px; color:var(--text-soft);
-      text-decoration:none;
+      display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; color:var(--text-soft);
+      text-decoration:none; border:1px solid transparent;
     }
-    .side-item:hover{background:rgba(255,255,255,.06); color:var(--text)}
+    .side-item:hover{background:rgba(255,255,255,.06); color:var(--text); border-color:var(--border)}
     .side-dot{width:8px; height:8px; border-radius:999px; background:linear-gradient(180deg,#6aa6ff,#4a7fe0); box-shadow:0 0 10px rgba(106,166,255,.6)}
 
-    /* Main content */
+    /* Main */
     .main{display:grid; gap:18px}
-    .hero{
-      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0)) , var(--panel);
-      border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow);
-      display:flex; align-items:center; justify-content:space-between; gap:14px; padding:16px 18px;
-    }
-    .hello h1{margin:0; font-size:22px}
-    .hello p{margin:4px 0 0 0; color:var(--muted)}
-    .quick-actions{display:flex; gap:10px; flex-wrap:wrap}
-    .quick-actions .ghost{border-style:dashed}
 
-    .section{
-      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0)) , var(--panel);
-      border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow);
-      padding:16px;
+    /* Hero */
+    .hero{
+      display:flex; align-items:center; justify-content:space-between; gap:14px; padding:18px 18px;
     }
+    .hello h1{margin:0; font-size:24px; letter-spacing:.2px}
+    .hello p{margin:4px 0 0 0; color:var(--text-soft)}
+    .quick-actions{display:flex; gap:10px; flex-wrap:wrap}
+    .ghost{background:transparent; border:1px solid var(--border); color:var(--text-soft); box-shadow:none}
+    .ghost:hover{background:rgba(255,255,255,.06); color:var(--text)}
+
+    /* Sections */
+    .section{ padding:16px }
     .section-header{
       display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;
     }
     .section-title{font-weight:800; font-size:18px}
+    .pill{
+      background:#101420; border:1px solid var(--border); padding:6px 10px; border-radius:999px;
+      color:var(--text-soft); font-size:12px;
+    }
+    .pill:hover{background:rgba(255,255,255,.06); color:var(--text)}
+
     .scroller{
       display:grid; gap:12px;
       grid-auto-flow: column;
-      grid-auto-columns: minmax(160px, 1fr);
+      grid-auto-columns: minmax(200px, 1fr);
       overflow-x:auto; padding-bottom:6px; scroll-snap-type: x mandatory;
     }
     .scroller::-webkit-scrollbar{height:10px}
     .scroller::-webkit-scrollbar-thumb{background:#1f2330; border-radius:999px}
+
+    /* Cards */
     .card{
       scroll-snap-align:start;
       background:#0f1116; border:1px solid var(--border); border-radius:var(--cardRadius);
-      overflow:hidden; min-width:160px;
-      display:flex; flex-direction:column;
+      overflow:hidden; min-width:200px; display:flex; flex-direction:column;
     }
     .thumb{
       background:#151923; aspect-ratio:16/9; width:100%;
       display:flex; align-items:center; justify-content:center; color:#8390ad; font-size:12px;
     }
-    .meta{padding:10px; display:grid; gap:4px}
+    .meta{padding:12px; display:grid; gap:6px}
     .title{font-weight:700; font-size:14px; line-height:1.2}
     .sub{color:var(--muted); font-size:12px}
     .playbar{display:flex; gap:8px; margin-top:6px}
     .play{flex:1}
-    .more{width:38px; background:transparent; border:1px solid var(--border); color:var(--text-soft)}
-    .pill{background:#101420; border:1px solid var(--border); padding:6px 10px; border-radius:999px; color:var(--text-soft); font-size:12px}
+    .more{width:42px; background:transparent; border:1px solid var(--border); color:var(--text-soft); border-radius:12px}
 
-    /* Friends grid */
+    /* Friends */
     .grid{
       display:grid; gap:12px; 
       grid-template-columns: repeat(6, 1fr);
@@ -149,7 +156,7 @@
     @media (max-width: 800px){ .grid{grid-template-columns: repeat(3, 1fr)} }
     @media (max-width: 600px){ .grid{grid-template-columns: repeat(2, 1fr)} }
     .friend{
-      background:#0f1116; border:1px solid var(--border); border-radius:12px; padding:10px;
+      background:#0f1116; border:1px solid var(--border); border-radius:12px; padding:12px;
       display:grid; gap:8px; justify-items:center;
     }
     .avatar{width:64px; height:64px; border-radius:12px; background:#151923}
@@ -158,22 +165,24 @@
     .footer{color:var(--muted); font-size:12px; text-align:center; padding:20px 0}
     .link{color:#cfe0ff; text-decoration:none}
     .link:hover{text-decoration:underline}
+
+    /* Search (glass input) */
+    .searchbar{
+      display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:14px;
+      background:#0f1116; border:1px solid var(--border); width:100%;
+    }
+    .searchbar input{flex:1; background:transparent; border:0; outline:0; color:var(--text); font-size:15px}
   </style>
 </head>
 <body>
   <!-- Top Navigation -->
   <header class="topbar">
     <nav class="nav">
-      <a class="brand" href="/">
-        <img src="Boblox%20Icon%20new%20gradientr.png" alt="">
-        <span>Bobrix</span>
-      </a>
-      <div class="search">
-        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m21.53 20.47-4.8-4.8a8 8 0 1 0-1.06 1.06l4.8 4.8a.75.75 0 1 0 1.06-1.06ZM4.5 10a5.5 5.5 0 1 1 11 0a5.5 5.5 0 0 1-11 0Z"/></svg>
-        <input id="search" type="search" placeholder="Search games, creators, models…" />
-      </div>
-      <div class="nav-actions">
-        <a class="btn ghost" href="/create.html">Create</a>
+      <a class="brand" href="/"><img src="BOBRIX%202%20Logo.png" alt="Bobrix Logo"></a>
+      <div class="navlinks">
+        <a class="link-btn" href="/discover.html">Discover</a>
+        <a class="link-btn" href="/docs/">Docs</a>
+        <a class="link-btn" href="/avatar.html">Avatar</a>
         <button class="btn" id="logoutBtn" title="Logout">Logout</button>
       </div>
     </nav>
@@ -182,7 +191,7 @@
   <!-- Body -->
   <div class="shell">
     <!-- Sidebar -->
-    <aside class="sidebar">
+    <aside class="panel sidebar">
       <div class="sidesection">
         <div class="side-title">Navigation</div>
         <div class="side-list">
@@ -198,7 +207,6 @@
         <div class="side-title">Account</div>
         <div class="side-list">
           <a class="side-item" href="/settings.html"><span class="side-dot"></span> <span>Settings</span></a>
-          <a class="side-item" href="/docs/"><span class="side-dot"></span> <span>Docs</span></a>
           <a class="side-item" href="/support.html"><span class="side-dot"></span> <span>Support</span></a>
         </div>
       </div>
@@ -207,10 +215,16 @@
     <!-- Main -->
     <main class="main">
       <!-- Hero / Greeting -->
-      <section class="hero">
+      <section class="panel hero">
         <div class="hello">
           <h1 id="greeting">Welcome back</h1>
-          <p id="subtitle" class="muted">Ready to jump into your worlds?</p>
+          <p id="subtitle">Ready to jump into your worlds?</p>
+        </div>
+        <div style="flex:1; max-width:520px">
+          <div class="searchbar" role="search">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m21.53 20.47-4.8-4.8a8 8 0 1 0-1.06 1.06l4.8 4.8a.75.75 0 1 0 1.06-1.06ZM4.5 10a5.5 5.5 0 1 1 11 0a5.5 5.5 0 0 1-11 0Z"/></svg>
+            <input id="search" type="search" placeholder="Search games, creators, models…" />
+          </div>
         </div>
         <div class="quick-actions">
           <a class="btn ghost" href="/upload.html">Upload Place</a>
@@ -220,49 +234,45 @@
       </section>
 
       <!-- Continue Playing -->
-      <section class="section">
+      <section class="panel section">
         <div class="section-header">
           <div class="section-title">Continue Playing</div>
-          <button class="pill" onclick="scrollRow('continueRow',-1)">◀</button>
-          <button class="pill" onclick="scrollRow('continueRow', 1)">▶</button>
+          <div>
+            <button class="pill" onclick="scrollRow('continueRow',-1)">◀</button>
+            <button class="pill" onclick="scrollRow('continueRow', 1)">▶</button>
+          </div>
         </div>
-        <div class="scroller" id="continueRow" role="list">
-          <!-- Example cards -->
-        </div>
+        <div class="scroller" id="continueRow" role="list"></div>
       </section>
 
       <!-- Friends -->
-      <section class="section">
+      <section class="panel section">
         <div class="section-header">
           <div class="section-title">Friends</div>
           <a class="pill" href="/friends.html">Manage</a>
         </div>
-        <div class="grid" id="friendsGrid">
-          <!-- Friends go here -->
-        </div>
+        <div class="grid" id="friendsGrid"></div>
       </section>
 
       <!-- Recommended -->
-      <section class="section">
+      <section class="panel section">
         <div class="section-header">
           <div class="section-title">Recommended For You</div>
-          <button class="pill" onclick="scrollRow('recRow',-1)">◀</button>
-          <button class="pill" onclick="scrollRow('recRow', 1)">▶</button>
+          <div>
+            <button class="pill" onclick="scrollRow('recRow',-1)">◀</button>
+            <button class="pill" onclick="scrollRow('recRow', 1)">▶</button>
+          </div>
         </div>
-        <div class="scroller" id="recRow">
-          <!-- Recommended -->
-        </div>
+        <div class="scroller" id="recRow"></div>
       </section>
 
       <!-- Events / News -->
-      <section class="section">
+      <section class="panel section">
         <div class="section-header">
           <div class="section-title">Events & News</div>
           <a class="pill" href="/news.html">View All</a>
         </div>
-        <div class="scroller" id="newsRow">
-          <!-- News cards -->
-        </div>
+        <div class="scroller" id="newsRow"></div>
       </section>
 
       <div class="footer">© <span id="year"></span> Bobrix — <a class="link" href="/privacy.html">Privacy</a> · <a class="link" href="/terms.html">Terms</a></div>
@@ -273,16 +283,15 @@
     // ====== Auth gate: require remembered username ======
     const username = (localStorage.getItem('bobrix_username') || '').trim();
     if (!username) {
-      // If you want to rely strictly on successful /login redirect, you can remove this.
       window.location.href = '/login.html';
     }
 
-    // ====== Greeting ======
+    // ====== Greeting & year ======
     const greetingEl = document.getElementById('greeting');
     greetingEl.textContent = `Welcome back, ${username}`;
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Optional subtitle flair:
+    // Subtitle rotation
     const subtitle = document.getElementById('subtitle');
     const lines = [
       "Ready to jump into your worlds?",
@@ -295,10 +304,12 @@
     // ====== Logout ======
     document.getElementById('logoutBtn').addEventListener('click', () => {
       try { localStorage.removeItem('bobrix_username'); } catch {}
+      // Clear cookie if you later set one on login
+      document.cookie = "bobrix_username=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax";
       window.location.href = '/login.html';
     });
 
-    // ====== Sample data (replace with API calls later) ======
+    // ====== Sample data (replace with API calls) ======
     const sampleContinue = [
       { id: "12945882835", title: "BOBRIX REBORN", players: 421, thumb: "/assets/thumb/BOBRIX%20REBORN%20PART%201%20NEW%20THUMBNAIL.png" },
       { id: "10001", title: "Rift", players: 112, thumb: "/assets/thumb/Roblox%20%20Rift%20Thumbnail.jpg" },
@@ -351,7 +362,7 @@
             <div class="sub">${g.players.toLocaleString()} playing</div>
             <div class="playbar">
               <a class="btn play" href="/games/${g.id}/">Play</a>
-              <button class="btn more" title="More">⋯</button>
+              <button class="more" title="More">⋯</button>
             </div>
           </div>
         </article>
@@ -402,8 +413,8 @@
     }
     window.scrollRow = scrollRow;
 
-    // ====== Optional: hook to your assets API later ======
-    // Example: fetch('/assets/list').then(r=>r.json()).then(({assetsData})=>{ ...render... })
+    // TODO: Replace sample data with real API calls later.
+    // Example: fetch('/assets/list').then(r=>r.json()).then(({assetsData})=>{ ... })
   </script>
 </body>
 </html>
