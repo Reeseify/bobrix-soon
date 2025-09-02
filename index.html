@@ -7,7 +7,7 @@
   <meta name="description" content="Bobrix is a safety-first UGC sandbox: Luab scripting (like Roblox's Luau), RBXL→BBXL converter, and protection by design. Launch: TBD." />
   <meta name="theme-color" content="#0e0f12" />
 
-  <!-- Favicon / Icons -->
+  <!-- Icons -->
   <link rel="icon" href="Boblox%20Icon%20new%20gradientr.png" type="image/png" />
   <link rel="apple-touch-icon" href="Boblox%20Icon%20new%20gradientr.png" />
 
@@ -18,7 +18,6 @@
   <meta property="og:url" content="https://www.bobrix.ca">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Boblox">
-
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Boblox">
   <meta name="twitter:description" content="Boblox is the next generation of game creation. Join others in the new world of games!">
@@ -27,196 +26,246 @@
 
   <style>
     :root{
-      --bg:#0e0f12;            /* page background */
-      --surface:#121419;       /* cards, header */
-      --elev:#171a20;          /* elevated blocks */
-      --border:#242833;        /* soft borders */
-      --border-2:rgba(255,255,255,.08);
-      --text:#e8ecf4;          /* primary text */
-      --muted:#a1a7b3;         /* secondary text */
-      --shadow:0 18px 50px rgba(0,0,0,.45);
+      --bg:#0e0f12;
+      --glass:rgba(18,20,25,.70);
+      --glass-hi:rgba(255,255,255,.04);
+      --border:rgba(255,255,255,.10);
+      --border-2:rgba(255,255,255,.14);
+      --text:#e8ecf4;
+      --muted:#a1a7b3;
+      --shadow:0 20px 60px rgba(0,0,0,.45);
       --radius:14px;
-      --primary:#e81919;       /* Bobrix red */
-      --primary-dark:#8b0000;  /* deep red */
-      --accent:#6aa6ff;        /* gentle brand blue accent */
-      --badge:#1e222c;         /* pill bg */
-      --headerH:64px;          /* JS updates on load/resize */
+      --primary:#e81919;
+      --primary-dark:#8b0000;
+      --accent:#6aa6ff;
+      --headerH:64px;
+
+      /* accent palette for feature cards */
+      --c-identity:#a855f7;
+      --c-detection:#22d3ee;
+      --c-moderation:#f59e0b;
+      --c-governance:#f97316;
+      --c-community:#38bdf8;
+      --c-transparency:#e879f9;
+      --c-compat:#8b5cf6;
+      --c-scripting:#34d399;
+      --c-docs:#60a5fa;
     }
 
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
+      margin:0; color:var(--text); background:var(--bg);
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      line-height:1.65;
-      -webkit-font-smoothing:antialiased;
-      padding-top:var(--headerH);
-      overflow-x:hidden;
-    }
-    img{max-width:100%;display:block;height:auto}
-    a{color:#9bbcff;text-decoration:none}
-    a:hover{text-decoration:underline}
+      line-height:1.7; -webkit-font-smoothing:antialiased;
+      padding-top:var(--headerH); overflow-x:hidden;
 
-    /* Subtle animated constellation background */
-    body::before{
-      content:"";
-      position:fixed; inset:0; z-index:-3;
-      background:
-        radial-gradient(1200px 600px at 85% -10%, rgba(106,166,255,.14), transparent 55%),
-        radial-gradient(1000px 600px at -10% 120%, rgba(232,25,25,.08), transparent 55%),
-        repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,.045) 0 1px, transparent 1px 8px);
-      filter:saturate(110%);
+      /* removed the edge-anchored radial glows to avoid cutoffs */
+      background-image:none;
     }
-    /* Slow drift for the constellation layer */
-    @keyframes drift {
-      0% { transform: translateY(0px) }
-      50% { transform: translateY(-10px) }
-      100% { transform: translateY(0px) }
-    }
+
+    /* page-wide ring/diagonal pattern */
     body::after{
       content:"";
-      position:fixed; inset:-4px; z-index:-2;
-      background: radial-gradient(800px 500px at 10% 10%, rgba(255,255,255,.06), transparent 55%),
-                  radial-gradient(1000px 700px at 90% 85%, rgba(255,255,255,.04), transparent 60%);
-      animation: drift 28s ease-in-out infinite;
+      position:fixed; inset:0; z-index:-3; pointer-events:none;
+      background:
+        repeating-radial-gradient(circle at 20% 28%, rgba(255,255,255,.14) 0 1px, transparent 1px 12px),
+        repeating-radial-gradient(circle at 82% 72%, rgba(255,255,255,.12) 0 1px, transparent 1px 14px),
+        repeating-linear-gradient(-12deg, rgba(255,255,255,.035) 0 1px, transparent 1px 11px);
+      opacity:.12;
     }
 
-    /* NAV — fixed + responsive */
+    a{color:#9bbcff;text-decoration:none}
+    a:hover{text-decoration:underline}
+    img{max-width:100%;display:block;height:auto}
+
+    /* NAV (glassy) */
     .nav{
-      position:fixed;left:0;right:0;top:0;z-index:100;
+      position:fixed; left:0; right:0; top:0; z-index:100;
       background:linear-gradient(180deg, rgba(14,15,18,.85), rgba(14,15,18,.6));
       backdrop-filter:saturate(180%) blur(10px);
-      border-bottom:1px solid var(--border-2);
+      -webkit-backdrop-filter:saturate(180%) blur(10px);
+      border-bottom:1px solid var(--border);
     }
     .nav-inner{max-width:1200px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:16px}
-    .brand img{height:34px;width:auto;filter:drop-shadow(0 6px 18px rgba(0,0,0,.35))}
+    .brand img{height:34px;width:auto;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35))}
     .links{display:flex;gap:14px;margin-left:16px}
-    .links a{
-      color:var(--muted);font-weight:700;letter-spacing:.01em;position:relative;padding:6px 2px
-    }
+    .links a{color:var(--muted);font-weight:700;letter-spacing:.01em;position:relative;padding:6px 2px}
     .links a::after{
       content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;
       background:linear-gradient(90deg,var(--accent),transparent);
-      transform:scaleX(0);transform-origin:left;transition:transform .18s ease;
+      transform:scaleX(0);transform-origin:left;transition:transform .18s ease
     }
-    .links a:hover{color:#dfe6ff}
-    .links a:hover::after{transform:scaleX(1)}
+    .links a:hover{color:#dfe6ff} .links a:hover::after{transform:scaleX(1)}
     .spacer{flex:1}
-    .pill{font-size:.8rem;color:#fca5a5;background:rgba(232,25,25,.08);
-      border:1px solid var(--border-2);border-radius:999px;padding:6px 10px;white-space:nowrap}
-    .btn-sm{
-      appearance:none;border:1px solid var(--border-2);background:var(--elev);color:var(--text);
-      padding:8px 12px;border-radius:10px;font-weight:900;white-space:nowrap;transition:filter .15s ease, transform .06s ease
+    .pill{
+      font-size:.8rem;color:#fca5a5;background:rgba(232,25,25,.08);
+      border:1px solid var(--border);border-radius:999px;padding:6px 10px;white-space:nowrap
     }
-    .btn-sm:hover{filter:brightness(1.05)}
-    .btn-sm:active{transform:translateY(1px)}
-    .menu-toggle{display:none;appearance:none;border:1px solid var(--border-2);background:var(--elev);color:var(--text);padding:8px 12px;border-radius:10px;font-weight:900}
+    .btn-sm{
+      appearance:none;border:1px solid var(--border);
+      background:linear-gradient(180deg, #1b1f27, #141821);
+      color:var(--text); padding:8px 12px; border-radius:10px; font-weight:900;
+      box-shadow:0 8px 22px rgba(0,0,0,.35); transition:filter .15s ease, transform .06s ease
+    }
+    .btn-sm:hover{filter:brightness(1.06)} .btn-sm:active{transform:translateY(1px)}
+    .menu-toggle{display:none}
 
-    /* SHELL */
+    /* layout shell */
     .wrap{max-width:1200px;margin:0 auto;padding:0 18px}
 
-    /* HERO — bigger logo breathing space, gentle glass fade */
+    /* HERO */
     .hero{position:relative;margin:0;padding:76px 0 100px}
     .hero::before{
-      content:"";position:absolute;left:50%;transform:translateX(-50%);top:0;width:100vw;height:100%;
+      content:""; position:absolute; left:50%; transform:translateX(-50%); top:0; width:100vw; height:100%;
       background-image:linear-gradient(180deg, rgba(14,15,18,.58), rgba(14,15,18,.58)), url('background.png');
-      background-size:cover;background-position:center;z-index:-2
+      background-size:cover; background-position:center; z-index:-2;
     }
     .hero::after{
-      content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-1px;width:100vw;height:200px;
-      background:linear-gradient(to bottom, rgba(14,15,18,0), rgba(14,15,18,.6) 60%, var(--bg) 100%);z-index:-1
+      content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-1px;
+      width:100vw; height:140px;
+      background:linear-gradient(to bottom, rgba(14,15,18,0), rgba(14,15,18,.55) 60%, var(--bg) 100%);
+      z-index:-1;
     }
-    .hero-logo{max-width:min(720px,85vw);width:100%;margin:0 0 18px;filter:drop-shadow(0 14px 40px rgba(0,0,0,.55))}
-    h1{margin:.25rem 0 10px;font-size:clamp(2rem,5vw,3.6rem);line-height:1.07;letter-spacing:-.01em}
-    .lede{font-size:clamp(1rem,1.6vw,1.12rem);color:#cfd5e6;margin:10px 0 18px;max-width:70ch}
+    .hero-logo{max-width:min(720px,85vw); width:100%; margin:0 0 18px; filter:drop-shadow(0 14px 40px rgba(0,0,0,.55))}
+    h1{margin:.25rem 0 10px; font-size:clamp(2rem,5vw,3.6rem); line-height:1.07; letter-spacing:-.01em}
+    .lede{font-size:clamp(1rem,1.6vw,1.12rem); color:#cfd5e6; margin:10px 0 18px; max-width:70ch}
 
     .cta-row{display:flex;gap:12px;flex-wrap:wrap}
     .btn{
-      appearance:none;border:1px solid var(--border-2);background:var(--elev);color:var(--text);
-      padding:12px 16px;border-radius:12px;font-weight:900;cursor:pointer;
+      appearance:none; border:1px solid var(--border); cursor:pointer;
+      background:linear-gradient(180deg, #1a1f27, #121620);
+      color:var(--text); font-weight:900; padding:12px 16px; border-radius:12px;
+      text-decoration:none; display:inline-block; box-shadow:0 10px 26px rgba(0,0,0,.35);
       transition:filter .15s ease, transform .06s ease, box-shadow .2s ease;
-      box-shadow:0 8px 24px rgba(0,0,0,.25)
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
     }
-    .btn:hover{filter:brightness(1.06)}
-    .btn:active{transform:translateY(1px)}
+    .btn:hover{filter:brightness(1.06)} .btn:active{transform:translateY(1px)}
     .btn.primary{
       background:linear-gradient(180deg,var(--primary),var(--primary-dark));
-      border-color:transparent;color:#fff;box-shadow:0 14px 32px rgba(232,25,25,.35)
+      border-color:transparent; color:#fff; box-shadow:0 16px 36px rgba(232,25,25,.35)
     }
 
-    /* Quick stats with subtle glass/blur */
+    /* sections */
+    section{position:relative; padding:40px 0}
+    section::before{
+      content:"";
+      position:absolute; left:0; right:0; top:0; height:48px; pointer-events:none;
+      background:linear-gradient(180deg, rgba(14,15,18,.28), rgba(14,15,18,0));
+    }
+
+    h2{font-size:clamp(1.3rem,2.4vw,2rem); margin:0 0 14px; letter-spacing:-.01em}
+
+    /* stats */
     .stats{
-      display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin-top:16px
+      display:grid; grid-template-columns:repeat(4,minmax(140px,1fr)); gap:12px; margin-top:16px
     }
     .stat{
-      position:relative;overflow:hidden;
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.0)), rgba(18,20,25,.7);
-      border:1px solid var(--border-2);border-radius:12px;text-align:center;padding:14px;box-shadow:var(--shadow);backdrop-filter:blur(6px)
+      position:relative; overflow:hidden;
+      background:linear-gradient(180deg, var(--glass-hi), transparent), var(--glass);
+      border:1px solid var(--border); border-radius:12px; text-align:center; padding:14px;
+      box-shadow:var(--shadow); backdrop-filter: blur(8px);
     }
-    .stat::after{
-      content:"";position:absolute;inset:0;background:radial-gradient(400px 220px at 110% -10%, rgba(106,166,255,.18), transparent 40%)
-    }
-    .stat strong{display:block;font-size:1.1rem}
-    .stat span{font-size:.86rem;color:var(--muted)}
+    .stat strong{display:block; font-size:1.1rem}
+    .stat span{display:block; margin-top:4px; font-size:.86rem; color:#c7cedd}
 
-    /* Sections */
-    section{padding:40px 0}
-    h2{font-size:clamp(1.3rem,2.4vw,2rem);margin:0 0 14px;letter-spacing:-.01em}
-
-    /* Cards: slightly bolder, clearer contrast */
+    /* grid & cards */
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
     .col-4{grid-column:span 4}
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.0)), var(--surface);
-      border:1px solid var(--border-2);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;
-      transition:transform .08s ease, filter .18s ease, border-color .2s ease
-    }
-    .card:hover{filter:brightness(1.04);transform:translateY(-1px);border-color:rgba(255,255,255,.14)}
-    .card .tag{display:inline-block;font-size:.72rem;color:#fca5a5;background:rgba(232,25,25,.08);border:1px solid var(--border-2);border-radius:999px;padding:4px 8px;margin-bottom:8px}
-    .card h3{margin:6px 0 8px;font-size:1.06rem}
-    .card p{margin:0;color:#d6dae6}
 
-    /* Callouts & collapsibles */
+    .card{
+      position:relative;
+      background:linear-gradient(180deg, var(--glass-hi), transparent), var(--glass);
+      border:1px solid var(--border); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      transition:transform .08s ease, filter .18s ease, border-color .2s ease;
+      --card-accent:#ffffff;
+    }
+    .card:hover{filter:brightness(1.04); transform:translateY(-1px); border-color:var(--border-2)}
+    .card::before{
+      content:""; position:absolute; left:10px; right:10px; top:0; height:1px; border-radius:inherit;
+      background:linear-gradient(90deg, transparent, color-mix(in oklab, var(--card-accent) 50%, transparent), transparent);
+      opacity:.9;
+    }
+    .card::after{
+      content:""; position:absolute; right:-40px; top:-40px; width:220px; height:220px; border-radius:50%;
+      background:radial-gradient(closest-side, color-mix(in oklab, var(--card-accent) 22%, transparent), transparent 70%);
+      filter:blur(20px); opacity:.65; pointer-events:none; z-index:-1;
+    }
+    .card .tag{
+      display:inline-block; font-size:.72rem; color:color-mix(in oklab, var(--card-accent) 92%, white 8%);
+      background:color-mix(in oklab, var(--card-accent) 10%, transparent);
+      border:1px solid color-mix(in oklab, var(--card-accent) 35%, var(--border));
+      border-radius:999px; padding:4px 8px; margin-bottom:8px
+    }
+    .card h3{margin:6px 0 8px; font-size:1.06rem}
+    .card p{margin:0; color:#d6dae6}
+
+    /* per-card accents */
+    .identity{--card-accent:var(--c-identity)}
+    .detection{--card-accent:var(--c-detection)}
+    .moderation{--card-accent:var(--c-moderation)}
+    .governance{--card-accent:var(--c-governance)}
+    .community{--card-accent:var(--c-community)}
+    .transparency{--card-accent:var(--c-transparency)}
+    .compat{--card-accent:var(--c-compat)}
+    .scripting{--card-accent:var(--c-scripting)}
+    .docs{--card-accent:var(--c-docs)}
+
+    /* callouts / details */
     .note{
       border-left:4px solid var(--primary);
       background:linear-gradient(180deg, rgba(232,25,25,.08), rgba(232,25,25,.04));
-      border:1px solid var(--border-2);border-radius:12px;padding:12px 14px;color:#e6e6eb
+      border:1px solid var(--border); border-radius:12px; padding:12px 14px; color:#e6e6eb;
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
     }
     details{
-      background:var(--elev);border:1px solid var(--border-2);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow)
+      background:linear-gradient(180deg, var(--glass-hi), transparent), var(--glass);
+      border:1px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
     }
     details+details{margin-top:10px}
-    summary{cursor:pointer;font-weight:900;list-style:none}
+    summary{cursor:pointer; font-weight:900; list-style:none}
     summary::-webkit-details-marker{display:none}
 
-    /* Timeline */
+    /* timeline */
     .timeline{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-    .mile{grid-column:span 6;background:var(--surface);border:1px solid var(--border-2);border-radius:12px;padding:14px;position:relative;overflow:hidden}
-    .mile::before{
-      content:"";position:absolute;inset:-1px;border-radius:inherit;
-      background:linear-gradient(120deg, rgba(106,166,255,.18), rgba(232,25,25,.12), transparent);
-      filter:blur(18px);opacity:.15;z-index:-1
+    .mile{
+      grid-column:span 6;
+      background:linear-gradient(180deg, var(--glass-hi), transparent), var(--glass);
+      border:1px solid var(--border); border-radius:12px; padding:14px;
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-shadow:var(--shadow); position:relative; overflow:hidden;
     }
-    .when{font-size:.85rem;color:var(--muted)}
+    .mile::before{
+      content:""; position:absolute; inset:-1px; border-radius:inherit;
+      background:linear-gradient(120deg, rgba(106,166,255,.18), rgba(232,25,25,.12), transparent);
+      filter:blur(18px); opacity:.15; z-index:-1
+    }
+    .when{font-size:.85rem; color:#c7cedd}
 
-    /* Help / Funding */
+    /* help */
     .help{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-    .help-card{grid-column:span 12;background:var(--surface);border:1px solid var(--border-2);border-radius:12px;padding:18px;box-shadow:var(--shadow)}
+    .help-card{
+      grid-column:span 12;
+      background:linear-gradient(180deg, var(--glass-hi), transparent), var(--glass);
+      border:1px solid var(--border); border-radius:12px; padding:18px; box-shadow:var(--shadow);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    }
     .help-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
 
-    /* Footer */
-    footer{color:var(--muted);border-top:1px solid var(--border-2);padding:26px 0;margin-top:18px;text-align:center}
+    /* footer */
+    footer{color:#b7becc; border-top:1px solid var(--border); padding:26px 0; margin-top:18px; text-align:center}
 
-    /* RESPONSIVE */
+    /* responsive */
     @media (max-width: 1024px){
       .wrap{padding:0 16px}
       .stats{grid-template-columns:repeat(2,minmax(160px,1fr))}
     }
     @media (max-width: 960px){
       .menu-toggle{display:inline-block}
-      .links{display:none;position:fixed;top:var(--headerH);left:0;right:0;background:rgba(18,20,25,.98);backdrop-filter:blur(8px);border-bottom:1px solid var(--border-2);padding:12px 18px;flex-direction:column}
+      .links{display:none;position:fixed;top:var(--headerH);left:0;right:0;background:rgba(18,20,25,.98);
+        backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+        border-bottom:1px solid var(--border); padding:12px 18px; flex-direction:column}
       body.nav-open .links{display:flex}
       .grid{grid-template-columns:repeat(8,1fr)}
       .col-4{grid-column:span 8}
@@ -234,7 +283,6 @@
       .nav-inner{gap:10px}
     }
     @media (prefers-reduced-motion: reduce){
-      body::after{animation:none}
       *{scroll-behavior:auto}
     }
   </style>
@@ -253,7 +301,7 @@
         <a href="#timeline">Timeline</a>
         <a href="#help">Help</a>
         <a href="#faq">FAQ</a>
-        <a href="https://gofund.me/bcd1e8ec" target="_blank" rel="noopener">Donate</a>
+        <a href="#more-info">More Info</a>
       </nav>
       <div class="spacer"></div>
       <span class="pill">Launch: TBD</span>
@@ -266,7 +314,7 @@
     <section class="hero">
       <img class="hero-logo" src="BOBRIX%202%20Logo.png" alt="Bobrix full logo" width="1200" height="300" />
       <h1>Build, play, and create — with safety by design.</h1>
-      <p class="lede">Bobrix is a next-gen UGC platform meant for gaming, but we <strong>prioritize safety over monetization</strong>. Unlike platforms where revenue features drive decisions, we’re building around <em>guardian controls</em>, <em>privacy</em>, and <em>accountable creation</em> first.</p>
+      <p class="lede">Bobrix is a next-gen UGC platform meant for gaming, but we <strong>prioritize safety over monetization</strong>. We’re building around <em>guardian controls</em>, <em>privacy</em>, and <em>accountable creation</em> first.</p>
       <div class="cta-row">
         <a class="btn primary" href="https://gofund.me/bcd1e8ec" target="_blank" rel="noopener">Donate on GoFundMe</a>
         <a class="btn" href="#safety">Read our safety stance</a>
@@ -283,15 +331,15 @@
     <section id="features">
       <h2>What makes Bobrix different</h2>
       <div class="grid">
-        <div class="card col-4"><span class="tag">Identity</span><h3>Age assurance + guardians</h3><p>Privacy-preserving checks and required guardian consent for under-13s; session, chat, and spend limits.</p></div>
-        <div class="card col-4"><span class="tag">Detection</span><h3>Proactive risk signals</h3><p>On-platform ML + human review flag grooming patterns and off-platform lures early.</p></div>
-        <div class="card col-4"><span class="tag">Moderation</span><h3>Human + AI, clear SLAs</h3><p>Time-bound reviews, appealable outcomes, repeat-offender removal, and creator obligations.</p></div>
-        <div class="card col-4"><span class="tag">Governance</span><h3>Independent Safety Council</h3><p>External child-safety advisors with veto on policy exceptions and authority to audit enforcement.</p></div>
-        <div class="card col-4"><span class="tag">Reporting</span><h3>Direct LE escalation</h3><p>One-click, evidence-preserving referral paths for imminent-harm cases with intact chain of custody.</p></div>
-        <div class="card col-4"><span class="tag">Transparency</span><h3>Public Safety Reports</h3><p>Quarterly metrics on takedowns, response times, appeals, and policy changes.</p></div>
-        <div class="card col-4"><span class="tag">Compatibility</span><h3>RBXL → BBXL Converter</h3><p>Bring your Roblox projects along. We’re building an importer to convert <strong>.rbxl</strong> experiences into <strong>.bbxl</strong> with best-effort mapping of parts, materials, properties, terrain, and basic scripts.</p></div>
-        <div class="card col-4"><span class="tag">Scripting</span><h3>Luab (like Roblox’s Luau)</h3><p>Our modified Lua dialect—familiar syntax with APIs modeled after Roblox’s where possible. We aim for high parity on core patterns (instances, events, services) while adding modern safety/permissions APIs.</p></div>
-        <div class="card col-4"><span class="tag">Docs</span><h3>Migration Guides</h3><p>Clear docs for converting assets and scripts, with a compatibility table and auto-generated warnings for non-ported features.</p></div>
+        <div class="card col-4 identity"><span class="tag">Identity</span><h3>Age assurance + guardians</h3><p>Privacy-preserving checks and required guardian consent for under-13s; session, chat, and spend limits.</p></div>
+        <div class="card col-4 detection"><span class="tag">Detection</span><h3>Proactive risk signals</h3><p>On-platform ML + human review flag grooming patterns and off-platform lures early.</p></div>
+        <div class="card col-4 moderation"><span class="tag">Moderation</span><h3>Human + AI, clear SLAs</h3><p>Time-bound reviews, appealable outcomes, repeat-offender removal, and creator obligations.</p></div>
+        <div class="card col-4 governance"><span class="tag">Governance</span><h3>Independent Safety Council</h3><p>External child-safety advisors with veto on policy exceptions and authority to audit enforcement.</p></div>
+        <div class="card col-4 community"><span class="tag">Community</span><h3>Collaboration tools</h3><p>Groups, shared places, and asset libraries with granular guardian controls. Build safely together while retaining accountability.</p></div>
+        <div class="card col-4 transparency"><span class="tag">Transparency</span><h3>Public Safety Reports</h3><p>Quarterly metrics on takedowns, response times, appeals, and policy changes.</p></div>
+        <div class="card col-4 compat"><span class="tag">Compatibility</span><h3>RBXL → BBXL Converter</h3><p>Bring your Roblox projects along. We’re building an importer to convert <strong>.rbxl</strong> experiences into <strong>.bbxl</strong> with best-effort mapping of parts, materials, properties, terrain, and basic scripts.</p></div>
+        <div class="card col-4 scripting"><span class="tag">Scripting</span><h3>Luab (like Roblox’s Luau)</h3><p>Our modified Lua dialect—familiar syntax with APIs modeled after Roblox’s where possible. We aim for high parity on core patterns while adding modern safety/permissions APIs.</p></div>
+        <div class="card col-4 docs"><span class="tag">Docs</span><h3>Migration Guides</h3><p>Clear docs for converting assets and scripts, with a compatibility table and auto-generated warnings for non-ported features.</p></div>
       </div>
     </section>
 
@@ -304,7 +352,7 @@
         <summary>Our stance</summary>
         <div>
           <ul>
-            <li><strong>No vigilantism on Bobrix.</strong> Decoy accounts and stings risk harm and compromise evidence. We provide built-in, one-click <em>law-enforcement referrals</em> with secure evidence packaging.</li>
+            <li><strong>No vigilantism on Bobrix.</strong> Decoy accounts and stings risk harm and compromise evidence. We provide <em>structured, secure reporting</em> with evidence packaging.</li>
             <li><strong>Dedicated reporter program.</strong> Safety-minded creators and investigators can enroll to submit leads via structured forms, encrypted uploads, and strict confidentiality rules. Submissions enter our triage queue (human+AI) with clear feedback loops.</li>
             <li><strong>Hard guardrails against off-platform lures.</strong> Attempts to move chats to external apps are auto-muted and flagged; guardians are notified for under-13 accounts.</li>
             <li><strong>Independent oversight.</strong> An external Safety Council can review policies and audit high-impact cases.</li>
@@ -330,7 +378,7 @@
       </div>
     </section>
 
-    <!-- HELP / FUNDING -->
+    <!-- HELP -->
     <section id="help" aria-labelledby="help-h2">
       <h2 id="help-h2">We need your help</h2>
       <div class="help">
@@ -343,6 +391,17 @@
             <a class="btn" href="mailto:contact@reeseify.com?subject=I%20want%20to%20spread%20the%20word">Partner to spread the word</a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- MORE INFO -->
+    <section id="more-info" aria-labelledby="more-info-h2">
+      <h2 id="more-info-h2">More about Bobrix</h2>
+      <div class="grid">
+        <div class="card col-4 docs"><span class="tag">Vision</span><h3>Why Bobrix?</h3><p>We believe user-generated gaming should balance <strong>creativity, community, and child safety</strong>. Our mission is to prove that fun platforms don’t have to compromise wellbeing.</p></div>
+        <div class="card col-4 compat"><span class="tag">Difference</span><h3>Not just another Roblox</h3><p>Where Roblox emphasizes monetization and Minecraft emphasizes sandbox freedom, Bobrix focuses on <strong>guardian controls, transparent moderation, and safe collaboration</strong>.</p></div>
+        <div class="card col-4 scripting"><span class="tag">Tech</span><h3>Our engine</h3><p>Custom engine inspired by Roblox/Unity with modern rendering, secure APIs, and compatibility layers to ease migration for creators.</p></div>
+        <div class="card col-4 community"><span class="tag">Community</span><h3>Shaped by you</h3><p>We’re developing alongside creators, parents, and safety experts. Feedback loops and open beta phases will ensure the platform grows responsibly.</p></div>
       </div>
     </section>
 
@@ -362,7 +421,7 @@
   </footer>
 
   <script>
-    // Header height offset for fixed nav
+    // header offset for fixed nav
     function setHeaderOffset(){
       var h = document.querySelector('.nav');
       if(!h) return;
@@ -372,7 +431,7 @@
     window.addEventListener('resize', setHeaderOffset);
     document.addEventListener('DOMContentLoaded', setHeaderOffset);
 
-    // Mobile menu toggle
+    // mobile menu toggle
     (function(){
       var btn = document.querySelector('.menu-toggle');
       var links = document.getElementById('primary-links');
@@ -382,13 +441,11 @@
       btn.addEventListener('click', function(){
         if(document.body.classList.contains('nav-open')) close(); else open();
       });
-      // Close on link click (mobile)
       links.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
-      // Close on Escape
       document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
     })();
 
-    // Update year
+    // year
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
