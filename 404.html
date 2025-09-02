@@ -116,9 +116,9 @@
     <nav class="nav">
       <a class="brand" href="/"><img src="BOBRIX%202%20Logo.png" alt="Bobrix Logo" /></a>
       <div class="navlinks">
-        <a class="link-btn" href="/discover.html">Discover</a>
+        <a class="link-btn" href="/discover">Discover</a>
         <a class="link-btn" href="/docs/">Docs</a>
-        <a class="link-btn" href="/support.html">Support</a>
+        <a class="link-btn" href="/support">Support</a>
         <a class="btn" href="/">Home</a>
       </div>
     </nav>
@@ -137,27 +137,27 @@
 
       <div class="row">
         <a class="btn" href="/">Go to Home</a>
-        <a class="btn ghost" href="/discover.html">Discover Experiences</a>
-        <a class="btn ghost" href="/studio.html">Open Studio</a>
+        <a class="btn ghost" href="/discover">Discover Experiences</a>
+        <a class="btn ghost" href="/studio">Open Studio</a>
       </div>
 
       <div class="grid" aria-label="Helpful links">
         <div class="tile">
           <h3>Upload a Place</h3>
           <p>Jump back into building and ship your next update.</p>
-          <a class="btn" href="/upload.html">Upload</a>
+          <a class="btn" href="/upload">Upload</a>
         </div>
         <div class="tile">
           <h3>Account Settings</h3>
           <p>Manage your profile, email and security.</p>
-          <a class="btn" href="/settings.html">Open Settings</a>
+          <a class="btn" href="/settings">Open Settings</a>
         </div>
         <div class="tile">
           <h3>Get Help</h3>
           <p>Read the docs or contact support if you’re stuck.</p>
           <div class="row" style="justify-content:flex-start">
             <a class="btn ghost" href="/docs/">Docs</a>
-            <a class="btn ghost" href="/support.html">Support</a>
+            <a class="btn ghost" href="/support">Support</a>
           </div>
         </div>
       </div>
@@ -178,12 +178,12 @@
     search.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         const q = search.value.trim();
-        if (q) window.location.href = `/discover.html?q=${encodeURIComponent(q)}`;
+        if (q) window.location.href = `/discover?q=${encodeURIComponent(q)}`;
       }
     });
 
     // If you serve this as a static 404, you can also set this header via server config (recommended):
-    // e.g., in Express: res.status(404).sendFile('404.html')
+    // e.g., in Express: res.status(404).sendFile('404')
   </script>
 </body>
 </html>
