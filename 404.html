@@ -15,11 +15,8 @@
       --bg:#0e0f12;
       --panel:#14161b;
       --panel-90:rgba(20,22,27,.9);
-      --muted:#8a91a3;
       --text:#e9eefc;
       --text-soft:#cfd7f2;
-      --primary:#6aa6ff;
-      --ring:rgba(106,166,255,.45);
       --border:rgba(255,255,255,.10);
       --shadow:0 20px 60px rgba(0,0,0,.45);
       --radius:18px;
@@ -46,26 +43,9 @@
     }
     .nav{
       max-width:1100px; margin:0 auto; padding:14px 18px;
-      display:flex; align-items:center; gap:14px;
+      display:flex; align-items:center;
     }
-    .brand{display:flex; align-items:center;}
     .brand img{height:34px; width:auto}
-    .navlinks{margin-left:auto; display:flex; align-items:center; gap:12px}
-    .link-btn{
-      appearance:none; border:1px solid var(--border); background:transparent; color:var(--text-soft);
-      padding:8px 12px; border-radius:12px; text-decoration:none; font-weight:600; font-size:14px;
-    }
-    .link-btn:hover{background:rgba(255,255,255,.06); color:var(--text)}
-    .btn{
-      appearance:none; border:0; cursor:pointer;
-      background: linear-gradient(180deg, #6aa6ff, #4a7fe0);
-      color:white; font-weight:800; font-size:14px;
-      padding:10px 14px; border-radius:14px; box-shadow:0 10px 24px rgba(74,127,224,.38);
-      transition: transform .05s ease, filter .15s ease;
-      text-decoration:none; display:inline-block;
-    }
-    .btn:hover{ filter:brightness(1.05) }
-    .btn:active{ transform: translateY(1px) }
 
     /* Center card */
     .viewport{
@@ -78,7 +58,7 @@
       background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.0)), var(--panel-90);
       border:1px solid var(--border); border-radius:var(--radius);
       box-shadow:var(--shadow); backdrop-filter: blur(12px);
-      padding:28px; width:100%; max-width:700px; text-align:center;
+      padding:28px; width:100%; max-width:600px; text-align:center;
     }
     .eyebrow{
       display:inline-block; font-size:12px; letter-spacing:.16em; text-transform:uppercase;
@@ -86,104 +66,35 @@
     }
     h1{ margin:6px 0 8px; font-size:40px; line-height:1.1 }
     .lead{ margin:0; color:var(--text-soft); font-size:16px }
-    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color:#b9c6ff }
-    .row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:16px }
-    .ghost{ background:transparent; border:1px solid var(--border); color:var(--text-soft) }
-    .ghost:hover{ background:rgba(255,255,255,.06); color:var(--text) }
 
-    /* Search bar */
-    .searchbar{
-      display:flex; align-items:center; gap:10px; padding:12px 14px; border-radius:14px;
-      background:#0f1116; border:1px solid var(--border); width:100%; max-width:520px; margin:18px auto 6px;
+    /* Button */
+    .btn{
+      appearance:none; border:0; cursor:pointer;
+      background: linear-gradient(180deg, #6aa6ff, #4a7fe0);
+      color:white; font-weight:800; font-size:14px;
+      padding:10px 14px; border-radius:14px; box-shadow:0 10px 24px rgba(74,127,224,.38);
+      transition: transform .05s ease, filter .15s ease;
+      text-decoration:none; display:inline-block; margin-top:18px;
     }
-    .searchbar input{ flex:1; background:transparent; border:0; outline:0; color:var(--text); font-size:15px }
-
-    /* Helpful links grid */
-    .grid{
-      display:grid; gap:12px; grid-template-columns: repeat(3, 1fr);
-      margin-top:18px;
-    }
-    @media (max-width: 800px){ .grid{ grid-template-columns: 1fr } }
-    .tile{
-      background:#0f1116; border:1px solid var(--border); border-radius:12px; padding:14px; text-align:left;
-    }
-    .tile h3{ margin:0 0 6px; font-size:16px }
-    .tile p{ margin:0 0 10px; color:var(--muted); font-size:14px }
+    .btn:hover{ filter:brightness(1.05) }
+    .btn:active{ transform: translateY(1px) }
   </style>
 </head>
 <body>
   <header class="topbar">
     <nav class="nav">
       <a class="brand" href="/"><img src="BOBRIX%202%20Logo.png" alt="Bobrix Logo" /></a>
-      <div class="navlinks">
-        <a class="link-btn" href="/discover">Discover</a>
-        <a class="link-btn" href="/docs/">Docs</a>
-        <a class="link-btn" href="/support">Support</a>
-        <a class="btn" href="/">Home</a>
-      </div>
     </nav>
   </header>
 
   <main class="viewport">
     <section class="card" role="region" aria-labelledby="title">
-      <span class="eyebrow">Error <span class="mono">404</span></span>
+      <span class="eyebrow">Error 404</span>
       <h1 id="title">We can’t find that page.</h1>
-      <p class="lead" id="lead">The link may be broken, or it was removed. <span id="hello"></span></p>
+      <p class="lead">The link may be broken, or it was removed.</p>
 
-      <div class="searchbar" role="search" aria-label="Search">
-        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m21.53 20.47-4.8-4.8a8 8 0 1 0-1.06 1.06l4.8 4.8a.75.75 0 1 0 1.06-1.06ZM4.5 10a5.5 5.5 0 1 1 11 0a5.5 5.5 0 0 1-11 0Z"/></svg>
-        <input id="search" type="search" placeholder="Search games, creators, models…" />
-      </div>
-
-      <div class="row">
-        <a class="btn" href="/">Go to Home</a>
-        <a class="btn ghost" href="/discover">Discover Experiences</a>
-        <a class="btn ghost" href="/studio">Open Studio</a>
-      </div>
-
-      <div class="grid" aria-label="Helpful links">
-        <div class="tile">
-          <h3>Upload a Place</h3>
-          <p>Jump back into building and ship your next update.</p>
-          <a class="btn" href="/upload">Upload</a>
-        </div>
-        <div class="tile">
-          <h3>Account Settings</h3>
-          <p>Manage your profile, email and security.</p>
-          <a class="btn" href="/settings">Open Settings</a>
-        </div>
-        <div class="tile">
-          <h3>Get Help</h3>
-          <p>Read the docs or contact support if you’re stuck.</p>
-          <div class="row" style="justify-content:flex-start">
-            <a class="btn ghost" href="/docs/">Docs</a>
-            <a class="btn ghost" href="/support">Support</a>
-          </div>
-        </div>
-      </div>
+      <a class="btn" href="/">Go to Home</a>
     </section>
   </main>
-
-  <script>
-    // Greet logged-in users if available
-    try {
-      const u = (localStorage.getItem('bobrix_username') || '').trim();
-      if (u) {
-        document.getElementById('hello').textContent = `Want to head home, ${u}?`;
-      }
-    } catch(_) {}
-
-    // Optional: wire search to your Discover page
-    const search = document.getElementById('search');
-    search.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const q = search.value.trim();
-        if (q) window.location.href = `/discover?q=${encodeURIComponent(q)}`;
-      }
-    });
-
-    // If you serve this as a static 404, you can also set this header via server config (recommended):
-    // e.g., in Express: res.status(404).sendFile('404')
-  </script>
 </body>
 </html>
